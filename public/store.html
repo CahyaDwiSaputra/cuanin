@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Online Resmi UMKM | Cuanin Storefront</title>
+  <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F4F2FF',
+              100: '#ECE9FE',
+              200: '#DDD6FE',
+              300: '#C4B5FD',
+              400: '#A78BFA',
+              500: '#8B70F8',
+              600: '#6355F6',
+              700: '#5244E5',
+              800: '#4338CA',
+              900: '#0E0F1E',
+            },
+            surface: {
+              dark: '#0E0F1E',
+              darkcard: '#16182E',
+              tint: '#F4F2FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-E155VViltVMWj-zn"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-700">
+
+  <!-- ============================================== -->
+  <!-- 1. TOP SUBDOMAIN SIMULATION & SWITCHER BAR     -->
+  <!-- ============================================== -->
+  <div class="bg-surface-dark text-slate-300 py-2.5 px-4 sm:px-8 text-xs border-b border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+    
+    <!-- Left: Subdomain URL Pill -->
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+      </div>
+      <div class="bg-surface-darkcard px-3.5 py-1 rounded-full border border-slate-700 font-mono text-brand-300 flex items-center gap-2">
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+        <span id="browser-url-bar" class="font-bold">https://kopisenja.cuanin.com</span>
+      </div>
+    </div>
+
+    <!-- Right: Quick Demo Switcher & Home link -->
+    <div class="flex items-center gap-3 text-xs">
+      <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-1 rounded-full border border-slate-700">
+        <span class="text-slate-400 text-[11px] font-semibold hidden md:inline">Ganti Contoh Toko:</span>
+        <select id="quick-store-switcher" onchange="switchDemoStore(this.value)" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+          <option value="kopisenja" class="bg-slate-900 text-white">1. Kopi Senja Nusantara (F&B)</option>
+          <option value="butikaisyah" class="bg-slate-900 text-white">2. Butik Aisyah (Fashion)</option>
+          <option value="kriyabambu" class="bg-slate-900 text-white">3. Kriya Bambu & Kayu (Craft)</option>
+          <option value="naturaherbal" class="bg-slate-900 text-white">4. Natura Herbal (Skincare)</option>
+          <option value="gadgetpedia" class="bg-slate-900 text-white">5. GadgetPedia (Elektronik)</option>
+          <option value="kebunkita" class="bg-slate-900 text-white">6. Kebun Kita (Tanaman & Bunga)</option>
+        </select>
+      </div>
+
+      <a href="/" class="flex items-center gap-1.5 hover:opacity-90 transition-opacity hidden sm:flex">
+        <span class="text-slate-400 text-[11px]">Platform:</span>
+        <img src="/logo_cuanin.svg" alt="cuan.in" class="h-6 w-auto brightness-0 invert">
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- 2. STORE BRAND HEADER                          -->
+  <!-- ============================================== -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Store Name & Trust Badges -->
+        <div class="flex items-center gap-4">
+          <div id="sf-store-avatar" class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md shadow-brand-500/20 flex-shrink-0">
+            K
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5">
+              <h1 id="sf-store-name" class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Kopi Senja Nusantara</h1>
+              <span id="sf-store-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200 hidden sm:inline">
+                Kuliner & Kopi
+              </span>
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-500 mt-1">
+              <span class="flex items-center gap-1 text-amber-500 font-bold">
+                ★ 4.9 <span class="text-slate-400 font-normal">(420+ Ulasan)</span>
+              </span>
+              <span class="hidden sm:inline text-slate-300">|</span>
+              <span id="sf-store-origin" class="hidden sm:inline font-medium">Pengiriman dari Jakarta Selatan</span>
+              <span class="hidden sm:inline text-slate-300">|</span>
+              <span class="text-emerald-700 font-semibold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1a9 9 0 100 18 9 9 0 000-18zm3.707 7.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Terverifikasi Cuanin Escrow
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Store Owner Dashboard Access -->
+        <div class="flex items-center gap-3">
+          <button onclick="openOwnerDashboardModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition-all shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <span class="hidden sm:inline">Dashboard</span> Pemilik Toko
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- ============================================== -->
+  <!-- 3. STORE HERO & BRAND HIGHLIGHT                -->
+  <!-- ============================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Hero Banner with Dynamic Template Theming -->
+    <div id="sf-hero-banner" class="relative rounded-3xl overflow-hidden bg-surface-dark text-white p-8 sm:p-12 shadow-xl border border-slate-800 flex flex-col justify-between min-h-[220px]">
+      <div id="sf-hero-bg" class="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-surface-dark via-surface-dark/90 to-transparent pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-2xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Toko Resmi Aktif & Bergaransi
+        </div>
+        <h2 id="sf-banner-title" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+          Produk Pilihan Terbaik Langsung dari Pengrajin
+        </h2>
+        <p id="sf-banner-tagline" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+          Transaksi aman dilindungi rekening bersama Cuanin. Seluruh dana pembelian ditahan hingga produk sampai dengan selamat di tangan Anda.
+        </p>
+      </div>
+
+      <div class="relative z-10 pt-4 flex flex-wrap items-center gap-4 text-xs">
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200">
+          <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          <span>Garansi Uang Kembali 100% (Escrow)</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200">
+          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 8h3a1 1 0 110 2h-4a1 1 0 01-1-1V5a1 1 0 112 0v5z" clip-rule="evenodd"></path></svg>
+          <span>Pengiriman 1-2 Hari Kerja</span>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200">
+          <svg class="w-4 h-4 text-brand-300" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
+          <span>QRIS Midtrans & Semua Bank</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 4. STORE GRID: PRODUCTS & CART SIDEBAR         -->
+    <!-- ============================================== -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left 7 cols: Products List -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Filter Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Katalog Produk Pilihan</h3>
+            <span id="sf-product-count" class="text-xs font-semibold text-slate-500">Memuat koleksi produk...</span>
+          </div>
+
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-3 py-1 rounded-full bg-brand-600 text-white font-bold cursor-pointer">Semua</span>
+            <span class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold cursor-pointer">Paling Laris</span>
+            <span class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold cursor-pointer">Koleksi Baru</span>
+          </div>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div id="sf-product-list" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <!-- Populated by store.js -->
+        </div>
+      </div>
+
+      <!-- Right 5 cols: Cart & QRIS Checkout -->
+      <div class="lg:col-span-5 sticky top-28 space-y-5">
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+          <h3 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <span>Keranjang Belanja</span>
+            </span>
+            <span id="cart-item-count-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-50 text-brand-700">0 Item</span>
+          </h3>
+
+          <div id="cart-items-container" class="space-y-3 min-h-[90px]">
+            <!-- Cart items dynamically rendered -->
+          </div>
+
+          <!-- Courier Selection & Address -->
+          <div class="pt-4 border-t border-slate-100 space-y-3">
+            <div>
+              <label for="checkout-courier" class="text-xs font-bold text-slate-700 block mb-1">Layanan Ekspedisi Pengiriman</label>
+              <select id="checkout-courier" onchange="updateCartTotals()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-600">
+                <option value="JNE Regular">JNE Regular (Rp 12.000/kg) - Estimasi 2-3 Hari</option>
+                <option value="JNE Express">JNE Express (Rp 22.000/kg) - Estimasi 1 Hari</option>
+                <option value="SiCepat Reguler">SiCepat Reguler (Rp 12.000/kg) - Estimasi 2 Hari</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="checkout-address" class="text-xs font-bold text-slate-700 block mb-1">Alamat Tujuan Pengiriman</label>
+              <textarea id="checkout-address" rows="2" placeholder="Jl. Sudirman No. 45, Kecamatan Coblong, Kota Bandung..." class="w-full text-xs bg-slate-50 border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600 font-medium"></textarea>
+            </div>
+          </div>
+
+          <!-- Price Receipt -->
+          <div class="pt-4 border-t border-slate-100 space-y-2 text-xs">
+            <div class="flex justify-between text-slate-600">
+              <span>Subtotal Produk</span>
+              <span id="cart-subtotal" class="font-bold text-slate-900">Rp 0</span>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span id="cart-weight-label">Ongkos Kirim (0 kg)</span>
+              <span id="cart-shipping" class="font-bold text-slate-900">Rp 0</span>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Biaya Layanan & Pemeliharaan</span>
+              <span id="cart-surcharge" class="font-bold text-slate-900">+ Rp 0</span>
+            </div>
+            <div class="border-t border-slate-100 pt-3 flex justify-between text-base font-extrabold text-slate-900">
+              <span>Total Tagihan QRIS</span>
+              <span id="cart-total-paid" class="text-brand-600 text-xl font-extrabold">Rp 0</span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1 leading-normal italic">
+              Transaksi dilindungi sistem rekening bersama (escrow) terpusat Cuanin.
+            </p>
+          </div>
+
+          <button id="btn-checkout" onclick="performCheckout()" class="w-full py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors shadow-lg shadow-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed">
+            Beli Sekarang via QRIS Midtrans &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 5. REAL-TIME ORDER TRACKING & ESCROW BOX       -->
+    <!-- ============================================== -->
+    <div id="customer-order-tracking-card" class="bg-white rounded-3xl border border-brand-200 p-6 sm:p-8 shadow-md hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+        <div>
+          <span class="text-xs font-bold text-brand-700 uppercase tracking-wider block">Pelacakan Pesanan & Status Escrow</span>
+          <h3 id="track-invoice" class="text-lg font-extrabold text-slate-900 mt-0.5">INV-00000000</h3>
+        </div>
+        <div>
+          <span id="track-status-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+            DIPROSES_TOKO
+          </span>
+        </div>
+      </div>
+
+      <!-- 4-Step Visual Progress Bar -->
+      <div class="py-6 border-b border-slate-100">
+        <div class="grid grid-cols-4 gap-2 text-center text-[11px] font-bold">
+          <div id="step-track-paid" class="space-y-1.5 text-brand-600">
+            <div class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center mx-auto text-xs font-bold">✓</div>
+            <span>1. Dibayar (Escrow)</span>
+          </div>
+          <div id="step-track-processing" class="space-y-1.5 text-slate-400">
+            <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto text-xs font-bold">2</div>
+            <span>2. Disiapkan Toko</span>
+          </div>
+          <div id="step-track-shipped" class="space-y-1.5 text-slate-400">
+            <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto text-xs font-bold">3</div>
+            <span>3. Dikirim Kurir</span>
+          </div>
+          <div id="step-track-completed" class="space-y-1.5 text-slate-400">
+            <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mx-auto text-xs font-bold">4</div>
+            <span>4. Selesai</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-5 text-xs">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <span class="text-slate-500 block font-medium">Nomor Resi Ekspedisi:</span>
+          <span id="track-resi" class="text-sm font-bold text-slate-900 mt-1 block">Menunggu penyerahan barang</span>
+          <span id="track-courier" class="text-[11px] text-slate-500 mt-0.5 block">JNE Regular</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-surface-tint border border-brand-200">
+          <span class="text-brand-700 block font-bold">Rekening Bersama Escrow Cuanin:</span>
+          <span id="track-escrow-status" class="text-sm font-extrabold text-brand-700 mt-1 block">DITAHAN DI ESCROW (HELD)</span>
+          <span id="track-escrow-amount" class="text-[11px] text-slate-600 mt-0.5 block">Aman di akun penampung Cuanin</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-slate-700 font-bold block">Konfirmasi Barang Diterima:</span>
+            <span class="text-[11px] text-slate-500 mt-0.5 block">Otomatis cair ke toko jika lewat 7 hari sejak resi terbit.</span>
+          </div>
+          <button id="btn-confirm-receipt" onclick="confirmOrderReceived()" class="mt-3 w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            Konfirmasi Barang Diterima
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="font-medium text-slate-700">Toko Online Resmi ini dibuat dan di-hosting oleh Platform Cuanin.</p>
+      <p class="text-[11px] text-slate-400 mt-0.5">Transaksi Pembayaran QRIS Midtrans & Payout Rekber Aman Terjamin.</p>
+    </div>
+  </footer>
+
+  <!-- ============================================== -->
+  <!-- MODAL: QRIS MIDTRANS PAYMENT                   -->
+  <!-- ============================================== -->
+  <div id="modal-qris-payment" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <span class="text-xs font-bold text-slate-500">Midtrans Snap QRIS Sandbox</span>
+        <button onclick="closeModal('modal-qris-payment')" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+      </div>
+
+      <div>
+        <span id="qris-invoice-title" class="text-xs font-mono text-slate-500">INV-00000000</span>
+        <div id="qris-amount-display" class="text-3xl font-extrabold text-slate-900 mt-1">Rp 0</div>
+        <p class="text-xs text-slate-500 mt-1">Scan QRIS menggunakan mobile banking atau e-Wallet Anda.</p>
+      </div>
+
+      <div class="flex justify-center p-4 bg-slate-50 rounded-2xl border border-slate-200">
+        <img id="qris-image" src="" alt="QRIS Midtrans" class="w-56 h-56 object-contain rounded-xl">
+      </div>
+
+      <div class="p-3 bg-surface-tint border border-brand-200 rounded-xl text-left text-xs space-y-1 text-slate-700">
+        <div class="flex justify-between font-bold text-brand-700">
+          <span>Status Escrow:</span>
+          <span>DITAHAN DI CUANIN</span>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-normal">
+          Uang ditahan aman di rekening penampung Cuanin sampai Anda konfirmasi barang diterima atau 7 hari otomatis cair ke toko.
+        </p>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <button type="button" onclick="triggerStoreSnapPayment()" class="w-full py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-2">
+          <span>Buka Pop-up Resmi Midtrans Snap</span>
+        </button>
+        <button id="btn-simulate-webhook" onclick="simulateMidtransWebhookPayment()" class="w-full py-3 rounded-full text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors shadow-sm flex items-center justify-center gap-1.5">
+          <span>Konfirmasi & Selesaikan Pembayaran</span>
+          &rarr;
+        </button>
+        <button type="button" onclick="closeModal('modal-qris-payment')" class="w-full py-2 text-xs text-slate-500 hover:text-slate-700 font-medium">
+          Tutup Pembayaran
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: DASHBOARD PEMILIK TOKO (AUTHENTICATED)  -->
+  <!-- ============================================== -->
+  <div id="modal-owner-dashboard" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-3 sm:p-6 hidden">
+    <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col">
+      
+      <!-- Gate 1: Owner Login Required -->
+      <div id="umkm-login-gate" class="p-8 sm:p-12 text-center max-w-md mx-auto my-auto">
+        <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center font-bold text-xl mx-auto mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900">Masuk Dashboard Toko UMKM</h2>
+        <p class="text-xs text-slate-500 mt-1">Kelola pesanan pembeli, input resi kurir, dan pencairan saldo penjualan.</p>
+
+        <form onsubmit="performOwnerLogin(event)" class="mt-6 text-left text-xs space-y-4">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Email Pemilik Toko</label>
+            <input id="owner-login-email" type="email" required value="owner@kopisenja.com" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600">
+            <span class="text-[10px] text-slate-400 mt-1 block">Default akun demo: email pemilik di atas, password: <strong>cuanin123</strong></span>
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Password</label>
+            <input id="owner-login-password" type="password" required value="cuanin123" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600">
+          </div>
+          <button type="submit" class="w-full py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors shadow-md shadow-brand-500/25">
+            Masuk ke Toko &rarr;
+          </button>
+        </form>
+        <button onclick="closeModal('modal-owner-dashboard')" class="mt-4 text-xs text-slate-400 hover:text-slate-600 font-medium">Tutup Jendela</button>
+      </div>
+
+      <!-- Gate 2: Authenticated Owner Dashboard -->
+      <div id="umkm-authenticated-dashboard" class="space-y-6 hidden">
+        <!-- Top bar -->
+        <div class="p-6 sm:p-8 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sticky top-0 z-20">
+          <div>
+            <div class="flex items-center gap-3">
+              <h2 id="umkm-store-title" class="text-xl font-bold text-slate-900">Kopi Senja Nusantara</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Sesi Pemilik Sah</span>
+            </div>
+            <p id="umkm-store-name" class="text-xs text-slate-500 mt-1">Rekening Payout: BCA 8820192841 (Budi Santoso)</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="openAddProductModal()" class="px-4 py-2 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-900 text-white transition-colors">
+              + Tambah Produk
+            </button>
+            <button onclick="openWithdrawModal()" class="btn-pill-primary text-xs py-2 px-4">
+              Tarik Saldo &rarr;
+            </button>
+            <button onclick="performOwnerLogout()" class="px-3 py-2 rounded-full text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors">
+              Keluar
+            </button>
+            <button onclick="closeModal('modal-owner-dashboard')" class="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-500 flex items-center justify-center font-bold">&times;</button>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-8">
+          <!-- Metric Wallets -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div class="p-6 rounded-2xl bg-amber-50/70 border border-amber-200">
+              <span class="text-xs font-bold text-amber-800 uppercase">Saldo Tertahan (Escrow HELD)</span>
+              <span id="umkm-balance-held" class="text-2xl font-extrabold text-amber-900 mt-1 block">Rp 0</span>
+              <p class="text-[11px] text-amber-700 mt-1.5">Dana transaksi dalam proses pengiriman kurir.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-surface-tint border border-brand-200">
+              <span class="text-xs font-bold text-brand-700 uppercase">Saldo Aktif (Siap Ditarik)</span>
+              <span id="umkm-balance-active" class="text-2xl font-extrabold text-brand-700 mt-1 block">Rp 0</span>
+              <p class="text-[11px] text-violet-700 mt-1.5">Dana penjualan selesai escrow. Siap ditarik ke bank.</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+              <span class="text-xs font-bold text-slate-600 uppercase">Status Payout Terakhir</span>
+              <span id="umkm-payout-status" class="text-xs font-bold text-slate-800 mt-1 block">Belum ada penarikan</span>
+              <p class="text-[11px] text-slate-500 mt-1.5">Pencairan otomatis via Midtrans Iris Sandbox.</p>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-900">Daftar Pesanan Masuk Toko</h3>
+              <button onclick="loadUmkmDashboard()" class="text-xs font-bold text-brand-600 hover:underline">Segarkan</button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs text-slate-700">
+                <thead class="bg-slate-100 text-slate-600 font-bold uppercase border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-3">Invoice</th>
+                    <th class="px-4 py-3">Pembeli</th>
+                    <th class="px-4 py-3">Hak Bersih Toko</th>
+                    <th class="px-4 py-3">Kurir</th>
+                    <th class="px-4 py-3">Status Pesanan</th>
+                    <th class="px-4 py-3">Resi Pengiriman</th>
+                    <th class="px-4 py-3 text-right">Aksi Toko</th>
+                  </tr>
+                </thead>
+                <tbody id="umkm-orders-table-body" class="divide-y divide-slate-100">
+                  <!-- Populated via API -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: INPUT RESI                              -->
+  <!-- ============================================== -->
+  <div id="modal-ship-order" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-bold text-slate-900">Input Resi Pengiriman Kurir</h3>
+        <button onclick="closeModal('modal-ship-order')" class="text-slate-400 font-bold">&times;</button>
+      </div>
+
+      <input type="hidden" id="ship-order-id" value="">
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Kurir</label>
+          <input id="ship-courier" type="text" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-bold">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nomor Resi / AWB</label>
+          <input id="ship-tracking-number" type="text" required class="w-full bg-white border border-slate-300 rounded-xl p-2.5 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-600">
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex justify-end gap-2 text-xs">
+        <button type="button" onclick="closeModal('modal-ship-order')" class="px-3 py-2 text-slate-500 font-bold">Batal</button>
+        <button type="button" onclick="submitShippingOrder()" class="btn-pill-primary text-xs py-2 px-4">Kirimkan Resi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: TARIK SALDO (IRIS)                      -->
+  <!-- ============================================== -->
+  <div id="modal-withdraw" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-bold text-slate-900">Tarik Saldo ke Rekening Bank</h3>
+        <button onclick="closeModal('modal-withdraw')" class="text-slate-400 font-bold">&times;</button>
+      </div>
+
+      <div class="text-xs space-y-3">
+        <div class="p-3.5 bg-surface-tint border border-brand-200 rounded-xl">
+          <span class="text-slate-500 block">Saldo Aktif Tersedia:</span>
+          <span id="withdraw-available-balance" class="text-2xl font-extrabold text-brand-700 mt-0.5 block">Rp 0</span>
+        </div>
+
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Jumlah Penarikan (Rp)</label>
+          <input id="withdraw-amount" type="number" min="10000" step="5000" placeholder="10000" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-600">
+          <span class="text-[11px] text-slate-400 mt-1 block">Pencairan otomatis via Midtrans Iris Sandbox (Min. Rp 10.000).</span>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex justify-end gap-2 text-xs">
+        <button type="button" onclick="closeModal('modal-withdraw')" class="px-3 py-2 text-slate-500 font-bold">Batal</button>
+        <button type="button" onclick="submitWithdrawPayout()" class="btn-pill-primary text-xs py-2 px-4">Proses Payout &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: TAMBAH PRODUK                           -->
+  <!-- ============================================== -->
+  <div id="modal-add-product" class="fixed inset-0 z-50 modal-backdrop flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <h3 class="text-sm font-bold text-slate-900">Tambah Produk Baru Toko</h3>
+        <button onclick="closeModal('modal-add-product')" class="text-slate-400 font-bold">&times;</button>
+      </div>
+
+      <form id="form-add-product" onsubmit="submitNewProduct(event)" class="text-xs space-y-3">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Nama Produk</label>
+          <input id="prod-name" type="text" required placeholder="Contoh: Biji Kopi Flores Bajawa 200g" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-600 font-semibold">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Harga (Rp)</label>
+            <input id="prod-price" type="number" required placeholder="55000" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-600 font-bold">
+          </div>
+          <div>
+            <label class="font-bold text-slate-700 block mb-1">Berat (Gram)</label>
+            <input id="prod-weight" type="number" required placeholder="200" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-600 font-bold">
+          </div>
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Deskripsi Produk</label>
+          <textarea id="prod-desc" rows="2" placeholder="Deskripsi karakter rasa atau bahan produk..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-brand-600"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2 text-xs">
+          <button type="button" onclick="closeModal('modal-add-product')" class="px-3 py-2 text-slate-500 font-bold">Batal</button>
+          <button type="submit" class="btn-pill-primary text-xs py-2 px-4">Simpan Produk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/store.js"></script>
+</body>
+</html>

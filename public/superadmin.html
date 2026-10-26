@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superadmin | Pengawas Likuiditas Escrow Cuanin</title>
+  <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F4F2FF',
+              100: '#ECE9FE',
+              200: '#DDD6FE',
+              300: '#C4B5FD',
+              400: '#A78BFA',
+              500: '#8B70F8',
+              600: '#6355F6',
+              700: '#5244E5',
+              800: '#4338CA',
+              900: '#0E0F1E',
+            },
+            surface: {
+              dark: '#0E0F1E',
+              darkcard: '#16182E',
+              tint: '#F4F2FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-surface-dark text-slate-200 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Top bar -->
+  <header class="border-b border-slate-800 bg-[#111326] py-4 px-6 sm:px-10 flex items-center justify-between sticky top-0 z-30">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/logo_cuanin.svg" alt="cuan.in" class="h-9 w-auto brightness-0 invert">
+      </a>
+      <span class="text-slate-700 hidden sm:inline">|</span>
+      <div>
+        <span class="text-sm font-bold text-white block leading-tight">Superadmin Pengawas</span>
+        <span class="text-[10px] text-slate-400">Monitoring Likuiditas Escrow & Rekening Penampung</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 text-xs">
+      <a href="/" class="text-slate-400 hover:text-white transition-colors">Ke Website Utama</a>
+      <span class="text-slate-700">|</span>
+      <button id="btn-sa-logout" onclick="performSuperadminLogout()" class="hidden px-3.5 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold hover:bg-rose-500/30 transition-colors">
+        Keluar
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8">
+    
+    <!-- State 1: Login Gate -->
+    <div id="sa-login-gate" class="max-w-md mx-auto my-16 bg-surface-darkcard border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl text-center">
+      <div class="w-12 h-12 rounded-2xl bg-surface-dark border border-brand-500/30 text-brand-400 flex items-center justify-center font-bold text-xl mx-auto mb-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+      </div>
+      <h2 class="text-2xl font-bold text-white">Login Superadmin</h2>
+      <p class="text-xs text-slate-400 mt-1">Akses khusus tim inti 5 orang Cuanin untuk pemantauan escrow dan keuangan.</p>
+
+      <form onsubmit="performSuperadminLogin(event)" class="mt-6 text-left text-xs space-y-4">
+        <div>
+          <label class="font-bold text-slate-300 block mb-1">Username / Email</label>
+          <input id="sa-login-username" type="text" required value="admin" class="w-full bg-surface-dark border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-600 font-bold">
+        </div>
+        <div>
+          <label class="font-bold text-slate-300 block mb-1">Password</label>
+          <input id="sa-login-password" type="password" required value="cuanin_super_secret_2026!" class="w-full bg-surface-dark border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-600">
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors shadow-lg shadow-brand-500/30">
+          Masuk ke Dashboard Pengawas &rarr;
+        </button>
+      </form>
+    </div>
+
+    <!-- State 2: Authenticated Dashboard -->
+    <div id="sa-authenticated-dashboard" class="space-y-8 hidden">
+      <!-- Title & Action -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+        <div>
+          <span class="px-3 py-1 rounded-full text-[11px] font-bold text-brand-300 bg-brand-500/20 border border-brand-500/30">Autentikasi Valid</span>
+          <h1 class="text-2xl font-extrabold text-white mt-1.5">Rekonsiliasi Rekening Penampung & Likuiditas Escrow</h1>
+        </div>
+
+        <div>
+          <button onclick="triggerAutoConfirmWorker(true)" class="px-5 py-2.5 rounded-full text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-md">
+            Jalankan Auto-Confirm 7 Hari (Worker Background)
+          </button>
+        </div>
+      </div>
+
+      <!-- Metric Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="p-6 rounded-3xl bg-surface-darkcard border border-slate-800">
+          <span class="text-xs text-slate-400 font-bold uppercase">Total Saldo Ditahan di Escrow</span>
+          <span id="sa-total-escrow" class="text-3xl font-extrabold text-brand-400 mt-1 block">Rp 0</span>
+          <p class="text-[11px] text-slate-500 mt-1.5">Saldo riil di rekening penampung Midtrans terpusat.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-surface-darkcard border border-slate-800">
+          <span class="text-xs text-slate-400 font-bold uppercase">Pendapatan Platform Cuanin (3.3%)</span>
+          <span id="sa-platform-revenue" class="text-3xl font-extrabold text-emerald-400 mt-1 block">Rp 0</span>
+          <p class="text-[11px] text-slate-500 mt-1.5">Akumulasi margin fee dari surcharge 4% pembeli.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-surface-darkcard border border-slate-800">
+          <span class="text-xs text-slate-400 font-bold uppercase">Biaya MDR Midtrans (0.7%)</span>
+          <span id="sa-midtrans-fees" class="text-3xl font-extrabold text-slate-300 mt-1 block">Rp 0</span>
+          <p class="text-[11px] text-slate-500 mt-1.5">Estimasi MDR resmi dibayarkan ke Midtrans PG.</p>
+        </div>
+      </div>
+
+      <!-- Tenants Directory -->
+      <div class="bg-surface-darkcard rounded-3xl border border-slate-800 overflow-hidden shadow-xl">
+        <div class="p-5 border-b border-slate-800 font-bold text-sm text-white flex items-center justify-between">
+          <span>Daftar Toko UMKM Terdaftar (Multi-Tenant)</span>
+          <button onclick="loadSuperadmin()" class="text-xs text-brand-400 font-bold hover:underline">Segarkan Data</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-surface-dark text-slate-400 font-bold uppercase border-b border-slate-800">
+              <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Nama Toko</th>
+                <th class="px-4 py-3">Subdomain Toko</th>
+                <th class="px-4 py-3">Pemilik / Kontak</th>
+                <th class="px-4 py-3">Rekening Payout</th>
+                <th class="px-4 py-3">Saldo Tertahan</th>
+                <th class="px-4 py-3">Saldo Aktif</th>
+                <th class="px-4 py-3 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="sa-tenants-table-body" class="divide-y divide-slate-800/80">
+              <!-- Populated via API -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/superadmin.js"></script>
+</body>
+</html>

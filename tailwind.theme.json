@@ -1,0 +1,90 @@
+{
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#6355f6",
+        "secondary": "#0e0f1e",
+        "tertiary": "#8b70f8",
+        "neutral": "#ffffff",
+        "primary-hover": "#5244e5",
+        "surface-dark": "#0e0f1e",
+        "surface-dark-card": "#16182e",
+        "surface-light": "#ffffff",
+        "surface-tint": "#f4f2ff",
+        "text-primary-dark": "#ffffff",
+        "text-secondary-dark": "#a5b4fc",
+        "text-primary-light": "#0f172a",
+        "text-secondary-light": "#64748b",
+        "border-light": "#e2e8f0",
+        "border-tint": "#ece9fe",
+        "border-dark": "#26294a",
+        "status-held": "#b45309",
+        "status-released": "#047857",
+        "text-badge-tint": "#4f46e5",
+        "text-badge-dark": "#c7d2fe"
+      },
+      "fontFamily": {
+        "h1": [
+          "Plus Jakarta Sans"
+        ],
+        "h2": [
+          "Plus Jakarta Sans"
+        ],
+        "h3": [
+          "Plus Jakarta Sans"
+        ],
+        "body-md": [
+          "Plus Jakarta Sans"
+        ],
+        "caption": [
+          "Plus Jakarta Sans"
+        ]
+      },
+      "fontSize": {
+        "h1": [
+          "3rem",
+          {
+            "letterSpacing": "-0.02em",
+            "fontWeight": "700"
+          }
+        ],
+        "h2": [
+          "2.25rem",
+          {
+            "letterSpacing": "-0.015em",
+            "fontWeight": "700"
+          }
+        ],
+        "h3": [
+          "1.5rem",
+          {
+            "fontWeight": "600"
+          }
+        ],
+        "body-md": [
+          "1rem",
+          {}
+        ],
+        "caption": [
+          "0.875rem",
+          {}
+        ]
+      },
+      "borderRadius": {
+        "sm": "8px",
+        "md": "16px",
+        "lg": "24px",
+        "xl": "32px",
+        "full": "9999px"
+      },
+      "spacing": {
+        "xs": "8px",
+        "sm": "16px",
+        "md": "24px",
+        "lg": "32px",
+        "xl": "48px",
+        "xxl": "64px"
+      }
+    }
+  }
+}

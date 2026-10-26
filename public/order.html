@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemesanan Website UMKM | Cuanin</title>
+  <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F4F2FF',
+              100: '#ECE9FE',
+              200: '#DDD6FE',
+              300: '#C4B5FD',
+              400: '#A78BFA',
+              500: '#8B70F8',
+              600: '#6355F6',
+              700: '#5244E5',
+              800: '#4338CA',
+              900: '#0E0F1E',
+            },
+            surface: {
+              dark: '#0E0F1E',
+              darkcard: '#16182E',
+              tint: '#F4F2FF',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-E155VViltVMWj-zn"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-700">
+
+  <!-- ============================================== -->
+  <!-- 1. TOP NAVBAR                                  -->
+  <!-- ============================================== -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-18 py-3">
+        <!-- Logo & Back to Home -->
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center gap-2.5 group">
+            <img src="/logo_cuanin.svg" alt="cuan.in - Own Your Profit. No Commission Fees." class="h-11 w-auto object-contain">
+          </a>
+          <span class="h-5 w-px bg-slate-200 hidden sm:block"></span>
+          <span class="text-xs font-semibold text-slate-500 hidden sm:block">Formulir Pemesanan Website Toko UMKM</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex items-center gap-4 text-xs">
+          <a href="/" class="inline-flex items-center gap-1.5 text-slate-600 hover:text-brand-600 font-semibold transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <span>Kembali ke Beranda</span>
+          </a>
+          <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[11px]">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1a9 9 0 100 18 9 9 0 000-18zm3.707 7.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Garansi Setup 100% Online</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+  <!-- ============================================== -->
+  <!-- 2. MAIN CONTENT AREA                           -->
+  <!-- ============================================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- State 1: Active Order Form -->
+    <div id="order-flow-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Multi-Step Configuration Form -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- Header Title Banner -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold mb-3">
+            Langkah Cepat Aktivasi Toko
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Konfigurasi Website Toko Online UMKM
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
+            Lengkapi pilihan paket, template, dan identitas toko Anda. Website langsung live dengan alamat resmi subdomain Cuanin setelah pembayaran QRIS terkonfirmasi.
+          </p>
+        </div>
+
+        <form id="order-main-form" onsubmit="handleOrderSubmit(event)" class="space-y-8">
+          
+          <!-- STEP 1: PILIH PAKET JASA & HOSTING -->
+          <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs">1</span>
+                <h2 class="text-base font-bold text-slate-900">Pilih Paket Layanan & Hosting</h2>
+              </div>
+              <span class="text-xs text-slate-400 font-medium">Investasi 1 Tahun Penuh</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+              <!-- Starter Package Option -->
+              <label class="package-option-card relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-400 cursor-pointer transition-all flex flex-col justify-between" onclick="selectPackage('starter', 199000, 'Paket Starter UMKM')">
+                <input type="radio" name="package_choice" value="starter" class="sr-only">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-900">Starter</span>
+                    <span class="w-4 h-4 rounded-full border-2 border-slate-300 package-radio-dot flex items-center justify-center"></span>
+                  </div>
+                  <div class="mt-2">
+                    <span class="text-lg font-extrabold text-slate-900">Rp 199rb</span>
+                    <span class="text-[10px] text-slate-500 block">/ tahun</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 mt-2 leading-tight">Cloud hosting 1 tahun, max 50 produk, QRIS & rekber aktif.</p>
+                </div>
+              </label>
+
+              <!-- Pro Package Option (Default Selected) -->
+              <label class="package-option-card selected-package relative p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer transition-all flex flex-col justify-between" onclick="selectPackage('pro', 349000, 'Paket Pro Toko Cuanin')">
+                <span class="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-600 text-white shadow-xs">
+                  Paling Populer
+                </span>
+                <input type="radio" name="package_choice" value="pro" checked class="sr-only">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-brand-900">Pro Toko</span>
+                    <span class="w-4 h-4 rounded-full border-2 border-brand-600 bg-brand-600 package-radio-dot flex items-center justify-center">
+                      <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                    </span>
+                  </div>
+                  <div class="mt-2">
+                    <span class="text-lg font-extrabold text-brand-700">Rp 349rb</span>
+                    <span class="text-[10px] text-slate-500 block">/ tahun</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 mt-2 leading-tight">NVMe High-Speed hosting, unlimited produk, ongkir otomatis, Iris payout.</p>
+                </div>
+              </label>
+
+              <!-- Scale Package Option -->
+              <label class="package-option-card relative p-4 rounded-2xl border-2 border-slate-200 hover:border-brand-400 cursor-pointer transition-all flex flex-col justify-between" onclick="selectPackage('scale', 699000, 'Paket Scale & Domain')">
+                <input type="radio" name="package_choice" value="scale" class="sr-only">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-900">Scale</span>
+                    <span class="w-4 h-4 rounded-full border-2 border-slate-300 package-radio-dot flex items-center justify-center"></span>
+                  </div>
+                  <div class="mt-2">
+                    <span class="text-lg font-extrabold text-slate-900">Rp 699rb</span>
+                    <span class="text-[10px] text-slate-500 block">/ tahun</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 mt-2 leading-tight">Dedicated VPS + Bebas pasang domain sendiri (.com / .id), multi-staff.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- STEP 2: PILIH DESAIN TEMPLATE WEBSITE (6 PILIHAN TEMPLATE) -->
+          <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs">2</span>
+                <h2 class="text-base font-bold text-slate-900">Pilih Desain Template Toko</h2>
+              </div>
+              <span class="text-xs text-slate-400 font-medium">6 Katalog Pilihan Siap Pakai</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+              <!-- Template 1: Kuliner -->
+              <div class="template-card selected-template rounded-2xl border-2 border-brand-600 overflow-hidden cursor-pointer bg-white transition-all shadow-xs" onclick="selectTemplate('tpl-kuliner', 'Katalog Kuliner & Kopi Artisan', 'Kuliner & F&B')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80" alt="Kuliner" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">F&B</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Kuliner & Kopi</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Kafe, resto & bakery.</p>
+                </div>
+              </div>
+
+              <!-- Template 2: Fashion -->
+              <div class="template-card rounded-2xl border-2 border-slate-200 hover:border-brand-400 overflow-hidden cursor-pointer bg-white transition-all" onclick="selectTemplate('tpl-fashion', 'Butik & Fashion Muslim Modern', 'Fashion & Busana')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Fashion" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">Fashion</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Butik Fashion</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Busana, hijab & distro.</p>
+                </div>
+              </div>
+
+              <!-- Template 3: Kriya -->
+              <div class="template-card rounded-2xl border-2 border-slate-200 hover:border-brand-400 overflow-hidden cursor-pointer bg-white transition-all" onclick="selectTemplate('tpl-kriya', 'Galeri Kriya & Kerajinan Kayu', 'Kriya & Handicraft')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" alt="Kriya" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">Craft</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Kriya & Kerajinan</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Kayu, rotan & gerabah.</p>
+                </div>
+              </div>
+
+              <!-- Template 4: Beauty & Skincare -->
+              <div class="template-card rounded-2xl border-2 border-slate-200 hover:border-brand-400 overflow-hidden cursor-pointer bg-white transition-all" onclick="selectTemplate('tpl-beauty', 'Skincare Alami & Herbal Nusantara', 'Kecantikan & Herbal')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" alt="Beauty" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">Herbal</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Skincare Alami</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Sabun herbal & kosmetik.</p>
+                </div>
+              </div>
+
+              <!-- Template 5: Gadget -->
+              <div class="template-card rounded-2xl border-2 border-slate-200 hover:border-brand-400 overflow-hidden cursor-pointer bg-white transition-all" onclick="selectTemplate('tpl-gadget', 'Elektronik & Aksesoris Gadget', 'Gadget & Elektronik')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Gadget" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">Gadget</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Elektronik Gadget</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Audio TWS & aksesoris.</p>
+                </div>
+              </div>
+
+              <!-- Template 6: Florist -->
+              <div class="template-card rounded-2xl border-2 border-slate-200 hover:border-brand-400 overflow-hidden cursor-pointer bg-white transition-all" onclick="selectTemplate('tpl-florist', 'Toko Tanaman Hias & Florist Segar', 'Tanaman & Florist')">
+                <div class="h-28 w-full bg-slate-100 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80" alt="Florist" class="w-full h-full object-cover">
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-slate-900/80 text-white">Florist</span>
+                </div>
+                <div class="p-3">
+                  <h3 class="font-bold text-xs text-slate-900">Tanaman & Florist</h3>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Buket bunga & tanaman indoor.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: SUBDOMAIN & IDENTITAS TOKO -->
+          <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs">3</span>
+                <h2 class="text-base font-bold text-slate-900">Alamat Subdomain & Nama Toko</h2>
+              </div>
+              <span class="text-xs text-brand-600 font-semibold font-mono">*.cuanin.com</span>
+            </div>
+
+            <div class="space-y-4 text-xs">
+              <div>
+                <label for="input-subdomain" class="font-bold text-slate-700 block mb-1">
+                  Pilih Subdomain Toko Anda (Alamat Akses di Internet)
+                </label>
+                <div class="flex items-center">
+                  <input id="input-subdomain" type="text" required placeholder="namatokoanda" value="tokoberkah" oninput="handleSubdomainChange(this.value)" class="flex-1 bg-white border border-slate-300 rounded-l-xl p-3 text-slate-900 font-mono font-bold text-sm focus:outline-none focus:ring-2 focus:ring-brand-600">
+                  <span class="bg-slate-100 border border-l-0 border-slate-300 rounded-r-xl p-3 text-slate-600 font-mono font-bold text-sm">.cuanin.com</span>
+                </div>
+                <div id="subdomain-status-msg" class="mt-1.5 flex items-center gap-1.5 text-[11px] text-emerald-700 font-semibold">
+                  <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span>Alamat https://<strong id="subdomain-preview-text">tokoberkah</strong>.cuanin.com siap digunakan!</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-store-name" class="font-bold text-slate-700 block mb-1">Nama Brand / Usaha Toko</label>
+                  <input id="input-store-name" type="text" required placeholder="Contoh: Toko Berkah Nusantara" value="Toko Berkah Nusantara" oninput="handleStoreNameChange(this.value)" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-600">
+                </div>
+                <div>
+                  <label for="input-origin-city" class="font-bold text-slate-700 block mb-1">Kota Lokasi Pengiriman</label>
+                  <input id="input-origin-city" type="text" required placeholder="Jakarta Selatan" value="Jakarta Selatan" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-600">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: DATA PEMILIK & REKENING PENCAIRAN PENJUALAN -->
+          <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs">4</span>
+                <h2 class="text-base font-bold text-slate-900">Data Pemilik & Rekening Pencairan Penjualan</h2>
+              </div>
+              <span class="text-xs text-slate-400 font-medium">Payout Midtrans Iris</span>
+            </div>
+
+            <div class="space-y-4 text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-owner-name" class="font-bold text-slate-700 block mb-1">Nama Lengkap Pemilik</label>
+                  <input id="input-owner-name" type="text" required placeholder="Ahmad Fauzi" value="Ahmad Fauzi" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600 font-medium">
+                </div>
+                <div>
+                  <label for="input-phone" class="font-bold text-slate-700 block mb-1">Nomor WhatsApp Aktif</label>
+                  <input id="input-phone" type="text" required placeholder="081298765432" value="081298765432" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600 font-mono">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-email" class="font-bold text-slate-700 block mb-1">Email Pemilik (Login Dashboard Toko)</label>
+                  <input id="input-email" type="email" required placeholder="ahmad@tokoberkah.com" value="ahmad@tokoberkah.com" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600 font-medium">
+                </div>
+                <div>
+                  <label for="input-password" class="font-bold text-slate-700 block mb-1">Password Dashboard Toko</label>
+                  <input id="input-password" type="password" required placeholder="Minimal 6 karakter" value="cuanin123" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-600">
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-100">
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Rekening Bank untuk Pencairan Hasil Penjualan:</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label for="select-bank-name" class="font-bold text-slate-700 block mb-1">Bank</label>
+                    <select id="select-bank-name" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-brand-600">
+                      <option value="BCA">Bank BCA</option>
+                      <option value="Mandiri">Bank Mandiri</option>
+                      <option value="BRI">Bank BRI</option>
+                      <option value="BNI">Bank BNI</option>
+                    </select>
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label for="input-account-number" class="font-bold text-slate-700 block mb-1">Nomor Rekening Bank</label>
+                    <input id="input-account-number" type="text" required placeholder="5210982341" value="5210982341" class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-600">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-2">
+            <button type="submit" id="btn-submit-order" class="w-full py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm transition-all shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2">
+              <span>Lanjut ke Pembayaran QRIS Midtrans</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+            <p class="text-center text-[11px] text-slate-400 mt-2.5">
+              Pembayaran aman didukung Midtrans Snap QRIS. Token dan QR instan diterbitkan secara otomatis.
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column: Sticky Summary & Real-time Subdomain Visualizer -->
+      <div class="lg:col-span-5 sticky top-24 space-y-5">
+        
+        <!-- Live Browser Mockup Card -->
+        <div class="bg-surface-dark text-white rounded-3xl border border-brand-900/60 p-6 shadow-xl relative overflow-hidden">
+          <div class="flex items-center justify-between pb-3.5 border-b border-slate-800">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            </div>
+            <div class="bg-surface-darkcard px-3.5 py-1 rounded-full border border-slate-700 font-mono text-brand-300 text-xs flex items-center gap-1.5">
+              <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+              <span id="summary-live-subdomain">https://tokoberkah.cuanin.com</span>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-slate-400 block font-medium">Nama Brand Toko:</span>
+                <span id="summary-store-title" class="text-base font-bold text-white block mt-0.5">Toko Berkah Nusantara</span>
+              </div>
+              <span id="summary-template-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                Kuliner & F&B
+              </span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-surface-darkcard border border-slate-800 text-xs space-y-1.5 text-slate-300">
+              <div class="flex items-center justify-between">
+                <span>Infrastruktur Cloud:</span>
+                <span class="font-bold text-emerald-400">Siap Live 1 Tahun</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Pembayaran Pembeli:</span>
+                <span class="font-bold text-white">QRIS Midtrans Terpusat</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Rekber Escrow:</span>
+                <span class="font-bold text-violet-300">Auto-Confirm 7 Hari</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Investment Pricing Breakdown Card -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
+          <h3 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center justify-between">
+            <span>Rincian Investasi Website</span>
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700">1 Tahun Penuh</span>
+          </h3>
+
+          <div class="space-y-3 text-xs text-slate-600">
+            <div class="flex justify-between items-center">
+              <div>
+                <span id="summary-package-name" class="font-bold text-slate-900 block">Paket Pro Toko Cuanin</span>
+                <span class="text-[11px] text-slate-400">Termasuk Jasa Setup & Lisensi Template</span>
+              </div>
+              <span id="summary-package-cost" class="font-bold text-slate-900 text-sm">Rp 349.000</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-medium text-slate-700 block">Sewa Cloud NVMe Hosting 1 Tahun</span>
+                <span class="text-[11px] text-emerald-700 font-semibold">Gratis Terintegrasi</span>
+              </div>
+              <span class="font-bold text-emerald-700">Rp 0</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-medium text-slate-700 block">Setup Gateway QRIS & Rekber Escrow</span>
+                <span class="text-[11px] text-emerald-700 font-semibold">Gratis Terintegrasi</span>
+              </div>
+              <span class="font-bold text-emerald-700">Rp 0</span>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-baseline">
+              <div>
+                <span class="text-xs font-extrabold text-slate-900 uppercase tracking-wide block">Total Tagihan:</span>
+                <span class="text-[10px] text-slate-400">Tanpa biaya langganan bulanan</span>
+              </div>
+              <span id="summary-total-due" class="text-2xl font-extrabold text-brand-600">Rp 349.000</span>
+            </div>
+          </div>
+
+          <!-- Trust Badges List -->
+          <div class="pt-4 border-t border-slate-100 space-y-2 text-[11px] text-slate-500">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Garansi website online 24 jam dengan uptime 99.9%</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Pendampingan upload produk perdana via WhatsApp</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              <span>Uang hasil jualan 100% utuh dapat dicairkan instan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- State 2: Dedicated QRIS Payment View (Revealed on Submit) -->
+    <!-- State 2: Dedicated Midtrans & QRIS Payment View -->
+    <div id="payment-stage-container" class="max-w-2xl mx-auto space-y-6 hidden">
+      <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-lg text-center space-y-6">
+        
+        <!-- Header Status -->
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Terhubung Resmi Midtrans Payment Gateway
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Selesaikan Pembayaran Website Anda</h2>
+          <p class="text-xs text-slate-500">Pilih pembayaran melalui Midtrans Snap Pop-up atau scan QRIS langsung di bawah ini.</p>
+        </div>
+
+        <!-- Invoice & Amount Card -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
+          <div>
+            <span class="text-xs text-slate-500 block">Nomor Invoice Pemesanan:</span>
+            <span id="pay-invoice-number" class="font-mono font-bold text-sm text-slate-900 block mt-0.5">INV-TPL-00000000</span>
+            <span id="pay-subdomain-target" class="text-xs text-brand-600 font-semibold mt-0.5 block">https://tokoberkah.cuanin.com</span>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-500 block">Total Tagihan:</span>
+            <span id="pay-total-amount" class="text-2xl font-extrabold text-brand-600 block mt-0.5">Rp 349.000</span>
+          </div>
+        </div>
+
+        <!-- Primary Action: Open Midtrans Snap Popup -->
+        <div class="space-y-2">
+          <button type="button" onclick="triggerSnapPayment()" class="w-full py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm transition-all shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2.5">
+            <svg class="w-4 h-4 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1a9 9 0 100 18 9 9 0 000-18zm3.707 7.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Buka Pop-up Pembayaran Resmi Midtrans Snap</span>
+          </button>
+          <span class="text-[11px] text-slate-400 block">Mendukung GoPay, QRIS, BCA, Mandiri, BNI, BRI & e-Wallet</span>
+        </div>
+
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-200"></div>
+          <span class="flex-shrink mx-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Atau Scan QRIS Langsung</span>
+          <div class="flex-grow border-t border-slate-200"></div>
+        </div>
+
+        <!-- QRIS Image Box -->
+        <div class="max-w-xs mx-auto p-5 bg-surface-tint border border-brand-200 rounded-3xl space-y-3">
+          <div class="bg-white p-3 rounded-2xl shadow-sm border border-brand-100 flex justify-center">
+            <img id="pay-qris-image" src="" alt="QRIS Midtrans" class="w-60 h-60 object-contain rounded-xl">
+          </div>
+          <div class="flex items-center justify-center gap-2 font-bold text-slate-700 text-xs">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>QRIS Nasional Terverifikasi Midtrans</span>
+          </div>
+        </div>
+
+        <!-- Confirmation & Action Row -->
+        <div class="space-y-3 max-w-md mx-auto pt-2">
+          <button type="button" onclick="handleSimulatePaymentSuccess()" class="w-full py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition-all shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2">
+            <span>Konfirmasi & Selesaikan Pembayaran</span>
+            <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">&rarr;</span>
+          </button>
+          <a href="/" class="block text-xs text-slate-500 hover:text-slate-700 font-semibold py-1">
+            Batal & Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="success-stage-container" class="max-w-xl mx-auto space-y-6 hidden">
+      <div class="bg-white rounded-3xl border border-emerald-200 p-8 sm:p-10 shadow-xl text-center space-y-6">
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl font-bold shadow-md shadow-emerald-500/20">
+          ✓
+        </div>
+        <div>
+          <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider block">Pembayaran Dikonfirmasi</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Website Toko Anda Resmi Aktif!</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-2">
+            Selamat! Toko online mandiri Anda telah selesai di-setup oleh platform Cuanin dan sekarang sudah live di internet.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-surface-tint border border-brand-200 text-left space-y-2.5 text-xs text-slate-700">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">Alamat Website Toko:</span>
+            <a id="success-store-url" href="" target="_blank" class="font-mono font-bold text-brand-700 hover:underline">https://tokoberkah.cuanin.com</a>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">Email Pemilik Toko:</span>
+            <span id="success-owner-email" class="font-bold text-slate-900">ahmad@tokoberkah.com</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">Status Gateway & Escrow:</span>
+            <span class="font-bold text-emerald-700">Aktif & Terverifikasi</span>
+          </div>
+        </div>
+
+        <div class="pt-3 space-y-3">
+          <a id="btn-open-new-store" href="" target="_blank" class="w-full py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs transition-all shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2">
+            <span>Buka Website Toko Sekarang &rarr;</span>
+          </a>
+          <a href="/" class="block text-xs text-slate-500 hover:text-slate-700 font-semibold py-1">
+            Kembali ke Halaman Utama Cuanin
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================== -->
+  <!-- 3. FOOTER                                      -->
+  <!-- ============================================== -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="font-medium text-slate-700">Cuanin: Solusi Jasa Pembuatan Website & Hosting Toko Mandiri UMKM.</p>
+      <p class="text-[11px] text-slate-400 mt-0.5">Ditenagai oleh Arsitektur Midtrans Snap QRIS & Rekening Bersama Escrow.</p>
+    </div>
+  </footer>
+
+  <script src="/order.js"></script>
+</body>
+</html>
