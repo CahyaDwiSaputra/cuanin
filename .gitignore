@@ -18,3 +18,9 @@ backup_*/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Screenshots & Temporary Artifacts
+cuanin-*.png
+qr_*.png
+test_*.png
+shot*.png
