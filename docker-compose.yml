@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  cuanin-db:
+    image: cuanin-db:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: cuanin-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: cuanin_db
+      POSTGRES_USER: buana_admin
+      POSTGRES_PASSWORD: buana_dev_secret_2026!
+    ports:
+      - "5433:5432"
+    volumes:
+      - cuanin_pgdata:/var/lib/postgresql/data
+
+  cuanin-app:
+    image: cuanin-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cuanin-app
+    restart: always
+    environment:
+      PORT: 4000
+      DB_HOST: cuanin-db
+      DB_PORT: 5432
+      DB_USER: buana_admin
+      DB_PASSWORD: buana_dev_secret_2026!
+      DB_NAME: cuanin_db
+      JWT_SECRET: cuanin_jwt_secret_dev_key_2026
+      MIDTRANS_SERVER_KEY: ${MIDTRANS_SERVER_KEY:-SB-Mid-server-cuanin-dev-test-2026}
+      MIDTRANS_CLIENT_KEY: ${MIDTRANS_CLIENT_KEY:-SB-Mid-client-cuanin-dev-test-2026}
+      MIDTRANS_IS_PRODUCTION: ${MIDTRANS_IS_PRODUCTION:-false}
+    ports:
+      - "4001:4000"
+    depends_on:
+      - cuanin-db
+
+volumes:
+  cuanin_pgdata:

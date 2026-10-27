@@ -1,0 +1,10 @@
+FROM postgres:16-alpine
+
+ENV POSTGRES_DB=cuanin_db \
+    POSTGRES_USER=buana_admin \
+    POSTGRES_PASSWORD=buana_dev_secret_2026!
+
+# Copy full database schema and seed data into postgres auto-init entrypoint
+COPY cuanin_db_dump.sql /docker-entrypoint-initdb.d/init.sql
+
+EXPOSE 5432

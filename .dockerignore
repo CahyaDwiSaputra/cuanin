@@ -1,0 +1,7 @@
+node_modules
+.git
+.env
+*.log
+backup_*
+kurasi_uns
+cuanin_pgdata
