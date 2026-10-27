@@ -135,6 +135,28 @@ Aplikasi akan aktif di:
 - **Lokal Port 4000:** `http://127.0.0.1:4000`
 - **Lokal Port 80 (Opsional):** `http://127.0.0.1`
 
+### 🐳 Menjalankan via Docker / Docker Compose (Otomatis & Portabel)
+
+Platform cuan.in telah dilengkapi dengan container Docker resmi untuk PostgreSQL dan Node.js:
+
+1. **Jalankan Database PostgreSQL di Docker (Port 5433):**
+   ```bash
+   docker-compose up -d cuanin-db
+   ```
+   *Seluruh tabel (`templates`, `tenants`, `products`, `orders`, `escrow_records`, `admins`) dan data 6 toko demo langsung terisi otomatis via entrypoint.*
+
+2. **Jalankan Seluruh Layanan (Database + Backend App):**
+   ```bash
+   docker-compose up -d
+   ```
+   *Aplikasi akan berjalan di port `4001` (atau port host yang ditentukan) dan database di port `5433`.*
+
+3. **Memeriksa Status & Isi Database di Docker:**
+   ```bash
+   docker exec -it cuanin-postgres psql -U buana_admin -d cuanin_db -c "\dt"
+   docker exec -it cuanin-postgres psql -U buana_admin -d cuanin_db -c "SELECT name, subdomain FROM tenants;"
+   ```
+
 ---
 
 ## 🌐 Akses Halaman & Kredensial Demo
