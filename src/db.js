@@ -1,11 +1,11 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432', 10),
-  database: process.env.DB_NAME || 'cuanin_db',
-  user: process.env.DB_USER || 'buana_admin',
-  password: process.env.DB_PASSWORD || 'buana_dev_secret_2026!'
+  host: process.env.DB_HOST || "localhost",
+  port: parseInt(process.env.DB_PORT || "5432", 10),
+  database: process.env.DB_NAME || "cuanin_db",
+  user: process.env.DB_USER || "buana_admin",
+  password: process.env.DB_PASSWORD || "buana_dev_secret_2026!",
 });
 
 async function initDb() {
@@ -20,6 +20,9 @@ async function initDb() {
         description TEXT,
         image_url TEXT
       );
+
+      ALTER TABLE templates
+      ADD COLUMN IF NOT EXISTS preview_url TEXT;
 
       CREATE TABLE IF NOT EXISTS tenants (
         id SERIAL PRIMARY KEY,
@@ -119,7 +122,7 @@ async function initDb() {
     `);
 
     // Seed default superadmin if empty
-    const adminCheck = await client.query('SELECT COUNT(*) FROM admins');
+    const adminCheck = await client.query("SELECT COUNT(*) FROM admins");
     if (parseInt(adminCheck.rows[0].count, 10) === 0) {
       await client.query(`
         INSERT INTO admins (username, email, password_hash, role)
@@ -128,7 +131,7 @@ async function initDb() {
     }
 
     // Seed default templates if empty
-    const templateCheck = await client.query('SELECT COUNT(*) FROM templates');
+    const templateCheck = await client.query("SELECT COUNT(*) FROM templates");
     if (parseInt(templateCheck.rows[0].count, 10) === 0) {
       await client.query(`
         INSERT INTO templates (id, name, category, price, description, image_url) VALUES
@@ -139,7 +142,10 @@ async function initDb() {
     }
 
     // Seed default sample tenant 'kopisenja' if empty
-    const tenantCheck = await client.query('SELECT COUNT(*) FROM tenants WHERE subdomain = $1', ['kopisenja']);
+    const tenantCheck = await client.query(
+      "SELECT COUNT(*) FROM tenants WHERE subdomain = $1",
+      ["kopisenja"],
+    );
     if (parseInt(tenantCheck.rows[0].count, 10) === 0) {
       const res = await client.query(`
         INSERT INTO tenants (subdomain, name, template_id, owner_name, phone, bank_name, bank_account_number, bank_account_holder, origin_city, balance_held, balance_active)
@@ -148,12 +154,15 @@ async function initDb() {
       `);
       const tenantId = res.rows[0].id;
 
-      await client.query(`
+      await client.query(
+        `
         INSERT INTO products (tenant_id, name, description, price, stock, weight_grams, image_url) VALUES
         ($1, 'Arabika Gayo Single Origin 250g', 'Biji kopi sangrai pilihan dataran tinggi Aceh Gayo. Karakter rasa peach, dark chocolate, dan floral.', 75000, 25, 250, 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=500&q=80'),
         ($1, 'Robusta Dampit Espresso Roast 200g', 'Kopi robusta Malang lereng Gunung Semeru. Body tebal, aroma karamel manis dan nutty.', 48000, 30, 200, 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80'),
         ($1, 'Cold Brew Concentrate Bottle 500ml', 'Ekstrak seduh dingin konsentrat siap minum, diseduh 16 jam dengan air steril.', 65000, 15, 600, 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500&q=80')
-      `, [tenantId]);
+      `,
+        [tenantId],
+      );
     }
 
     // Ensure kopisenja has owner login credentials

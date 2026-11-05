@@ -1,0 +1,1679 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101d35" />
+    <title>ATERRA — Company Profile</title>
+
+    <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --navy: #101d35;
+        --navy-light: #1c3153;
+        --blue: #4779db;
+        --blue-light: #edf3ff;
+        --white: #ffffff;
+        --bg: #f7f8fa;
+        --text: #202b3d;
+        --muted: #778195;
+        --border: #e8ebf0;
+        --radius: 7px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background: white;
+        overflow-x: hidden;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .container {
+        width: min(1180px, 90%);
+        margin: auto;
+      }
+
+      .section {
+        padding: 100px 0;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 15px;
+      }
+
+      .section-title {
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(34px, 4vw, 48px);
+        line-height: 1.2;
+        letter-spacing: -1.5px;
+        color: var(--navy);
+        font-weight: 800;
+      }
+
+      .section-desc {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.9;
+        max-width: 480px;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 25px;
+        margin-bottom: 45px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: none;
+        padding: 15px 24px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 800;
+        transition: 0.3s;
+      }
+
+      .btn-primary {
+        background: var(--blue);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--navy);
+        transform: translateY(-3px);
+      }
+
+      .btn-outline {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        color: white;
+        background: transparent;
+      }
+
+      .btn-outline:hover {
+        background: white;
+        color: var(--navy);
+      }
+
+      /* NAVBAR */
+
+      .navbar {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        color: white;
+        padding: 25px 0;
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-family: "Manrope", sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 3px;
+      }
+
+      .logo span {
+        color: #76a2ff;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+        font-weight: 600;
+        opacity: 0.85;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #8eb2ff;
+        opacity: 1;
+      }
+
+      .nav-cta {
+        background: white;
+        color: var(--navy);
+        padding: 13px 20px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .menu-toggle {
+        display: none;
+        border: none;
+        background: transparent;
+        color: white;
+        font-size: 25px;
+      }
+
+      /* HERO */
+
+      .hero {
+        min-height: 740px;
+        height: 92vh;
+        max-height: 900px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        color: white;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(10, 24, 48, 0.94),
+            rgba(10, 24, 48, 0.65) 48%,
+            rgba(10, 24, 48, 0.08)
+          ),
+          url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=90")
+            center / cover;
+      }
+
+      .hero-content {
+        max-width: 750px;
+        padding-top: 60px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #a8c3ff;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2.5px;
+        margin-bottom: 25px;
+      }
+
+      .hero-label::before {
+        content: "";
+        width: 35px;
+        height: 2px;
+        background: #76a2ff;
+      }
+
+      .hero h1 {
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(48px, 7vw, 83px);
+        line-height: 1.12;
+        font-weight: 800;
+        letter-spacing: -3px;
+        margin-bottom: 25px;
+      }
+
+      .hero h1 span {
+        color: #83aaff;
+      }
+
+      .hero-description {
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 520px;
+        font-size: 14px;
+        line-height: 2;
+        margin-bottom: 35px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 13px;
+      }
+
+      .hero-bottom {
+        position: absolute;
+        bottom: 45px;
+        left: 0;
+        width: 100%;
+      }
+
+      .hero-bottom-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 22px;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* COMPANY INTRO */
+
+      .intro-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      .intro-image {
+        height: 500px;
+        position: relative;
+      }
+
+      .intro-image img {
+        height: 100%;
+        border-radius: 4px;
+      }
+
+      .intro-image::after {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border: 2px solid var(--blue);
+        right: -15px;
+        bottom: -15px;
+        z-index: -1;
+      }
+
+      .intro-badge {
+        position: absolute;
+        bottom: 25px;
+        left: -25px;
+        background: var(--navy);
+        color: white;
+        padding: 22px;
+        width: 155px;
+      }
+
+      .intro-badge strong {
+        font-size: 34px;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .intro-badge span {
+        font-size: 10px;
+        color: #c0d1f4;
+        line-height: 1.5;
+      }
+
+      .intro-content h2 {
+        margin-bottom: 22px;
+      }
+
+      .intro-content p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 2;
+        margin-bottom: 17px;
+      }
+
+      .intro-list {
+        list-style: none;
+        margin: 25px 0 30px;
+      }
+
+      .intro-list li {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .check {
+        width: 23px;
+        height: 23px;
+        border-radius: 50%;
+        background: var(--blue-light);
+        color: var(--blue);
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+      }
+
+      /* STATISTICS */
+
+      .stats {
+        background: var(--navy);
+        padding: 55px 0;
+        color: white;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .stat-item {
+        padding: 10px 30px;
+        border-right: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .stat-item:last-child {
+        border: none;
+      }
+
+      .stat-item strong {
+        font-family: "Manrope", sans-serif;
+        font-size: 43px;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .stat-item span {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+
+      /* SERVICES */
+
+      .services-section {
+        background: var(--bg);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .service-card {
+        padding: 35px 30px;
+        background: white;
+        border: 1px solid var(--border);
+        transition: 0.35s;
+        border-radius: 5px;
+      }
+
+      .service-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--blue);
+        box-shadow: 0 15px 35px rgba(30, 60, 110, 0.08);
+      }
+
+      .service-icon {
+        width: 55px;
+        height: 55px;
+        display: grid;
+        place-items: center;
+        border-radius: 5px;
+        background: var(--blue-light);
+        color: var(--blue);
+        font-size: 24px;
+        margin-bottom: 28px;
+      }
+
+      .service-card h3 {
+        font-family: "Manrope", sans-serif;
+        font-size: 19px;
+        color: var(--navy);
+        margin-bottom: 13px;
+      }
+
+      .service-card p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+        min-height: 68px;
+      }
+
+      .service-number {
+        display: block;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--blue);
+      }
+
+      /* WHY US */
+
+      .why-section {
+        background: white;
+      }
+
+      .why-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 75px;
+        align-items: center;
+      }
+
+      .why-image {
+        height: 550px;
+      }
+
+      .why-image img {
+        height: 100%;
+        border-radius: 5px;
+      }
+
+      .why-content h2 {
+        margin-bottom: 20px;
+      }
+
+      .why-content > p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 2;
+        margin-bottom: 30px;
+      }
+
+      .why-item {
+        display: flex;
+        gap: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .why-item-icon {
+        flex-shrink: 0;
+        width: 45px;
+        height: 45px;
+        display: grid;
+        place-items: center;
+        background: var(--blue-light);
+        color: var(--blue);
+        border-radius: 5px;
+        font-size: 20px;
+      }
+
+      .why-item h3 {
+        font-size: 15px;
+        margin-bottom: 7px;
+        color: var(--navy);
+      }
+
+      .why-item p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+      }
+
+      /* PROJECTS */
+
+      .projects-section {
+        background: var(--bg);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 22px;
+      }
+
+      .project-card {
+        position: relative;
+        height: 350px;
+        overflow: hidden;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .project-card img {
+        height: 100%;
+        transition: 0.6s;
+      }
+
+      .project-card:hover img {
+        transform: scale(1.07);
+      }
+
+      .project-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(9, 24, 47, 0.92),
+          transparent 75%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding: 30px;
+        color: white;
+      }
+
+      .project-overlay span {
+        color: #a9c4ff;
+        font-size: 10px;
+        letter-spacing: 2px;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .project-overlay h3 {
+        font-family: "Manrope", sans-serif;
+        font-size: 23px;
+        margin-bottom: 7px;
+      }
+
+      .project-overlay p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .project-small-grid {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: 22px;
+      }
+
+      .project-small-grid .project-card {
+        height: 164px;
+      }
+
+      /* TEAM */
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+      }
+
+      .team-card {
+        text-align: center;
+      }
+
+      .team-image {
+        height: 340px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background: var(--bg);
+      }
+
+      .team-image img {
+        height: 100%;
+        transition: 0.5s;
+      }
+
+      .team-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .team-card h3 {
+        color: var(--navy);
+        font-size: 17px;
+        margin-bottom: 7px;
+      }
+
+      .team-card span {
+        color: var(--blue);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      /* TESTIMONIAL */
+
+      .testimonial {
+        background: var(--navy);
+        color: white;
+        text-align: center;
+        padding: 90px 0;
+      }
+
+      .testimonial-content {
+        max-width: 790px;
+        margin: auto;
+      }
+
+      .quote-icon {
+        font-family: Georgia, serif;
+        color: #7ca5fa;
+        font-size: 75px;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+
+      .testimonial h2 {
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(25px, 4vw, 37px);
+        line-height: 1.5;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+
+      .testimonial-author {
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .testimonial-role {
+        color: #a9b8d2;
+        font-size: 11px;
+        margin-top: 6px;
+      }
+
+      /* CONTACT */
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 75px;
+      }
+
+      .contact-content h2 {
+        margin-bottom: 20px;
+      }
+
+      .contact-content > p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 2;
+        margin-bottom: 30px;
+      }
+
+      .contact-info {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 22px;
+      }
+
+      .contact-icon {
+        width: 43px;
+        height: 43px;
+        background: var(--blue-light);
+        color: var(--blue);
+        display: grid;
+        place-items: center;
+        border-radius: 5px;
+        flex-shrink: 0;
+      }
+
+      .contact-info strong {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+
+      .contact-info span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .contact-form {
+        background: var(--bg);
+        padding: 35px;
+        border-radius: 5px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 17px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 9px;
+        color: var(--navy);
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid var(--border);
+        outline: none;
+        background: white;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--blue);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-submit {
+        width: 100%;
+      }
+
+      .form-message {
+        display: none;
+        background: #e6f6eb;
+        color: #237344;
+        padding: 14px;
+        margin-top: 15px;
+        font-size: 12px;
+        border-radius: 4px;
+      }
+
+      /* FOOTER */
+
+      footer {
+        background: #0b1629;
+        color: white;
+        padding: 70px 0 25px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 40px;
+        padding-bottom: 50px;
+      }
+
+      .footer-brand p {
+        color: #a0adc0;
+        font-size: 12px;
+        line-height: 2;
+        max-width: 280px;
+        margin-top: 20px;
+      }
+
+      .footer-column h4 {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        margin-bottom: 22px;
+      }
+
+      .footer-column a {
+        display: block;
+        color: #a0adc0;
+        font-size: 12px;
+        margin-bottom: 14px;
+        transition: 0.3s;
+      }
+
+      .footer-column a:hover {
+        color: white;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-top: 22px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        color: #8190a8;
+        font-size: 10px;
+      }
+
+      /* ANIMATION */
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 900px) {
+        .intro-grid,
+        .why-grid {
+          gap: 40px;
+        }
+
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .stat-item:nth-child(2) {
+          border-right: none;
+        }
+
+        .stat-item {
+          padding: 25px;
+        }
+
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 650px) {
+        .section {
+          padding: 75px 0;
+        }
+
+        .navbar {
+          padding: 20px 0;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-cta {
+          display: none;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 75px;
+          left: 5%;
+          width: 90%;
+          padding: 25px;
+          background: var(--navy);
+          flex-direction: column;
+          align-items: start;
+          gap: 23px;
+          border-radius: 5px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .hero {
+          min-height: 700px;
+          height: 90vh;
+        }
+
+        .hero h1 {
+          font-size: 52px;
+          letter-spacing: -2px;
+        }
+
+        .hero-bottom {
+          bottom: 25px;
+        }
+
+        .hero-bottom-inner {
+          font-size: 8px;
+          gap: 15px;
+        }
+
+        .section-heading {
+          display: block;
+        }
+
+        .section-desc {
+          margin-top: 15px;
+        }
+
+        .intro-grid,
+        .why-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .intro-image {
+          height: 380px;
+          margin-right: 10px;
+        }
+
+        .intro-badge {
+          left: -5px;
+        }
+
+        .why-image {
+          height: 380px;
+        }
+
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .project-small-grid {
+          grid-template-rows: 1fr 1fr;
+        }
+
+        .project-small-grid .project-card {
+          height: 230px;
+        }
+
+        .team-grid {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+
+        .team-image {
+          height: 390px;
+        }
+
+        .contact-form {
+          padding: 25px 18px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 30px 20px;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .hero h1 {
+          font-size: 44px;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stat-item strong {
+          font-size: 34px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="container nav-inner">
+        <a href="#home" class="logo">AT<span>E</span>RRA.</a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#team">Our Team</a></li>
+        </ul>
+
+        <a href="#contact" class="nav-cta">Let's Talk ↗</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+          ☰
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-label">Welcome to ATERRA Company</div>
+
+          <h1>Building<br />A Better <span>Tomorrow.</span></h1>
+
+          <p class="hero-description">
+            We create meaningful solutions through innovation, technology, and
+            strategic thinking. Helping businesses grow and build a better
+            future.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#about" class="btn btn-primary">Discover Our Company ↗</a>
+            <a href="#services" class="btn btn-outline">Explore Services</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="container hero-bottom-inner">
+          <span
+            >INNOVATION &nbsp; · &nbsp; STRATEGY &nbsp; · &nbsp; GROWTH</span
+          >
+          <span>EST. 2018 — INDONESIA</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container intro-grid">
+        <div class="intro-image reveal">
+          <img
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85"
+            alt="ATERRA office"
+          />
+          <div class="intro-badge">
+            <strong>08+</strong>
+            <span>Years of Excellence and Experience</span>
+          </div>
+        </div>
+
+        <div class="intro-content reveal">
+          <span class="eyebrow">Who We Are</span>
+
+          <h2 class="section-title">
+            We Turn Ideas<br />Into Real
+            <span style="color: var(--blue)">Impact.</span>
+          </h2>
+
+          <p>
+            ATERRA merupakan perusahaan yang berfokus pada pengembangan solusi
+            inovatif untuk membantu bisnis menghadapi tantangan dan peluang di
+            era modern.
+          </p>
+
+          <p>
+            Dengan menggabungkan pengalaman, kreativitas, dan teknologi, kami
+            berkomitmen memberikan layanan berkualitas serta membangun hubungan
+            jangka panjang dengan setiap mitra.
+          </p>
+
+          <ul class="intro-list">
+            <li>
+              <span class="check">✓</span> Professional and experienced team
+            </li>
+            <li>
+              <span class="check">✓</span> Innovative and strategic solutions
+            </li>
+            <li><span class="check">✓</span> Customer-focused approach</li>
+          </ul>
+
+          <a href="#contact" class="btn btn-primary">Learn More About Us ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat-item reveal">
+          <strong>08+</strong>
+          <span>YEARS OF EXPERIENCE</span>
+        </div>
+
+        <div class="stat-item reveal">
+          <strong>120+</strong>
+          <span>PROJECT COMPLETED</span>
+        </div>
+
+        <div class="stat-item reveal">
+          <strong>85+</strong>
+          <span>HAPPY CLIENTS</span>
+        </div>
+
+        <div class="stat-item reveal">
+          <strong>25+</strong>
+          <span>PROFESSIONAL TEAM</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">What We Do</span>
+            <h2 class="section-title">Our Expertise<br />& Services.</h2>
+          </div>
+
+          <p class="section-desc">
+            Kami menghadirkan berbagai solusi dan layanan profesional yang
+            dirancang untuk membantu bisnis berkembang secara berkelanjutan.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <div class="service-icon">✧</div>
+            <h3>Business Consulting</h3>
+            <p>
+              Membantu perusahaan mengembangkan strategi, meningkatkan
+              efisiensi, dan menentukan arah pertumbuhan bisnis.
+            </p>
+            <span class="service-number">01 — CONSULTING</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">⌘</div>
+            <h3>Digital Solutions</h3>
+            <p>
+              Menghadirkan solusi digital dan teknologi yang membantu proses
+              bisnis menjadi lebih efektif dan terintegrasi.
+            </p>
+            <span class="service-number">02 — TECHNOLOGY</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">◈</div>
+            <h3>Creative Development</h3>
+            <p>
+              Mengembangkan ide kreatif menjadi solusi visual dan digital yang
+              menarik serta memiliki nilai bisnis.
+            </p>
+            <span class="service-number">03 — CREATIVE</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">↗</div>
+            <h3>Digital Marketing</h3>
+            <p>
+              Membantu brand menjangkau audiens lebih luas melalui strategi
+              pemasaran digital yang terarah.
+            </p>
+            <span class="service-number">04 — MARKETING</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">◎</div>
+            <h3>Project Management</h3>
+            <p>
+              Mengelola perencanaan dan pelaksanaan proyek secara terstruktur
+              untuk mencapai target yang ditentukan.
+            </p>
+            <span class="service-number">05 — MANAGEMENT</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon">◇</div>
+            <h3>Technology Integration</h3>
+            <p>
+              Mengintegrasikan teknologi dan sistem untuk meningkatkan
+              produktivitas serta operasional perusahaan.
+            </p>
+            <span class="service-number">06 — INTEGRATION</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section why-section">
+      <div class="container why-grid">
+        <div class="why-image reveal">
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+            alt="Team collaboration"
+          />
+        </div>
+
+        <div class="why-content reveal">
+          <span class="eyebrow">Why Choose Us</span>
+
+          <h2 class="section-title">
+            The Right Partner<br />For Your
+            <span style="color: var(--blue)">Growth.</span>
+          </h2>
+
+          <p>
+            Kami memahami bahwa setiap perusahaan memiliki kebutuhan dan
+            tantangan yang berbeda. Karena itu, setiap solusi kami rancang
+            berdasarkan kebutuhan dan tujuan bisnis mitra.
+          </p>
+
+          <div class="why-item">
+            <div class="why-item-icon">✦</div>
+            <div>
+              <h3>Quality & Excellence</h3>
+              <p>
+                Berkomitmen memberikan hasil kerja dengan standar kualitas
+                terbaik.
+              </p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="why-item-icon">⌘</div>
+            <div>
+              <h3>Innovative Thinking</h3>
+              <p>Mengutamakan kreativitas dan inovasi dalam setiap solusi.</p>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div class="why-item-icon">◎</div>
+            <div>
+              <h3>Trusted Partnership</h3>
+              <p>
+                Membangun hubungan profesional yang transparan dan
+                berkelanjutan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Our Portfolio</span>
+            <h2 class="section-title">Selected Works<br />& Projects.</h2>
+          </div>
+
+          <p class="section-desc">
+            Beberapa contoh proyek yang menggambarkan komitmen kami dalam
+            menghadirkan solusi berkualitas dan bernilai.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <img
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1100&q=85"
+              alt="Corporate building"
+            />
+            <div class="project-overlay">
+              <span>Corporate Development</span>
+              <h3>Modern Business Center</h3>
+              <p>Jakarta, Indonesia — 2025</p>
+            </div>
+          </article>
+
+          <div class="project-small-grid">
+            <article class="project-card reveal">
+              <img
+                src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=85"
+                alt="Office interior"
+              />
+              <div class="project-overlay">
+                <span>Interior & Design</span>
+                <h3>Workspace Innovation</h3>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <img
+                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&q=85"
+                alt="Digital team"
+              />
+              <div class="project-overlay">
+                <span>Digital Transformation</span>
+                <h3>Business Technology</h3>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section" id="team">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Meet The People</span>
+            <h2 class="section-title">Our Leadership<br />& Team.</h2>
+          </div>
+
+          <p class="section-desc">
+            Didukung oleh individu profesional yang memiliki keahlian, semangat,
+            dan visi yang sama dalam menciptakan perubahan.
+          </p>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card reveal">
+            <div class="team-image">
+              <img
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=700&q=85"
+                alt="CEO"
+              />
+            </div>
+            <h3>Alexander Morgan</h3>
+            <span>Chief Executive Officer</span>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-image">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=85"
+                alt="Director"
+              />
+            </div>
+            <h3>Sarah Williams</h3>
+            <span>Managing Director</span>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-image">
+              <img
+                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=700&q=85"
+                alt="CTO"
+              />
+            </div>
+            <h3>Daniel Anderson</h3>
+            <span>Chief Technology Officer</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial">
+      <div class="container">
+        <div class="testimonial-content reveal">
+          <div class="quote-icon">“</div>
+
+          <h2>
+            Great things in business are never done by one person. They're done
+            by a team of people.
+          </h2>
+
+          <div class="testimonial-author">ATERRA Team</div>
+          <div class="testimonial-role">OUR PHILOSOPHY</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-content reveal">
+          <span class="eyebrow">Get In Touch</span>
+
+          <h2 class="section-title">
+            Let's Build<br />Something
+            <span style="color: var(--blue)">Great.</span>
+          </h2>
+
+          <p>
+            Punya pertanyaan, ide, atau ingin bekerja sama? Hubungi tim kami
+            melalui formulir berikut. Kami siap membantu kebutuhan perusahaan
+            Anda.
+          </p>
+
+          <div class="contact-info">
+            <div class="contact-icon">⌖</div>
+            <div>
+              <strong>Our Office</strong>
+              <span>Jakarta, Indonesia</span>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-icon">✉</div>
+            <div>
+              <strong>Email Address</strong>
+              <span>hello@aterra.com</span>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-icon">◷</div>
+            <div>
+              <strong>Working Hours</strong>
+              <span>Monday – Friday, 09.00 – 17.00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form reveal">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  placeholder="Your name"
+                  required
+                  maxlength="100"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  placeholder="your@email.com"
+                  required
+                  maxlength="150"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Company / Organization</label>
+              <input
+                type="text"
+                id="contactCompany"
+                placeholder="Your company"
+                maxlength="150"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Subject *</label>
+              <input
+                type="text"
+                id="contactSubject"
+                placeholder="What would you like to discuss?"
+                required
+                maxlength="150"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Your Message *</label>
+              <textarea
+                id="contactMessage"
+                placeholder="Tell us about your project or inquiry..."
+                required
+                maxlength="2000"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">
+              Send Message ↗
+            </button>
+
+            <div class="form-message" id="formMessage" role="status">
+              Pesan berhasil disimpan pada browser ini. Hubungkan formulir ke
+              backend agar pesan dapat diterima oleh perusahaan.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#home" class="logo">AT<span>E</span>RRA.</a>
+            <p>
+              Building a better tomorrow through innovation, technology, and
+              meaningful collaboration.
+            </p>
+          </div>
+
+          <div class="footer-column">
+            <h4>COMPANY</h4>
+            <a href="#about">About Us</a>
+            <a href="#team">Our Team</a>
+            <a href="#projects">Our Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <div class="footer-column">
+            <h4>SERVICES</h4>
+            <a href="#services">Business Consulting</a>
+            <a href="#services">Digital Solutions</a>
+            <a href="#services">Creative Development</a>
+            <a href="#services">Digital Marketing</a>
+          </div>
+
+          <div class="footer-column">
+            <h4>GET IN TOUCH</h4>
+            <a href="#contact">Jakarta, Indonesia</a>
+            <a href="mailto:hello@aterra.com">hello@aterra.com</a>
+            <a href="#contact">Send an Inquiry ↗</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© 2026 ATERRA. All rights reserved.</span>
+          <span>Designed for a better tomorrow.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // MOBILE NAVIGATION
+
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+        menuToggle.textContent = navLinks.classList.contains("open")
+          ? "✕"
+          : "☰";
+      });
+
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          menuToggle.textContent = "☰";
+        });
+      });
+
+      // CONTACT FORM DEMO
+
+      const contactForm = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage");
+
+      contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const messageData = {
+          name: document.getElementById("contactName").value.trim(),
+          email: document.getElementById("contactEmail").value.trim(),
+          company: document.getElementById("contactCompany").value.trim(),
+          subject: document.getElementById("contactSubject").value.trim(),
+          message: document.getElementById("contactMessage").value.trim(),
+          createdAt: new Date().toISOString(),
+        };
+
+        if (
+          !messageData.name ||
+          !messageData.email ||
+          !messageData.subject ||
+          !messageData.message
+        ) {
+          alert("Mohon lengkapi semua kolom wajib.");
+          return;
+        }
+
+        try {
+          const messages = JSON.parse(
+            localStorage.getItem("aterraMessages") || "[]",
+          );
+
+          if (!Array.isArray(messages)) {
+            throw new Error("Format data tidak valid");
+          }
+
+          messages.push(messageData);
+
+          localStorage.setItem("aterraMessages", JSON.stringify(messages));
+
+          formMessage.style.display = "block";
+          contactForm.reset();
+        } catch (error) {
+          alert("Pesan tidak dapat disimpan. Periksa penyimpanan browser.");
+          console.error(error);
+        }
+      });
+
+      // SCROLL REVEAL
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+        },
+      );
+
+      document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+      });
+    </script>
+  </body>
+</html>

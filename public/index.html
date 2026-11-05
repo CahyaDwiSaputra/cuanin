@@ -1,512 +1,1441 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cuanin | Jasa Pembuatan Website Toko Online UMKM & Rekber Escrow Terpusat</title>
-  <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#F4F2FF',
-              100: '#ECE9FE',
-              200: '#DDD6FE',
-              300: '#C4B5FD',
-              400: '#A78BFA',
-              500: '#8B70F8',
-              600: '#6355F6',
-              700: '#5244E5',
-              800: '#4338CA',
-              900: '#0E0F1E',
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Cuanin | Jasa Pembuatan Website Toko Online UMKM & Rekber Escrow Terpusat
+    </title>
+    <link rel="icon" type="image/svg+xml" href="/logo_cuanin.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
             },
-            surface: {
-              dark: '#0E0F1E',
-              darkcard: '#16182E',
-              tint: '#F4F2FF',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-700 min-h-screen flex flex-col">
-
-  <!-- ============================================== -->
-  <!-- 1. TOP GLOBAL NAVIGATION BAR (Refined & Clean) -->
-  <!-- ============================================== -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <!-- Brand Logo (Official cuan.in) -->
-        <a href="/" class="flex items-center gap-3 group focus:outline-none">
-          <img src="/logo_cuanin.svg" alt="cuan.in - Own Your Profit. No Commission Fees." class="h-12 w-auto object-contain">
-        </a>
-
-        <!-- Desktop Navigation Links (Clean, No Surcharge Simulator) -->
-        <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-          <a href="#templates" class="hover:text-brand-600 transition-colors">Template Toko</a>
-          <a href="#pricing" class="hover:text-brand-600 transition-colors">Paket & Biaya Hosting</a>
-          <a href="#keunggulan" class="hover:text-brand-600 transition-colors">Keunggulan Escrow</a>
-          <a href="#cara-kerja" class="hover:text-brand-600 transition-colors">Cara Pesan</a>
-          <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
-        </nav>
-
-        <!-- Right Header Action Buttons -->
-        <div class="flex items-center gap-3">
-          <a href="/toko/kopisenja" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all">
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            <span>Lihat Contoh Toko</span>
+            colors: {
+              brand: {
+                50: "#F4F2FF",
+                100: "#ECE9FE",
+                200: "#DDD6FE",
+                300: "#C4B5FD",
+                400: "#A78BFA",
+                500: "#8B70F8",
+                600: "#6355F6",
+                700: "#5244E5",
+                800: "#4338CA",
+                900: "#0E0F1E",
+              },
+              surface: {
+                dark: "#0E0F1E",
+                darkcard: "#16182E",
+                tint: "#F4F2FF",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body
+    class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-100 selection:text-brand-700 min-h-screen flex flex-col"
+  >
+    <!-- ============================================== -->
+    <!-- 1. TOP GLOBAL NAVIGATION BAR (Refined & Clean) -->
+    <!-- ============================================== -->
+    <header
+      class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <!-- Brand Logo (Official cuan.in) -->
+          <a href="/" class="flex items-center gap-3 group focus:outline-none">
+            <img
+              src="/logo_cuanin.svg"
+              alt="cuan.in - Own Your Profit. No Commission Fees."
+              class="h-12 w-auto object-contain"
+            />
           </a>
-          
-          <a href="/order" class="btn-pill-primary text-xs py-2.5 px-5">
-            <span>Pesan Website Toko</span>
-            <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">&rarr;</span>
-          </a>
+
+          <!-- Desktop Navigation Links (Clean, No Surcharge Simulator) -->
+          <nav
+            class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600"
+          >
+            <a href="#templates" class="hover:text-brand-600 transition-colors"
+              >Template Toko</a
+            >
+            <a href="#pricing" class="hover:text-brand-600 transition-colors"
+              >Paket & Biaya Hosting</a
+            >
+            <a href="#keunggulan" class="hover:text-brand-600 transition-colors"
+              >Keunggulan Escrow</a
+            >
+            <a href="#cara-kerja" class="hover:text-brand-600 transition-colors"
+              >Cara Pesan</a
+            >
+            <a href="#faq" class="hover:text-brand-600 transition-colors"
+              >FAQ</a
+            >
+          </nav>
+
+          <!-- Right Header Action Buttons -->
+          <div class="flex items-center gap-3">
+            <a
+              href="/toko/kopisenja"
+              target="_blank"
+              class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all"
+            >
+              <svg
+                class="w-3.5 h-3.5 text-slate-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+              <span>Lihat Contoh Toko</span>
+            </a>
+
+            <a href="/order" class="btn-pill-primary text-xs py-2.5 px-5">
+              <span>Pesan Website Toko</span>
+              <span
+                class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]"
+                >&rarr;</span
+              >
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Notification Toast Container -->
-  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+    <!-- Notification Toast Container -->
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"
+    ></div>
 
-  <main class="flex-1">
-    <!-- ============================================== -->
-    <!-- 2. HERO SECTION (Dark Midnight Hybrid Card)    -->
-    <!-- ============================================== -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16">
-      <div class="bg-surface-dark text-white rounded-3xl border border-brand-900/60 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden">
-        <!-- Ambient subtle purple gradient behind visual -->
-        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <main class="flex-1">
+      <!-- ============================================== -->
+      <!-- 2. HERO SECTION (Dark Midnight Hybrid Card)    -->
+      <!-- ============================================== -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16">
+        <div
+          class="bg-surface-dark text-white rounded-3xl border border-brand-900/60 p-8 sm:p-14 lg:p-16 shadow-2xl relative overflow-hidden"
+        >
+          <!-- Ambient subtle purple gradient behind visual -->
+          <div
+            class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"
+          ></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-          <!-- Left Column Content -->
-          <div class="lg:col-span-7 space-y-6">
-            <!-- Eyebrow Pill -->
-            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-darkcard border border-brand-500/30 text-brand-300 text-xs font-semibold">
-              <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
-              Jasa Pembuatan Website UMKM Bergaransi
-            </div>
-
-            <!-- Headline -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
-              Punya Web Toko Sendiri. <span class="text-gradient-purple block">Bebas Pajak & Biaya Gateway.</span>
-            </h1>
-
-            <!-- Subtitle (Clean & Concise Value Prop) -->
-            <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-normal">
-              Cuanin membuatkan website toko online mandiri berbasis subdomain resmi (<span class="text-brand-300 font-mono">namatoko.cuanin.com</span>) untuk UMKM Anda. Seluruh transaksi menggunakan QRIS Midtrans terpusat milik Cuanin dengan sistem rekening bersama otomatis ala marketplace. Uang hasil penjualan Anda terima 100% utuh tanpa potongan komisi tersembunyi.
-            </p>
-
-            <!-- CTA Action Row -->
-            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <a href="/order" class="btn-pill-primary">
-                <span>Pilih Template & Pesan Web</span>
-                <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs">&rarr;</span>
-              </a>
-              <a href="/toko/kopisenja" target="_blank" class="btn-pill-secondary">
-                <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 019-9"></path></svg>
-                <span>Lihat Contoh Toko: kopisenja.cuanin.com</span>
-              </a>
-            </div>
-
-            <!-- Social Proof Avatar Bar -->
-            <div class="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center gap-4">
-              <div class="flex -space-x-2.5 overflow-hidden">
-                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="UMKM 1">
-                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="UMKM 2">
-                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=120&q=80" alt="UMKM 3">
-                <img class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="UMKM 4">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10"
+          >
+            <!-- Left Column Content -->
+            <div class="lg:col-span-7 space-y-6">
+              <!-- Eyebrow Pill -->
+              <div
+                class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-darkcard border border-brand-500/30 text-brand-300 text-xs font-semibold"
+              >
+                <span
+                  class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"
+                ></span>
+                Jasa Pembuatan Website UMKM Bergaransi
               </div>
-              <div>
-                <span class="text-sm font-bold text-white block">Solusi Digital Lengkap untuk UMKM</span>
-                <span class="text-xs text-slate-400 block">Termasuk domain, sewa hosting cloud, template siap pakai, dan pembayaran QRIS</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Right Column Card Graphic (Showing Store Subdomain Mockup) -->
-          <div class="lg:col-span-5 relative flex justify-center">
-            <div class="w-full max-w-md bg-surface-darkcard border border-brand-500/20 rounded-3xl p-6 sm:p-7 shadow-2xl relative">
-              <!-- Browser Header -->
-              <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-rose-500"></div>
-                  <div class="w-3 h-3 rounded-full bg-amber-500"></div>
-                  <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+              <!-- Headline -->
+              <h1
+                class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]"
+              >
+                Punya Web Toko Sendiri.
+                <span class="text-gradient-purple block"
+                  >Bebas Pajak & Biaya Gateway.</span
+                >
+              </h1>
+
+              <!-- Subtitle (Clean & Concise Value Prop) -->
+              <p
+                class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-normal"
+              >
+                Cuanin membuatkan website toko online mandiri berbasis subdomain
+                resmi (<span class="text-brand-300 font-mono"
+                  >namatoko.cuanin.com</span
+                >) untuk UMKM Anda. Seluruh transaksi menggunakan QRIS Midtrans
+                terpusat milik Cuanin dengan sistem rekening bersama otomatis
+                ala marketplace. Uang hasil penjualan Anda terima 100% utuh
+                tanpa potongan komisi tersembunyi.
+              </p>
+
+              <!-- CTA Action Row -->
+              <div
+                class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+              >
+                <a href="/order" class="btn-pill-primary">
+                  <span>Pilih Template & Pesan Web</span>
+                  <span
+                    class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs"
+                    >&rarr;</span
+                  >
+                </a>
+                <a
+                  href="/toko/kopisenja"
+                  target="_blank"
+                  class="btn-pill-secondary"
+                >
+                  <svg
+                    class="w-4 h-4 text-brand-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 019-9"
+                    ></path>
+                  </svg>
+                  <span>Lihat Contoh Toko: kopisenja.cuanin.com</span>
+                </a>
+              </div>
+
+              <!-- Social Proof Avatar Bar -->
+              <div
+                class="pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center gap-4"
+              >
+                <div class="flex -space-x-2.5 overflow-hidden">
+                  <img
+                    class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+                    alt="UMKM 1"
+                  />
+                  <img
+                    class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover"
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                    alt="UMKM 2"
+                  />
+                  <img
+                    class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover"
+                    src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=120&q=80"
+                    alt="UMKM 3"
+                  />
+                  <img
+                    class="inline-block h-10 w-10 rounded-full ring-2 ring-surface-dark object-cover"
+                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80"
+                    alt="UMKM 4"
+                  />
                 </div>
-                <div class="text-xs font-mono text-brand-300 font-semibold bg-surface-dark px-3 py-1 rounded-full border border-slate-800 flex items-center gap-1.5">
-                  <svg class="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
-                  <span>namatoko.cuanin.com</span>
+                <div>
+                  <span class="text-sm font-bold text-white block"
+                    >Solusi Digital Lengkap untuk UMKM</span
+                  >
+                  <span class="text-xs text-slate-400 block"
+                    >Termasuk domain, sewa hosting cloud, template siap pakai,
+                    dan pembayaran QRIS</span
+                  >
                 </div>
               </div>
+            </div>
 
-              <!-- Interactive Card Visual Items -->
-              <div class="mt-5 space-y-3.5">
-                <div class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between">
-                  <div>
-                    <span class="text-xs text-slate-400 block font-medium">Domain Toko Mandiri</span>
-                    <span class="text-base font-bold text-white mt-0.5 block">Format: (nama toko).cuanin.com</span>
+            <!-- Right Column Card Graphic (Showing Store Subdomain Mockup) -->
+            <div class="lg:col-span-5 relative flex justify-center">
+              <div
+                class="w-full max-w-md bg-surface-darkcard border border-brand-500/20 rounded-3xl p-6 sm:p-7 shadow-2xl relative"
+              >
+                <!-- Browser Header -->
+                <div
+                  class="flex items-center justify-between pb-4 border-b border-slate-800"
+                >
+                  <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
                   </div>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-brand-500/10 text-brand-300 border border-brand-500/20">Aktif</span>
+                  <div
+                    class="text-xs font-mono text-brand-300 font-semibold bg-surface-dark px-3 py-1 rounded-full border border-slate-800 flex items-center gap-1.5"
+                  >
+                    <svg
+                      class="w-3 h-3 text-emerald-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                    <span>cuanin.com</span>
+                  </div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between">
-                  <div>
-                    <span class="text-xs text-slate-400 block font-medium">Pembayaran QRIS Midtrans</span>
-                    <span class="text-sm font-bold text-white mt-0.5 block">Terintegrasi Terpusat Cuanin</span>
+                <!-- Interactive Card Visual Items -->
+                <div class="mt-5 space-y-3.5">
+                  <div
+                    class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between"
+                  >
+                    <div>
+                      <span class="text-xs text-slate-400 block font-medium"
+                        >Domain Toko Mandiri</span
+                      >
+                      <span class="text-base font-bold text-white mt-0.5 block"
+                        >Format: (nama toko).cuanin.com</span
+                      >
+                    </div>
+                    <span
+                      class="px-2.5 py-1 rounded-full text-xs font-bold bg-brand-500/10 text-brand-300 border border-brand-500/20"
+                      >Aktif</span
+                    >
                   </div>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">100% Dana Utuh</span>
+
+                  <div
+                    class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between"
+                  >
+                    <div>
+                      <span class="text-xs text-slate-400 block font-medium"
+                        >Pembayaran QRIS Midtrans</span
+                      >
+                      <span class="text-sm font-bold text-white mt-0.5 block"
+                        >Terintegrasi Terpusat Cuanin</span
+                      >
+                    </div>
+                    <span
+                      class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                      >100% Dana Utuh</span
+                    >
+                  </div>
+
+                  <div
+                    class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between"
+                  >
+                    <div>
+                      <span class="text-xs text-slate-400 block font-medium"
+                        >Rekber Escrow Otomatis</span
+                      >
+                      <span
+                        class="text-sm font-bold text-violet-300 mt-0.5 block"
+                        >Auto-Release 7 Hari Kalender</span
+                      >
+                    </div>
+                    <span
+                      class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20"
+                      >Ala Marketplace</span
+                    >
+                  </div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-surface-dark border border-slate-800 flex items-center justify-between">
-                  <div>
-                    <span class="text-xs text-slate-400 block font-medium">Rekber Escrow Otomatis</span>
-                    <span class="text-sm font-bold text-violet-300 mt-0.5 block">Auto-Release 7 Hari Kalender</span>
-                  </div>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20">Ala Marketplace</span>
+                <div
+                  class="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400"
+                >
+                  <span>Pencairan Dana Otomatis:</span>
+                  <span class="text-brand-400 font-semibold"
+                    >Midtrans Iris Payout</span
+                  >
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div class="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                <span>Pencairan Dana Otomatis:</span>
-                <span class="text-brand-400 font-semibold">Midtrans Iris Payout</span>
+      <!-- ============================================== -->
+      <!-- 3. TRUSTED ECOSYSTEM / PARTNERS LOGO CLOUD    -->
+      <!-- ============================================== -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="text-center mb-8">
+          <span
+            class="text-xs font-bold text-slate-400 uppercase tracking-widest block"
+            >Didukung Ekosistem Pembayaran & Logistik Terpercaya di
+            Indonesia</span
+          >
+        </div>
+        <div
+          class="flex flex-wrap items-center justify-center gap-10 sm:gap-16"
+        >
+          <!-- QRIS -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/qris.png"
+              alt="QRIS Nasional"
+              class="h-20 sm:h-24 object-contain drop-shadow-md"
+            />
+          </div>
+
+          <!-- Midtrans -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/midtrans.png"
+              alt="Midtrans"
+              class="h-16 sm:h-20 object-contain drop-shadow-md"
+            />
+          </div>
+
+          <!-- BCA (Diperbesar) -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/bca.png"
+              alt="Bank Central Asia"
+              class="h-16 sm:h-20 object-contain drop-shadow-md"
+            />
+          </div>
+
+          <!-- Mandiri (Diperbesar) -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/mandiri.png"
+              alt="Bank Mandiri"
+              class="h-16 sm:h-20 object-contain drop-shadow-md"
+            />
+          </div>
+
+          <!-- JNE -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/jne.png"
+              alt="JNE Express"
+              class="h-20 sm:h-24 object-contain drop-shadow-md"
+            />
+          </div>
+
+          <!-- SiCepat -->
+          <div
+            class="flex items-center transition-transform duration-300 hover:scale-110"
+          >
+            <img
+              src="/sicepat.png"
+              alt="SiCepat Ekspres"
+              class="h-16 sm:h-20 object-contain drop-shadow-md"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- 4. TEMPLATES CATALOG SECTION                   -->
+      <!-- ============================================== -->
+      <section
+        id="templates"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+      >
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span
+            class="text-xs font-bold text-brand-600 uppercase tracking-widest block"
+            >Katalog Desain Toko</span
+          >
+          <h2
+            class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1.5 tracking-tight"
+          >
+            Pilih Template Toko Sesuai Bidang Usaha
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            Setiap template dirancang khusus dengan katalog produk, keranjang
+            belanja, integrasi kurir, dan pembayaran QRIS.
+          </p>
+        </div>
+
+        <div
+          id="template-catalog-grid"
+          class="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          <!-- Dynamically loaded from /api/templates -->
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- 5. PRICING & HOSTING PACKAGES SECTION          -->
+      <!-- ============================================== -->
+      <section
+        id="pricing"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50/50 border-y border-slate-100"
+      >
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span
+            class="text-xs font-bold text-brand-600 uppercase tracking-widest block"
+            >Paket Jasa Pembuatan Website & Hosting</span
+          >
+          <h2
+            class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1.5 tracking-tight"
+          >
+            Biaya Paket Terjangkau & Sudah Termasuk Hosting
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            Investasi transparan 1 tahun penuh. Sudah mencakup jasa setup,
+            template premium, sewa cloud hosting, serta integrasi QRIS Midtrans
+            & Escrow.
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto"
+        >
+          <!-- 1. Starter Card -->
+          <div
+            class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-900">
+                  Paket Starter UMKM
+                </h3>
+                <span
+                  class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600"
+                  >Usaha Pemula</span
+                >
+              </div>
+              <p class="text-xs text-slate-500 mt-1">
+                Cocok untuk UMKM yang baru mulai jualan online mandiri.
+              </p>
+              <div class="mt-6 pb-6 border-b border-slate-100">
+                <div class="flex items-baseline gap-1">
+                  <span
+                    class="text-3xl sm:text-4xl font-extrabold text-slate-900"
+                    >Rp 199.000</span
+                  >
+                  <span class="text-xs text-slate-500 font-medium"
+                    >/ tahun</span
+                  >
+                </div>
+                <p class="text-[11px] text-emerald-700 font-semibold mt-1.5">
+                  Termasuk Cloud Hosting Cuanin 1 Tahun Penuh
+                </p>
+              </div>
+              <ul class="mt-6 space-y-3.5 text-xs text-slate-600">
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span
+                    >Subdomain Toko:
+                    <strong class="font-mono text-slate-800"
+                      >namatoko.cuanin.com</strong
+                    ></span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Cloud Hosting 1 Tahun Penuh</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Katalog Hingga 50 Produk</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Pembayaran QRIS Midtrans Aktif</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Rekber Escrow Otomatis (Auto-Release 7 Hari)</span>
+                </li>
+              </ul>
+            </div>
+            <a
+              href="/order?package=starter"
+              class="mt-8 block w-full py-3 text-center rounded-full text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors"
+            >
+              Pesan Paket Starter &rarr;
+            </a>
+          </div>
+
+          <!-- 2. Pro Card (Center Highlighted Dark Card) -->
+          <div
+            class="bg-slate-900 text-white rounded-3xl border border-slate-800 p-8 sm:p-10 shadow-xl transform lg:-translate-y-2 flex flex-col justify-between relative ring-2 ring-brand-500/50"
+          >
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-white">
+                  Paket Pro Toko Cuanin
+                </h3>
+                <span
+                  class="px-3 py-1 rounded-full text-[11px] font-bold text-brand-300 bg-brand-500/20 border border-brand-500/30"
+                >
+                  Paling Diminati UMKM
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1.5">
+                Solusi lengkap website toko siap terima order tanpa pusing
+                teknis.
+              </p>
+              <div class="mt-6 pb-6 border-b border-slate-800">
+                <div class="flex items-baseline flex-wrap gap-1">
+                  <span class="text-3xl sm:text-4xl font-extrabold text-white"
+                    >Rp 349.000</span
+                  >
+                  <span class="text-xs text-slate-400 font-medium"
+                    >/ tahun</span
+                  >
+                </div>
+                <p class="text-[11px] text-emerald-400 font-semibold mt-1.5">
+                  Termasuk Cloud NVMe High-Speed Hosting 1 Tahun Penuh
+                </p>
+              </div>
+              <ul class="mt-6 space-y-3.5 text-xs text-slate-300">
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span
+                    >Subdomain Toko:
+                    <strong class="font-mono text-brand-300"
+                      >namatoko.cuanin.com</strong
+                    ></span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Cloud NVMe High-Speed Hosting 1 Tahun</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Upload Produk Tanpa Batas (Unlimited)</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Kalkulator Ongkos Kirim JNE & SiCepat Otomatis</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Rekber Escrow & Auto-Confirm 7 Hari</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Dashboard Toko & Payout Otomatis Midtrans Iris</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Pendampingan Setup WhatsApp & Katalog</span>
+                </li>
+              </ul>
+            </div>
+            <a
+              href="/order?package=pro"
+              class="mt-8 block w-full py-3.5 text-center rounded-full text-xs font-bold text-white bg-brand-600 hover:bg-brand-500 shadow-lg shadow-brand-500/35 transition-all"
+            >
+              Pesan Paket Pro Sekarang &rarr;
+            </a>
+          </div>
+
+          <!-- 3. Business Card -->
+          <div
+            class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-900">
+                  Paket Scale & Domain
+                </h3>
+                <span
+                  class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600"
+                  >Brand Berkembang</span
+                >
+              </div>
+              <p class="text-xs text-slate-500 mt-1">
+                Dukungan domain sendiri (.com / .id) dan server mandiri.
+              </p>
+              <div class="mt-6 pb-6 border-b border-slate-100">
+                <div class="flex items-baseline gap-1">
+                  <span
+                    class="text-3xl sm:text-4xl font-extrabold text-slate-900"
+                    >Rp 699.000</span
+                  >
+                  <span class="text-xs text-slate-500 font-medium"
+                    >/ tahun</span
+                  >
+                </div>
+                <p class="text-[11px] text-emerald-700 font-semibold mt-1.5">
+                  Termasuk Cloud VPS + Gratis Domain .com 1 Tahun
+                </p>
+              </div>
+              <ul class="mt-6 space-y-3.5 text-xs text-slate-600">
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Semua Fitur Paket Pro</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span
+                    >Bebas Pasang Domain Sendiri (<strong
+                      class="font-mono text-slate-800"
+                      >namatoko.com</strong
+                    >)</span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Dedicated Cloud VPS Server 1 Tahun</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Multi-Staff Operator & Kasir Toko</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <svg
+                    class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Setup & Upload Produk Dibantu Tim Cuanin</span>
+                </li>
+              </ul>
+            </div>
+            <a
+              href="/order?package=scale"
+              class="mt-8 block w-full py-3 text-center rounded-full text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors"
+            >
+              Pesan Paket Scale &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- 6. KEUNGGULAN ESCROW (Nilai Tambah & Rekber) -->
+      <!-- ============================================== -->
+      <section
+        id="keunggulan"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+      >
+        <div
+          class="bg-surface-tint rounded-3xl border border-brand-100 p-8 sm:p-14 lg:p-16"
+        >
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Column -->
+            <div class="lg:col-span-6 space-y-5">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-brand-200 text-brand-700 text-xs font-bold"
+              >
+                Solusi Masalah Pajak & Payment Gateway
+              </div>
+
+              <h2
+                class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight"
+              >
+                Mengapa UMKM Memilih Cuanin daripada Buat Website Sendiri?
+                <span
+                  class="block w-20 h-1 bg-brand-600 rounded-full mt-3"
+                ></span>
+              </h2>
+
+              <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Membuat website sendiri membutuhkan biaya developer jutaan
+                rupiah, sewa server bulanan, serta pendaftaran payment gateway
+                yang rumit dengan syarat legalitas PT/CV. Cuanin menyelesaikan
+                seluruh kendala tersebut secara praktis:
+              </p>
+
+              <ul class="space-y-3.5 text-xs sm:text-sm text-slate-700">
+                <li class="flex items-start gap-2.5">
+                  <span
+                    class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"
+                    >&check;</span
+                  >
+                  <span
+                    ><strong>Bebas Beban Pajak Gateway</strong>: Seluruh
+                    transaksi diproses via Midtrans Cuanin sebagai Merchant of
+                    Record, UMKM tidak dikenai beban pajak administrasi
+                    berganda.</span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span
+                    class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"
+                    >&check;</span
+                  >
+                  <span
+                    ><strong>Uang Penjualan 100% Utuh</strong>: Toko UMKM
+                    menerima seluruh uang penjualan bersih tanpa potongan komisi
+                    tersembunyi.</span
+                  >
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span
+                    class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5"
+                    >&check;</span
+                  >
+                  <span
+                    ><strong>Rekening Bersama Otomatis ala Marketplace</strong>:
+                    Pembeli merasa aman berbelanja karena uang ditahan di sistem
+                    rekening penampung sampai barang diterima (auto-confirm 7
+                    hari).</span
+                  >
+                </li>
+              </ul>
+
+              <div class="pt-2">
+                <a href="/order" class="btn-pill-primary">
+                  <span>Pesan Website Toko Sekarang</span>
+                  <span
+                    class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs"
+                    >&rarr;</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <!-- Right Column: 4 Floating Stat Cards -->
+            <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div class="card-floating p-6">
+                <span
+                  class="text-3xl sm:text-4xl font-extrabold text-brand-600 block"
+                  >100%</span
+                >
+                <span class="text-sm font-bold text-slate-900 mt-2 block"
+                  >Hak Bersih Toko UMKM</span
+                >
+                <p class="text-xs text-slate-500 mt-1 leading-normal">
+                  Toko menerima harga produk penuh tanpa potongan biaya sistem
+                  tersembunyi sepeserpun.
+                </p>
+              </div>
+
+              <div class="card-floating p-6">
+                <span
+                  class="text-3xl sm:text-4xl font-extrabold text-brand-600 block"
+                  >0 Biaya</span
+                >
+                <span class="text-sm font-bold text-slate-900 mt-2 block"
+                  >Bebas Sewa Gateway Bulanan</span
+                >
+                <p class="text-xs text-slate-500 mt-1 leading-normal">
+                  Toko tidak perlu membayar biaya sewa payment gateway bulanan
+                  atau perpanjangan lisensi rumit.
+                </p>
+              </div>
+
+              <div class="card-floating p-6">
+                <span
+                  class="text-3xl sm:text-4xl font-extrabold text-brand-600 block"
+                  >7 Hari</span
+                >
+                <span class="text-sm font-bold text-slate-900 mt-2 block"
+                  >Auto-Confirm Escrow</span
+                >
+                <p class="text-xs text-slate-500 mt-1 leading-normal">
+                  Sistem mencairkan dana otomatis jika pembeli tidak mengajukan
+                  komplain selama 7 hari sejak resi terbit.
+                </p>
+              </div>
+
+              <div class="card-floating p-6">
+                <span
+                  class="text-3xl sm:text-4xl font-extrabold text-brand-600 block"
+                  >Otomatis</span
+                >
+                <span class="text-sm font-bold text-slate-900 mt-2 block"
+                  >Payout via Midtrans Iris</span
+                >
+                <p class="text-xs text-slate-500 mt-1 leading-normal">
+                  Tarik saldo hasil jualan langsung ke rekening BCA, Mandiri,
+                  BRI, atau BNI secara instan.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============================================== -->
-    <!-- 3. TRUSTED ECOSYSTEM / PARTNERS LOGO CLOUD     -->
-    <!-- ============================================== -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="text-center mb-6">
-        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Didukung Ekosistem Pembayaran & Logistik Terpercaya di Indonesia</span>
-      </div>
-      <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-brand-600"></span> QRIS Nasional
-        </div>
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-blue-600"></span> Midtrans
-        </div>
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-emerald-600"></span> Bank Central Asia
-        </div>
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-yellow-600"></span> Bank Mandiri
-        </div>
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-rose-600"></span> JNE Express
-        </div>
-        <div class="flex items-center gap-2 font-extrabold text-slate-700 text-lg tracking-tight">
-          <span class="w-3 h-3 rounded-full bg-red-600"></span> SiCepat Ekspres
-        </div>
-      </div>
-    </section>
+      <!-- ============================================== -->
+      <!-- 7. CARA KERJA & CARA PESAN                     -->
+      <!-- ============================================== -->
+      <section
+        id="cara-kerja"
+        class="relative py-24 bg-slate-50 overflow-hidden"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- Heading -->
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <span
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 text-brand-600 text-xs font-bold uppercase tracking-widest mb-4"
+            >
+              Proses Instan
+            </span>
 
-    <!-- ============================================== -->
-    <!-- 4. TEMPLATES CATALOG SECTION                   -->
-    <!-- ============================================== -->
-    <section id="templates" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Katalog Desain Toko</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1.5 tracking-tight">Pilih Template Toko Sesuai Bidang Usaha</h2>
-        <p class="text-slate-600 text-sm mt-2">Setiap template dirancang khusus dengan katalog produk, keranjang belanja, integrasi kurir, dan pembayaran QRIS.</p>
-      </div>
-
-      <div id="template-catalog-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Dynamically loaded from /api/templates -->
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- 5. PRICING & HOSTING PACKAGES SECTION          -->
-    <!-- ============================================== -->
-    <section id="pricing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50/50 border-y border-slate-100">
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Paket Jasa Pembuatan Website & Hosting</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1.5 tracking-tight">Biaya Paket Terjangkau & Sudah Termasuk Hosting</h2>
-        <p class="text-slate-600 text-sm mt-2">Investasi transparan 1 tahun penuh. Sudah mencakup jasa setup, template premium, sewa cloud hosting, serta integrasi QRIS Midtrans & Escrow.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-        <!-- Starter Card -->
-        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <h3 class="text-lg font-bold text-slate-900">Paket Starter UMKM</h3>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600">Usaha Pemula</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-1">Cocok untuk UMKM yang baru mulai jualan online mandiri.</p>
-            <div class="mt-6 pb-6 border-b border-slate-100">
-              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">Rp 199.000</span>
-              <span class="text-xs text-slate-500 font-medium">/ tahun</span>
-              <p class="text-[11px] text-emerald-700 font-semibold mt-1.5">Termasuk Cloud Hosting Cuanin 1 Tahun Penuh</p>
-            </div>
-            <ul class="mt-6 space-y-3.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Subdomain Toko: <span class="font-mono font-bold text-slate-800">namatoko.cuanin.com</span></li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Cloud Hosting 1 Tahun Penuh</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Katalog Hingga 50 Produk</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Pembayaran QRIS Midtrans Aktif</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Rekber Escrow Otomatis (Auto-Release 7 Hari)</li>
-            </ul>
-          </div>
-          <a href="/order?package=starter" class="mt-8 block w-full py-3 text-center rounded-full text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors">
-            Pesan Paket Starter &rarr;
-          </a>
-        </div>
-
-        <!-- Pro Card (Center Highlighted Dark Card) -->
-        <div class="card-pricing-pro rounded-3xl p-8 sm:p-10 transform lg:-translate-y-2 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold text-white">Paket Pro Toko Cuanin</h3>
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold text-brand-300 bg-brand-500/20 border border-brand-500/30">
-                Paling Diminati UMKM
-              </span>
-            </div>
-            <p class="text-xs text-slate-400 mt-1.5">Solusi lengkap website toko siap terima order tanpa pusing teknis.</p>
-            <div class="mt-6 pb-6 border-b border-slate-800">
-              <span class="text-4xl sm:text-5xl font-extrabold text-white">Rp 349.000</span>
-              <span class="text-xs text-slate-400 font-medium">/ tahun</span>
-              <p class="text-[11px] text-emerald-400 font-semibold mt-1.5">Termasuk Cloud NVMe High-Speed Hosting 1 Tahun Penuh</p>
-            </div>
-            <ul class="mt-6 space-y-3.5 text-xs text-slate-300">
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Subdomain Toko: <span class="font-mono font-bold text-brand-300">namatoko.cuanin.com</span></li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Cloud NVMe High-Speed Hosting 1 Tahun</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Upload Produk Tanpa Batas (Unlimited)</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Kalkulator Ongkos Kirim JNE & SiCepat Otomatis</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Rekber Escrow & Auto-Confirm 7 Hari</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Dashboard Toko & Payout Otomatis Midtrans Iris</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-brand-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Pendampingan Setup WhatsApp & Katalog</li>
-            </ul>
-          </div>
-          <a href="/order?package=pro" class="mt-8 block w-full py-3.5 text-center rounded-full text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 shadow-lg shadow-brand-500/35 transition-all">
-            Pesan Paket Pro Sekarang &rarr;
-          </a>
-        </div>
-
-        <!-- Business Card -->
-        <div class="bg-white rounded-3xl border border-slate-200 p-8 sm:p-9 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between">
-              <h3 class="text-lg font-bold text-slate-900">Paket Scale & Domain</h3>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600">Brand Berkembang</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-1">Dukungan domain sendiri (.com / .id) dan server mandiri.</p>
-            <div class="mt-6 pb-6 border-b border-slate-100">
-              <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">Rp 699.000</span>
-              <span class="text-xs text-slate-500 font-medium">/ tahun</span>
-              <p class="text-[11px] text-emerald-700 font-semibold mt-1.5">Termasuk Cloud VPS + Gratis Domain .com 1 Tahun</p>
-            </div>
-            <ul class="mt-6 space-y-3.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Semua Fitur Paket Pro</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Bebas Pasang Domain Sendiri (<span class="font-mono font-bold">namatoko.com</span>)</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Dedicated Cloud VPS Server 1 Tahun</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Multi-Staff Operator & Kasir Toko</li>
-              <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Setup & Upload Produk Dibantu Tim Cuanin</li>
-            </ul>
-          </div>
-          <a href="/order?package=scale" class="mt-8 block w-full py-3 text-center rounded-full text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors">
-            Pesan Paket Scale &rarr;
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- 6. KEUNGGULAN ESCROW (Nilai Tambah & Rekber) -->
-    <!-- ============================================== -->
-    <section id="keunggulan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="bg-surface-tint rounded-3xl border border-brand-100 p-8 sm:p-14 lg:p-16">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          <!-- Left Column -->
-          <div class="lg:col-span-6 space-y-5">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-brand-200 text-brand-700 text-xs font-bold">
-              Solusi Masalah Pajak & Payment Gateway
-            </div>
-
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Mengapa UMKM Memilih Cuanin daripada Buat Website Sendiri?
-              <span class="block w-20 h-1 bg-brand-600 rounded-full mt-3"></span>
+            <h2
+              class="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight"
+            >
+              Mulai Jualan Online
+              <span class="text-brand-600">dalam 3 Langkah</span>
             </h2>
 
-            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Membuat website sendiri membutuhkan biaya developer jutaan rupiah, sewa server bulanan, serta pendaftaran payment gateway yang rumit dengan syarat legalitas PT/CV. Cuanin menyelesaikan seluruh kendala tersebut secara praktis:
+            <p class="text-sm sm:text-base text-slate-500 leading-relaxed mt-4">
+              Tidak perlu memahami teknis pembuatan website. Cuanin membantu
+              menyiapkan website bisnis Anda melalui proses pemesanan yang
+              mudah, praktis, dan transparan.
+            </p>
+          </div>
+
+          <!-- Steps -->
+          <div class="relative grid grid-cols-1 md:grid-cols-3 gap-7">
+            <!-- Connecting Line Desktop -->
+            <div
+              class="hidden md:block absolute top-12 left-[20%] right-[20%] border-t-2 border-dashed border-brand-200"
+            ></div>
+
+            <!-- Step 1 -->
+            <div
+              class="relative bg-white rounded-3xl border border-slate-200 p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div
+                class="relative z-10 w-20 h-20 rounded-3xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center mx-auto mb-7"
+              >
+                <svg
+                  class="w-9 h-9"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                    d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                    d="M8 8h8M8 12h5m-5 4h3"
+                  />
+                </svg>
+              </div>
+
+              <span
+                class="text-xs font-bold text-brand-600 tracking-widest uppercase"
+              >
+                Langkah 01
+              </span>
+
+              <h3 class="font-extrabold text-slate-900 text-lg mt-3 mb-3">
+                Pilih Template & Paket
+              </h3>
+
+              <p class="text-sm text-slate-500 leading-7">
+                Pilih desain website sesuai kebutuhan bisnis, tentukan paket
+                layanan, kemudian masukkan nama subdomain toko yang ingin
+                digunakan.
+              </p>
+
+              <div class="mt-6 pt-5 border-t border-slate-100">
+                <span class="text-xs font-semibold text-slate-400">
+                  Tentukan identitas website Anda
+                </span>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div
+              class="relative bg-white rounded-3xl border border-slate-200 p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div
+                class="relative z-10 w-20 h-20 rounded-3xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center mx-auto mb-7"
+              >
+                <svg
+                  class="w-9 h-9"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <rect
+                    x="3"
+                    y="5"
+                    width="18"
+                    height="14"
+                    rx="2"
+                    stroke-width="1.7"
+                  />
+                  <path d="M3 10h18" stroke-width="1.7" />
+                  <path
+                    d="M7 15h4m3 0h3"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+
+              <span
+                class="text-xs font-bold text-brand-600 tracking-widest uppercase"
+              >
+                Langkah 02
+              </span>
+
+              <h3 class="font-extrabold text-slate-900 text-lg mt-3 mb-3">
+                Lakukan Pembayaran
+              </h3>
+
+              <p class="text-sm text-slate-500 leading-7">
+                Periksa kembali detail pesanan dan selesaikan pembayaran biaya
+                pembuatan website maupun hosting melalui metode pembayaran yang
+                tersedia.
+              </p>
+
+              <div class="mt-6 pt-5 border-t border-slate-100">
+                <span class="text-xs font-semibold text-slate-400">
+                  Transaksi melalui sistem pembayaran
+                </span>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div
+              class="relative bg-white rounded-3xl border border-slate-200 p-8 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <div
+                class="relative z-10 w-20 h-20 rounded-3xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center mx-auto mb-7"
+              >
+                <svg
+                  class="w-9 h-9"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                    d="M3 11.5L12 4l9 7.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1v-8.5z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                    d="M9 21v-7h6v7"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.7"
+                    d="M8 10h.01M12 10h.01M16 10h.01"
+                  />
+                </svg>
+              </div>
+
+              <span
+                class="text-xs font-bold text-brand-600 tracking-widest uppercase"
+              >
+                Langkah 03
+              </span>
+
+              <h3 class="font-extrabold text-slate-900 text-lg mt-3 mb-3">
+                Website Siap Digunakan
+              </h3>
+
+              <p class="text-sm text-slate-500 leading-7">
+                Setelah proses pembuatan dan konfigurasi selesai, website bisnis
+                Anda dapat diakses melalui subdomain yang dipilih dan siap
+                digunakan untuk memperkenalkan produk kepada pelanggan.
+              </p>
+
+              <div class="mt-6 pt-5 border-t border-slate-100">
+                <span class="text-xs font-semibold text-slate-400">
+                  Saatnya mengembangkan bisnis online
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom CTA -->
+          <div class="mt-12 text-center">
+            <a
+              href="/order"
+              class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold shadow-lg shadow-brand-600/20 transition-all duration-200"
+            >
+              Mulai Buat Website
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 12h14m-6-6l6 6-6 6"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- 8. FREQUENTLY ASKED QUESTIONS (FAQ)            -->
+      <!-- ============================================== -->
+      <section
+        id="faq"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50/60 border-t border-slate-100"
+      >
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span
+            class="text-xs font-bold text-brand-600 uppercase tracking-widest block"
+            >Tanya Jawab</span
+          >
+          <h2 class="text-3xl font-extrabold text-slate-900 mt-1.5">
+            Pertanyaan yang Sering Diajukan
+          </h2>
+          <p class="text-slate-600 text-sm mt-2">
+            Semua hal yang perlu Anda ketahui tentang layanan website toko
+            online UMKM Cuanin.
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-4">
+          <div
+            class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2"
+          >
+            <h3 class="text-sm font-bold text-slate-900">
+              Apakah pemilik toko harus mengerti teknis hosting atau coding?
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Sama sekali tidak perlu. Seluruh urusan teknis seperti sewa server
+              cloud hosting, database, koneksi domain, dan konfigurasi payment
+              gateway QRIS disiapkan oleh tim Cuanin.
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2"
+          >
+            <h3 class="text-sm font-bold text-slate-900">
+              Bagaimana pelanggan berbelanja dan membayar di website toko UMKM?
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Pelanggan cukup membuka website toko Anda, memilih produk, memilih
+              kurir pengiriman (JNE/SiCepat), lalu melakukan pembayaran melalui
+              scan QRIS menggunakan Mobile Banking atau dompet digital apa saja.
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2"
+          >
+            <h3 class="text-sm font-bold text-slate-900">
+              Kapan hasil penjualan dapat ditarik ke rekening bank UMKM?
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Dana penjualan otomatis cair ke saldo aktif pemilik toko setelah
+              pelanggan mengonfirmasi barang diterima, atau maksimal 7 hari
+              setelah nomor resi kurir terbit. Saldo dapat ditarik kapan saja ke
+              rekening bank (BCA, Mandiri, BRI, BNI) melalui penarikan otomatis
+              Midtrans Iris.
+            </p>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2"
+          >
+            <h3 class="text-sm font-bold text-slate-900">
+              Berapa lama website toko aktif setelah pembayaran paket?
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Website toko online mandiri Anda langsung aktif secara instan
+              dalam beberapa menit setelah pembayaran QRIS jasa terverifikasi
+              sistem.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================== -->
+    <!-- 9. FOOTER SECTION                              -->
+    <!-- ============================================== -->
+    <footer class="bg-[#101827] text-slate-400 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+        <!-- Footer Main -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-14"
+        >
+          <!-- Brand -->
+          <div class="lg:col-span-2">
+            <a href="/" class="inline-flex items-center gap-3 mb-5">
+              <img
+                src="/logo_cuanin.svg"
+                alt="Cuanin"
+                class="h-11 w-auto brightness-0 invert"
+              />
+            </a>
+
+            <p class="text-sm text-slate-400 leading-7 max-w-md">
+              Cuanin membantu UMKM membangun kehadiran digital melalui website
+              profesional, modern, dan mudah digunakan. Mulai kembangkan bisnis
+              dan jangkau lebih banyak pelanggan melalui website milikmu
+              sendiri.
             </p>
 
-            <ul class="space-y-3.5 text-xs sm:text-sm text-slate-700">
-              <li class="flex items-start gap-2.5">
-                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&check;</span>
-                <span><strong>Bebas Beban Pajak Gateway</strong>: Seluruh transaksi diproses via Midtrans Cuanin sebagai Merchant of Record, UMKM tidak dikenai beban pajak administrasi berganda.</span>
+            <div
+              class="mt-6 inline-flex items-center gap-2 text-xs text-slate-500"
+            >
+              Solusi digital untuk pertumbuhan bisnis UMKM
+            </div>
+          </div>
+
+          <!-- Navigasi -->
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-5">Navigasi</h3>
+
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a href="#templates" class="hover:text-white transition-colors">
+                  Template Website
+                </a>
               </li>
-              <li class="flex items-start gap-2.5">
-                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&check;</span>
-                <span><strong>Uang Penjualan 100% Utuh</strong>: Toko UMKM menerima seluruh uang penjualan bersih tanpa potongan komisi tersembunyi.</span>
+              <li>
+                <a href="#pricing" class="hover:text-white transition-colors">
+                  Paket & Hosting
+                </a>
               </li>
-              <li class="flex items-start gap-2.5">
-                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">&check;</span>
-                <span><strong>Rekening Bersama Otomatis ala Marketplace</strong>: Pembeli merasa aman berbelanja karena uang ditahan di sistem rekening penampung sampai barang diterima (auto-confirm 7 hari).</span>
+              <li>
+                <a
+                  href="#keunggulan"
+                  class="hover:text-white transition-colors"
+                >
+                  Keunggulan
+                </a>
+              </li>
+              <li>
+                <a href="/order" class="hover:text-white transition-colors">
+                  Pesan Website
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Informasi -->
+          <div>
+            <h3 class="text-white font-semibold text-sm mb-5">Informasi</h3>
+
+            <ul class="space-y-3 text-sm">
+              <li>
+                <a
+                  href="/toko/kopisenja"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-white transition-colors"
+                >
+                  Contoh Website
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/superadmin"
+                  class="hover:text-white transition-colors"
+                >
+                  Portal Superadmin
+                </a>
               </li>
             </ul>
 
-            <div class="pt-2">
-              <a href="/order" class="btn-pill-primary">
-                <span>Pesan Website Toko Sekarang</span>
-                <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs">&rarr;</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Column: 4 Floating Stat Cards -->
-          <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div class="card-floating p-6">
-              <span class="text-3xl sm:text-4xl font-extrabold text-brand-600 block">100%</span>
-              <span class="text-sm font-bold text-slate-900 mt-2 block">Hak Bersih Toko UMKM</span>
-              <p class="text-xs text-slate-500 mt-1 leading-normal">Toko menerima harga produk penuh tanpa potongan biaya sistem tersembunyi sepeserpun.</p>
-            </div>
-
-            <div class="card-floating p-6">
-              <span class="text-3xl sm:text-4xl font-extrabold text-brand-600 block">0 Biaya</span>
-              <span class="text-sm font-bold text-slate-900 mt-2 block">Bebas Sewa Gateway Bulanan</span>
-              <p class="text-xs text-slate-500 mt-1 leading-normal">Toko tidak perlu membayar biaya sewa payment gateway bulanan atau perpanjangan lisensi rumit.</p>
-            </div>
-
-            <div class="card-floating p-6">
-              <span class="text-3xl sm:text-4xl font-extrabold text-brand-600 block">7 Hari</span>
-              <span class="text-sm font-bold text-slate-900 mt-2 block">Auto-Confirm Escrow</span>
-              <p class="text-xs text-slate-500 mt-1 leading-normal">Sistem mencairkan dana otomatis jika pembeli tidak mengajukan komplain selama 7 hari sejak resi terbit.</p>
-            </div>
-
-            <div class="card-floating p-6">
-              <span class="text-3xl sm:text-4xl font-extrabold text-brand-600 block">Otomatis</span>
-              <span class="text-sm font-bold text-slate-900 mt-2 block">Payout via Midtrans Iris</span>
-              <p class="text-xs text-slate-500 mt-1 leading-normal">Tarik saldo hasil jualan langsung ke rekening BCA, Mandiri, BRI, atau BNI secara instan.</p>
+            <div class="mt-7">
+              <p class="text-xs text-slate-500 leading-6">
+                Bangun identitas digital bisnis bersama Cuanin.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ============================================== -->
-    <!-- 7. CARA KERJA & CARA PESAN                     -->
-    <!-- ============================================== -->
-    <section id="cara-kerja" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Proses Instan</span>
-        <h2 class="text-3xl font-extrabold text-slate-900 mt-1.5">Mulai Jualan Online dalam 3 Langkah</h2>
-      </div>
+        <!-- Footer Bottom -->
+        <div class="border-t border-slate-800 py-6">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-4"
+          >
+            <p class="text-xs text-slate-500 text-center md:text-left">
+              © 2026 Cuanin. Hak Cipta Dilindungi.
+            </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 font-extrabold text-lg flex items-center justify-center mx-auto">
-            1
+            <p class="text-xs text-slate-500 text-center">
+              Powered by Midtrans Snap & PostgreSQL
+            </p>
           </div>
-          <h3 class="font-bold text-slate-900 text-base">Pilih Paket & Subdomain</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Tentukan paket dan nama subdomain toko yang Anda inginkan melalui formulir pemesanan online.</p>
-        </div>
-
-        <div class="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 font-extrabold text-lg flex items-center justify-center mx-auto">
-            2
-          </div>
-          <h3 class="font-bold text-slate-900 text-base">Pembayaran Jasa via QRIS</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Selesaikan pembayaran biaya pembuatan dan sewa hosting via QRIS Midtrans secara aman dan instan.</p>
-        </div>
-
-        <div class="bg-white rounded-3xl border border-slate-200 p-8 text-center space-y-4">
-          <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 font-extrabold text-lg flex items-center justify-center mx-auto">
-            3
-          </div>
-          <h3 class="font-bold text-slate-900 text-base">Toko Aktif & Siap Jualan</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Website toko Anda langsung live di internet, siap diisi produk, dan menerima pesanan dari pelanggan.</p>
         </div>
       </div>
-    </section>
+    </footer>
 
-    <!-- ============================================== -->
-    <!-- 8. FREQUENTLY ASKED QUESTIONS (FAQ)            -->
-    <!-- ============================================== -->
-    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50/60 border-t border-slate-100">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest block">Tanya Jawab</span>
-        <h2 class="text-3xl font-extrabold text-slate-900 mt-1.5">Pertanyaan yang Sering Diajukan</h2>
-        <p class="text-slate-600 text-sm mt-2">Semua hal yang perlu Anda ketahui tentang layanan website toko online UMKM Cuanin.</p>
-      </div>
-
-      <div class="max-w-3xl mx-auto space-y-4">
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2">
-          <h3 class="text-sm font-bold text-slate-900">Apakah pemilik toko harus mengerti teknis hosting atau coding?</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Sama sekali tidak perlu. Seluruh urusan teknis seperti sewa server cloud hosting, database, koneksi domain, dan konfigurasi payment gateway QRIS disiapkan oleh tim Cuanin.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2">
-          <h3 class="text-sm font-bold text-slate-900">Bagaimana pelanggan berbelanja dan membayar di website toko UMKM?</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Pelanggan cukup membuka website toko Anda, memilih produk, memilih kurir pengiriman (JNE/SiCepat), lalu melakukan pembayaran melalui scan QRIS menggunakan Mobile Banking atau dompet digital apa saja.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2">
-          <h3 class="text-sm font-bold text-slate-900">Kapan hasil penjualan dapat ditarik ke rekening bank UMKM?</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Dana penjualan otomatis cair ke saldo aktif pemilik toko setelah pelanggan mengonfirmasi barang diterima, atau maksimal 7 hari setelah nomor resi kurir terbit. Saldo dapat ditarik kapan saja ke rekening bank (BCA, Mandiri, BRI, BNI) melalui penarikan otomatis Midtrans Iris.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-2">
-          <h3 class="text-sm font-bold text-slate-900">Berapa lama website toko aktif setelah pembayaran paket?</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">Website toko online mandiri Anda langsung aktif secara instan dalam beberapa menit setelah pembayaran QRIS jasa terverifikasi sistem.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ============================================== -->
-  <!-- 9. FOOTER SECTION                              -->
-  <!-- ============================================== -->
-  <footer class="bg-surface-dark text-slate-400 border-t border-slate-800 py-12 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
-        <a href="/" class="flex items-center gap-3">
-          <img src="/logo_cuanin.svg" alt="cuan.in" class="h-10 w-auto brightness-0 invert">
-          <span class="text-slate-400 text-xs hidden sm:inline">| Jasa Pembuatan Website & Hosting Toko UMKM</span>
-        </a>
-
-        <div class="flex items-center gap-6 text-slate-400">
-          <a href="#templates" class="hover:text-white transition-colors">Template</a>
-          <a href="#pricing" class="hover:text-white transition-colors">Paket & Hosting</a>
-          <a href="#keunggulan" class="hover:text-white transition-colors">Keunggulan</a>
-          <a href="/order" class="hover:text-white transition-colors font-bold text-brand-400">Pesan Website</a>
-          <a href="/toko/kopisenja" target="_blank" class="hover:text-white transition-colors">Contoh Toko</a>
-        </div>
-      </div>
-
-      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
-        <p class="text-slate-500">Ditenagai oleh Midtrans Snap QRIS & Iris Payouts Sandbox Architecture. Hak Cipta 2026 Tim Cuanin.</p>
-        <div>
-          <a href="/superadmin" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-darkcard hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 transition-colors">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            <span>Portal Superadmin Tim Cuanin</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="/app.js"></script>
-</body>
+    <script src="/app.js"></script>
+  </body>
 </html>
