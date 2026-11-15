@@ -35,7 +35,7 @@ function triggerSnapPayment() {
 
 // Cuanin Dedicated Order Page Logic
 let selectedPackageSlug = "pro";
-let selectedPackagePrice = 349000;
+let selectedPackagePrice = 699000;
 let selectedPackageTitle = "Paket Pro Toko Cuanin";
 
 let selectedTemplateId = "tpl-kuliner";
