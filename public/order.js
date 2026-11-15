@@ -191,8 +191,27 @@ function handleStoreNameChange(value) {
     value.trim() || "Toko Berkah Nusantara";
 }
 
+function requireLoginForOrderPage() {
+  const token = localStorage.getItem("cuanin_token");
+  if (!token) {
+    showToast(
+      "Silakan login terlebih dahulu untuk melanjutkan ke pembayaran.",
+      "error",
+    );
+    setTimeout(() => {
+      window.location.href = "/?auth=login";
+    }, 700);
+    return false;
+  }
+  return true;
+}
+
 async function handleOrderSubmit(e) {
   e.preventDefault();
+
+  if (!requireLoginForOrderPage()) {
+    return;
+  }
 
   const subdomain = document.getElementById("input-subdomain").value.trim();
   const store_name = document.getElementById("input-store-name").value.trim();
@@ -218,7 +237,10 @@ async function handleOrderSubmit(e) {
   try {
     const res = await fetch("/api/platform/order-website", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("cuanin_token")}`,
+      },
       body: JSON.stringify({
         template_id: selectedTemplateId,
         package_price: selectedPackagePrice,
@@ -309,6 +331,10 @@ function handleSimulatePaymentSuccess() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!requireLoginForOrderPage()) {
+    return;
+  }
+
   const params = new URLSearchParams(window.location.search);
   const pkg = params.get("package");
   const tpl = params.get("template");
@@ -411,16 +437,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function checkOrderAuthState() {
   const userStr = localStorage.getItem("cuanin_user");
-  if (!userStr) return;
+  if (!userStr) {
+    requireLoginForOrderPage();
+    return;
+  }
   try {
     const user = JSON.parse(userStr);
     const ownerNameInput = document.getElementById("input-owner-name");
     const emailInput = document.getElementById("input-email");
     const phoneInput = document.getElementById("input-phone");
 
-    if (ownerNameInput && !ownerNameInput.value) ownerNameInput.value = user.name || "";
+    if (ownerNameInput && !ownerNameInput.value)
+      ownerNameInput.value = user.name || "";
     if (emailInput && !emailInput.value) emailInput.value = user.email || "";
-    if (phoneInput && !phoneInput.value && user.phone) phoneInput.value = user.phone || "";
+    if (phoneInput && !phoneInput.value && user.phone)
+      phoneInput.value = user.phone || "";
 
     // Show auth notice pill
     const container = document.getElementById("order-flow-container");
@@ -428,7 +459,8 @@ function checkOrderAuthState() {
     if (!userBadge && container) {
       const badge = document.createElement("div");
       badge.id = "order-user-auth-badge";
-      badge.className = "lg:col-span-12 p-3.5 rounded-2xl bg-brand-50 border border-brand-200 text-brand-800 text-xs flex items-center justify-between";
+      badge.className =
+        "lg:col-span-12 p-3.5 rounded-2xl bg-brand-50 border border-brand-200 text-brand-800 text-xs flex items-center justify-between";
       badge.innerHTML = `
         <div class="flex items-center gap-2">
           <span class="w-6 h-6 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-[10px]">${(user.name || "U")[0].toUpperCase()}</span>

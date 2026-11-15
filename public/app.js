@@ -52,50 +52,107 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-async function loadTemplates() {
+function getStoredAuthToken() {
+  return localStorage.getItem("cuanin_token") || "";
+}
+
+function requireAuthForAction(
+  message = "Silakan login terlebih dahulu untuk mengakses fitur ini.",
+) {
+  const token = getStoredAuthToken();
+  if (!token) {
+    showToast(message, "error");
+    openAuthModal("login");
+    return false;
+  }
+  return true;
+}
+
+function getFallbackTemplates() {
+  return [
+    {
+      id: "tpl-kuliner",
+      name: "Katalog Kuliner & Kopi Artisan",
+      category: "Kuliner & F&B",
+      description: "Template toko produk kuliner, kopi, dan cafe modern.",
+      price: 299000,
+      image_url: "/images/template-kuliner.jpg",
+      preview_url: "/toko/kopisenja",
+    },
+    {
+      id: "tpl-fashion",
+      name: "Butik & Fashion Muslim Modern",
+      category: "Fashion & Busana",
+      description: "Template fashion muslim yang elegan dan siap jualan.",
+      price: 299000,
+      image_url: "/images/template-fashion.jpg",
+      preview_url: "/toko/butikaisyah",
+    },
+    {
+      id: "tpl-kriya",
+      name: "Galeri Kriya & Kerajinan Kayu",
+      category: "Kriya & Handicraft",
+      description: "Template untuk produk kerajinan dan handmade premium.",
+      price: 299000,
+      image_url: "/images/template-kriya.jpg",
+      preview_url: "/toko/kriyabambu",
+    },
+    {
+      id: "tpl-beauty",
+      name: "Skincare Alami & Herbal Nusantara",
+      category: "Kecantikan & Herbal",
+      description: "Template produk kecantikan dengan layout yang bersih.",
+      price: 299000,
+      image_url: "/images/template-beauty.jpg",
+      preview_url: "/toko/naturaherbal",
+    },
+    {
+      id: "tpl-gadget",
+      name: "Elektronik & Aksesoris Gadget",
+      category: "Gadget & Elektronik",
+      description: "Template untuk toko gadget dan electronics.",
+      price: 299000,
+      image_url: "/images/template-gadget.jpg",
+      preview_url: "/toko/gadgetpedia",
+    },
+    {
+      id: "tpl-florist",
+      name: "Toko Tanaman Hias & Florist Segar",
+      category: "Tanaman & Florist",
+      description: "Template tanaman hias dan florist dengan tampilan fresh.",
+      price: 299000,
+      image_url: "/images/template-florist.jpg",
+      preview_url: "/toko/kebunkita",
+    },
+  ];
+}
+
+function renderTemplateCatalog(templateList) {
   const container = document.getElementById("template-catalog-grid");
   if (!container) return;
 
-  try {
-    const res = await fetch("/api/templates");
+  container.innerHTML = templateList
+    .map((tpl) => {
+      const demo = demoSubdomainMap[tpl.id];
+      const isNewTemplate = Boolean(newTemplatePreviewMap[tpl.id]);
+      const previewUrl = tpl.preview_url || newTemplatePreviewMap[tpl.id] || "";
+      const demoUrl = demo?.url || previewUrl;
+      const imageUrl = escapeHtml(tpl.image_url || "");
+      const name = escapeHtml(tpl.name || "Template");
+      const category = escapeHtml(tpl.category || "Umum");
+      const description = escapeHtml(
+        tpl.description || "Template siap digunakan.",
+      );
+      const price = Number(tpl.price || 0).toLocaleString("id-ID");
 
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
-
-    const json = await res.json();
-
-    if (!json.success || !Array.isArray(json.data)) {
-      throw new Error("Data template tidak valid");
-    }
-
-    container.innerHTML = json.data
-      .map((tpl) => {
-        const demo = demoSubdomainMap[tpl.id];
-        const isNewTemplate = Boolean(newTemplatePreviewMap[tpl.id]);
-
-        // Prioritaskan preview_url dari database,
-        // lalu gunakan fallback map untuk template baru.
-        const previewUrl =
-          tpl.preview_url || newTemplatePreviewMap[tpl.id] || "";
-
-        // Template lama tetap menggunakan demo toko.
-        const demoUrl = demo?.url || previewUrl;
-
-        const imageUrl = escapeHtml(tpl.image_url);
-        const name = escapeHtml(tpl.name);
-        const category = escapeHtml(tpl.category);
-        const description = escapeHtml(tpl.description);
-        const price = Number(tpl.price || 0).toLocaleString("id-ID");
-
-        return `
+      return `
         <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
 
           <div>
             <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
 
               <img
-                src="${imageUrl}"
+                src="${imageUrl || "/logo_cuanin.svg"}"
                 alt="${name}"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"
@@ -108,14 +165,13 @@ async function loadTemplates() {
               ${
                 demoUrl
                   ? `
-                    <a
-                      href="${escapeHtml(demoUrl)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all"
+                    <button
+                      type="button"
+                      data-preview-link="${escapeHtml(demoUrl)}"
+                      class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all cursor-pointer"
                     >
                       Buka Preview ↗
-                    </a>
+                    </button>
                   `
                   : ""
               }
@@ -156,29 +212,89 @@ async function loadTemplates() {
               Mulai Rp ${price}
             </div>
 
-            <a
-              href="/order?template=${encodeURIComponent(tpl.id)}"
-              class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs"
+            <button
+              type="button"
+              data-order-link="/order?template=${encodeURIComponent(tpl.id)}"
+              class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs cursor-pointer"
             >
               Pilih Template & Pesan Web →
-            </a>
+            </button>
 
           </div>
         </div>
       `;
-      })
-      .join("");
-  } catch (err) {
-    console.error("Gagal memuat template:", err);
+    })
+    .join("");
 
-    container.innerHTML = `
-      <div class="col-span-3 text-center py-8 text-rose-500 text-xs">
-        Gagal memuat template: ${escapeHtml(err.message)}
-      </div>
-    `;
-  }
+  container.querySelectorAll("[data-preview-link]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (
+        !requireAuthForAction(
+          "Silakan login terlebih dahulu sebelum membuka preview template.",
+        )
+      ) {
+        return;
+      }
+      const target = button.getAttribute("data-preview-link");
+      if (target) {
+        window.open(target, "_blank", "noopener,noreferrer");
+      }
+    });
+  });
+
+  container.querySelectorAll("[data-order-link]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (
+        !requireAuthForAction(
+          "Silakan login terlebih dahulu sebelum memilih template dan lanjut ke pembayaran.",
+        )
+      ) {
+        return;
+      }
+      const target = button.getAttribute("data-order-link");
+      if (target) {
+        window.location.href = target;
+      }
+    });
+  });
 }
 
+async function loadTemplates() {
+  const container = document.getElementById("template-catalog-grid");
+  if (!container) return;
+
+  try {
+    const headers = {};
+    const token = getStoredAuthToken();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const res = await fetch("/api/templates", { headers });
+
+    if (res.status === 401 || res.status === 403) {
+      renderTemplateCatalog(getFallbackTemplates());
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const json = await res.json();
+
+    if (!json.success || !Array.isArray(json.data)) {
+      throw new Error("Data template tidak valid");
+    }
+
+    renderTemplateCatalog(json.data);
+  } catch (err) {
+    console.error("Gagal memuat template:", err);
+    renderTemplateCatalog(getFallbackTemplates());
+  }
+}
 // ==============================================
 // AUTHENTICATION & SESSION MANAGEMENT
 // ==============================================
@@ -233,13 +349,17 @@ function switchAuthTab(tab) {
   if (!btnLogin || !btnRegister) return;
 
   if (tab === "login") {
-    btnLogin.className = "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
-    btnRegister.className = "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
+    btnLogin.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
+    btnRegister.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
     if (panelLogin) panelLogin.classList.remove("hidden");
     if (panelRegister) panelRegister.classList.add("hidden");
   } else {
-    btnRegister.className = "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
-    btnLogin.className = "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
+    btnRegister.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
+    btnLogin.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
     if (panelRegister) panelRegister.classList.remove("hidden");
     if (panelLogin) panelLogin.classList.add("hidden");
   }
@@ -382,7 +502,12 @@ function updateNavAuthState() {
       if (emailEl) emailEl.textContent = user.email || "";
       if (avatarEl) avatarEl.textContent = (user.name || "U")[0].toUpperCase();
       if (roleEl) {
-        roleEl.textContent = user.role === "TENANT_OWNER" ? "Owner Toko" : user.role === "ADMIN" ? "Admin" : "Member";
+        roleEl.textContent =
+          user.role === "TENANT_OWNER"
+            ? "Owner Toko"
+            : user.role === "ADMIN"
+              ? "Admin"
+              : "Member";
       }
 
       if (storeItem && storeLink) {
@@ -414,6 +539,11 @@ function performLogout() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("auth") === "login") {
+    openAuthModal("login");
+  }
+
   loadTemplates();
   updateNavAuthState();
 });
