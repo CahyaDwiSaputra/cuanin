@@ -784,6 +784,27 @@ ALTER TABLE ONLY public.products
 ALTER TABLE ONLY public.tenants
     ADD CONSTRAINT tenants_template_id_fkey FOREIGN KEY (template_id) REFERENCES public.templates(id);
 
+CREATE TABLE IF NOT EXISTS public.users (
+    id SERIAL PRIMARY KEY,
+    name character varying(120) NOT NULL,
+    email character varying(150) NOT NULL UNIQUE,
+    password_hash character varying(255) NOT NULL,
+    phone character varying(30),
+    role character varying(30) DEFAULT 'USER'::character varying,
+    avatar_url text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE ONLY public.tenants
+    ADD COLUMN IF NOT EXISTS user_id integer REFERENCES public.users(id) ON DELETE SET NULL;
+
+INSERT INTO public.users (name, email, password_hash, phone, role)
+VALUES 
+    ('User Demo Cuanin', 'user@cuanin.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081299887766', 'USER'),
+    ('Budi Santoso', 'owner@kopisenja.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081234567890', 'TENANT_OWNER'),
+    ('Superadmin Cuanin', 'admin@cuanin.com', '$2b$10$4F/kzcD5Dwf3ExsCviZLhOKIJftgFEom2cC4KjucJakNDm7WAO9bq', '08111222333', 'ADMIN')
+ON CONFLICT (email) DO NOTHING;
 
 --
 -- PostgreSQL database dump complete

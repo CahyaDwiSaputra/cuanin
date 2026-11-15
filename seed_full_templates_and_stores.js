@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Pool } = require("pg");
 const bcrypt = require("bcryptjs");
 
@@ -646,6 +647,27 @@ async function seed() {
 
       const tenantId = res.rows[0].id;
 
+      // Upsert into users table for unified auth
+      const userRes = await client.query(
+        `
+        INSERT INTO users (name, email, password_hash, phone, role)
+        VALUES ($1, $2, $3, $4, 'TENANT_OWNER')
+        ON CONFLICT (email) DO UPDATE SET
+          name = EXCLUDED.name,
+          password_hash = EXCLUDED.password_hash,
+          phone = EXCLUDED.phone
+        RETURNING id;
+      `,
+        [t.owner_name, t.email, defaultPasswordHash, t.phone]
+      );
+      const userId = userRes.rows[0].id;
+
+      // Link tenant to user
+      await client.query("UPDATE tenants SET user_id = $1 WHERE id = $2", [
+        userId,
+        tenantId,
+      ]);
+
       // Delete old products for clean enrichment
       await client.query("DELETE FROM products WHERE tenant_id = $1", [
         tenantId,
@@ -670,6 +692,17 @@ async function seed() {
         );
       }
     }
+
+    // Seed regular demo customer user
+    await client.query(
+      `
+      INSERT INTO users (name, email, password_hash, phone, role)
+      VALUES ('User Demo Cuanin', 'user@cuanin.com', $1, '081299887766', 'USER')
+      ON CONFLICT (email) DO UPDATE SET
+        password_hash = EXCLUDED.password_hash;
+    `,
+      [defaultPasswordHash]
+    );
 
     await client.query("COMMIT");
     console.log(

@@ -404,4 +404,39 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedTemplate.title,
     selectedTemplate.category,
   );
+
+  // Check and autofill if user is logged in
+  checkOrderAuthState();
 });
+
+function checkOrderAuthState() {
+  const userStr = localStorage.getItem("cuanin_user");
+  if (!userStr) return;
+  try {
+    const user = JSON.parse(userStr);
+    const ownerNameInput = document.getElementById("input-owner-name");
+    const emailInput = document.getElementById("input-email");
+    const phoneInput = document.getElementById("input-phone");
+
+    if (ownerNameInput && !ownerNameInput.value) ownerNameInput.value = user.name || "";
+    if (emailInput && !emailInput.value) emailInput.value = user.email || "";
+    if (phoneInput && !phoneInput.value && user.phone) phoneInput.value = user.phone || "";
+
+    // Show auth notice pill
+    const container = document.getElementById("order-flow-container");
+    const userBadge = document.getElementById("order-user-auth-badge");
+    if (!userBadge && container) {
+      const badge = document.createElement("div");
+      badge.id = "order-user-auth-badge";
+      badge.className = "lg:col-span-12 p-3.5 rounded-2xl bg-brand-50 border border-brand-200 text-brand-800 text-xs flex items-center justify-between";
+      badge.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-[10px]">${(user.name || "U")[0].toUpperCase()}</span>
+          <span>Terhubung dengan akun Cuanin: <strong>${user.name}</strong> (${user.email}). Toko yang Anda pesan akan langsung terhubung ke akun Anda.</span>
+        </div>
+        <button type="button" onclick="localStorage.removeItem('cuanin_token'); localStorage.removeItem('cuanin_user'); location.reload();" class="text-rose-600 font-bold hover:underline cursor-pointer">Ganti Akun</button>
+      `;
+      container.insertBefore(badge, container.firstChild);
+    }
+  } catch (e) {}
+}

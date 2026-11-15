@@ -50,6 +50,226 @@ function authenticateTenantOwner(req, res, next) {
   }
 }
 
+function authenticateUser(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ success: false, error: 'Akses ditolak: Silakan login terlebih dahulu' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, error: 'Sesi login tidak valid atau telah kedaluwarsa' });
+  }
+}
+
+// ==============================================
+// 1. GLOBAL USER AUTHENTICATION (Cuanin Users)
+// ==============================================
+
+// POST /api/auth/register
+router.post('/auth/register', async (req, res) => {
+  try {
+    const { name, email, password, phone } = req.body;
+
+    if (!name || !name.trim()) {
+      return res.status(400).json({ success: false, error: 'Nama lengkap wajib diisi' });
+    }
+    if (!email || !email.trim()) {
+      return res.status(400).json({ success: false, error: 'Alamat email wajib diisi' });
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return res.status(400).json({ success: false, error: 'Format email tidak valid' });
+    }
+    if (!password || password.length < 6) {
+      return res.status(400).json({ success: false, error: 'Password minimal 6 karakter' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = name.trim();
+    const cleanPhone = phone ? phone.trim() : '';
+
+    // Check if email already registered in users
+    const existingUser = await pool.query('SELECT id FROM users WHERE LOWER(email) = $1', [cleanEmail]);
+    if (existingUser.rows.length > 0) {
+      return res.status(409).json({ success: false, error: 'Email sudah terdaftar. Silakan login ke akun Anda.' });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      `INSERT INTO users (name, email, password_hash, phone, role)
+       VALUES ($1, $2, $3, $4, 'USER')
+       RETURNING id, name, email, phone, role, created_at`,
+      [cleanName, cleanEmail, passwordHash, cleanPhone]
+    );
+
+    const user = result.rows[0];
+    const token = jwt.sign(
+      { id: user.id, email: user.email, name: user.name, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: 'Registrasi berhasil! Selamat datang di Cuanin.',
+      user,
+      token
+    });
+  } catch (err) {
+    console.error('Error in /api/auth/register:', err);
+    return res.status(500).json({ success: false, error: 'Terjadi kesalahan server saat registrasi: ' + err.message });
+  }
+});
+
+// POST /api/auth/login
+router.post('/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email dan password wajib diisi' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
+    // 1. Check in users table
+    let userRes = await pool.query('SELECT * FROM users WHERE LOWER(email) = $1', [cleanEmail]);
+    let user = userRes.rows[0];
+
+    // If not found in users, check if user is a registered tenant owner
+    if (!user) {
+      const tenantRes = await pool.query(
+        'SELECT * FROM tenants WHERE LOWER(email) = $1 LIMIT 1',
+        [cleanEmail]
+      );
+      if (tenantRes.rows.length > 0) {
+        const tenant = tenantRes.rows[0];
+        const match = await bcrypt.compare(password, tenant.password_hash);
+        if (match) {
+          // Auto sync into users table
+          const newUserRes = await pool.query(
+            `INSERT INTO users (name, email, password_hash, phone, role)
+             VALUES ($1, $2, $3, $4, 'TENANT_OWNER')
+             RETURNING *`,
+            [tenant.owner_name || tenant.name, cleanEmail, tenant.password_hash, tenant.phone || '']
+          );
+          user = newUserRes.rows[0];
+          await pool.query('UPDATE tenants SET user_id = $1 WHERE id = $2', [user.id, tenant.id]);
+        }
+      } else {
+        // Check if admin email or username
+        const adminRes = await pool.query(
+          'SELECT * FROM admins WHERE LOWER(email) = $1 OR LOWER(username) = $1 LIMIT 1',
+          [cleanEmail]
+        );
+        if (adminRes.rows.length > 0) {
+          const admin = adminRes.rows[0];
+          const match = await bcrypt.compare(password, admin.password_hash);
+          if (match) {
+            const newUserRes = await pool.query(
+              `INSERT INTO users (name, email, password_hash, phone, role)
+               VALUES ($1, $2, $3, '', 'ADMIN')
+               RETURNING *`,
+              [admin.username, cleanEmail, admin.password_hash]
+            );
+            user = newUserRes.rows[0];
+          }
+        }
+      }
+    }
+
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'Email atau password salah' });
+    }
+
+    // Verify password if user was loaded from users table
+    const match = await bcrypt.compare(password, user.password_hash);
+    if (!match) {
+      return res.status(401).json({ success: false, error: 'Email atau password salah' });
+    }
+
+    // Check if user owns any tenant/store
+    const tenantQuery = await pool.query(
+      'SELECT id, subdomain, name, origin_city FROM tenants WHERE user_id = $1 OR LOWER(email) = $2 LIMIT 1',
+      [user.id, cleanEmail]
+    );
+    const tenant = tenantQuery.rows[0] || null;
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        subdomain: tenant ? tenant.subdomain : null
+      },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    delete user.password_hash;
+
+    return res.json({
+      success: true,
+      message: 'Login berhasil! Selamat datang kembali.',
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        tenant: tenant
+      },
+      token
+    });
+  } catch (err) {
+    console.error('Error in /api/auth/login:', err);
+    return res.status(500).json({ success: false, error: 'Terjadi kesalahan server saat login: ' + err.message });
+  }
+});
+
+// GET /api/auth/me
+router.get('/auth/me', authenticateUser, async (req, res) => {
+  try {
+    const userRes = await pool.query(
+      'SELECT id, name, email, phone, role, avatar_url, created_at FROM users WHERE id = $1',
+      [req.user.id]
+    );
+    if (userRes.rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'User tidak ditemukan' });
+    }
+    const user = userRes.rows[0];
+    const tenantRes = await pool.query(
+      'SELECT id, subdomain, name, origin_city, created_at FROM tenants WHERE user_id = $1 OR LOWER(email) = $2',
+      [user.id, user.email.toLowerCase()]
+    );
+    user.stores = tenantRes.rows;
+    user.primary_store = tenantRes.rows[0] || null;
+
+    return res.json({ success: true, user });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/auth/my-stores
+router.get('/auth/my-stores', authenticateUser, async (req, res) => {
+  try {
+    const tenantRes = await pool.query(
+      'SELECT id, subdomain, name, origin_city, balance_active, balance_held, created_at FROM tenants WHERE user_id = $1 OR LOWER(email) = $2',
+      [req.user.id, req.user.email.toLowerCase()]
+    );
+    return res.json({ success: true, stores: tenantRes.rows });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 router.post('/admin/login', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -206,13 +426,28 @@ router.post('/platform/order-website', async (req, res) => {
 
     const passwordToHash = owner_password || 'cuanin123';
     const passwordHash = await bcrypt.hash(passwordToHash, 10);
-    const ownerEmail = email || `${cleanSubdomain}@cuanin.store`;
+    const ownerEmail = (email || `${cleanSubdomain}@cuanin.store`).toLowerCase();
+
+    // Ensure user exists in users table and link
+    let userId = null;
+    const existingUser = await pool.query('SELECT id FROM users WHERE LOWER(email) = $1', [ownerEmail]);
+    if (existingUser.rows.length > 0) {
+      userId = existingUser.rows[0].id;
+    } else {
+      const userRes = await pool.query(
+        `INSERT INTO users (name, email, password_hash, phone, role)
+         VALUES ($1, $2, $3, $4, 'TENANT_OWNER')
+         RETURNING id`,
+        [owner_name, ownerEmail, passwordHash, phone]
+      );
+      userId = userRes.rows[0].id;
+    }
 
     const insertTenant = await pool.query(
-      `INSERT INTO tenants (subdomain, name, template_id, owner_name, phone, email, password_hash, bank_name, bank_account_number, bank_account_holder, origin_city)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      `INSERT INTO tenants (subdomain, name, template_id, owner_name, phone, email, password_hash, bank_name, bank_account_number, bank_account_holder, origin_city, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
        RETURNING *`,
-      [cleanSubdomain, store_name, template_id, owner_name, phone, ownerEmail, passwordHash, bank_name, bank_account_number, bank_account_holder, origin_city || 'Jakarta Selatan']
+      [cleanSubdomain, store_name, template_id, owner_name, phone, ownerEmail, passwordHash, bank_name, bank_account_number, bank_account_holder, origin_city || 'Jakarta Selatan', userId]
     );
 
     const newTenant = insertTenant.rows[0];
@@ -405,6 +640,28 @@ router.post('/store/:subdomain/login', async (req, res) => {
     res.json({ success: true, customer, token });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.get('/store/:subdomain/customer/me', async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ success: false, error: 'Akses ditolak: Silakan login' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const custRes = await pool.query(
+      'SELECT id, tenant_id, name, email, phone, address, city, created_at FROM customers WHERE id = $1',
+      [decoded.id]
+    );
+    if (custRes.rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'Pelanggan tidak ditemukan' });
+    }
+    res.json({ success: true, customer: custRes.rows[0] });
+  } catch (err) {
+    res.status(401).json({ success: false, error: 'Sesi login pembeli tidak valid atau telah kedaluwarsa' });
   }
 });
 

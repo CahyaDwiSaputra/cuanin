@@ -296,7 +296,7 @@ async function performCheckout() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        customer_id: null,
+        customer_id: currentCustomer ? currentCustomer.id : null,
         items: currentCart,
         courier_name: courier,
         destination_city: address
@@ -690,6 +690,176 @@ async function submitNewProduct(e) {
   }
 }
 
+// ==============================================
+// CUSTOMER AUTHENTICATION (Storefront Buyers)
+// ==============================================
+
+let currentCustomer = null;
+
+function openCustomerAuthModal(tab = 'login') {
+  openModal('modal-customer-auth');
+  switchCustomerAuthTab(tab);
+}
+
+function switchCustomerAuthTab(tab) {
+  const btnLogin = document.getElementById('cust-tab-btn-login');
+  const btnRegister = document.getElementById('cust-tab-btn-register');
+  const panelLogin = document.getElementById('cust-auth-panel-login');
+  const panelRegister = document.getElementById('cust-auth-panel-register');
+
+  if (!btnLogin || !btnRegister) return;
+
+  if (tab === 'login') {
+    btnLogin.className = 'py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer';
+    btnRegister.className = 'py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer';
+    if (panelLogin) panelLogin.classList.remove('hidden');
+    if (panelRegister) panelRegister.classList.add('hidden');
+  } else {
+    btnRegister.className = 'py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer';
+    btnLogin.className = 'py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer';
+    if (panelRegister) panelRegister.classList.remove('hidden');
+    if (panelLogin) panelLogin.classList.add('hidden');
+  }
+}
+
+async function handleCustomerLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('cust-login-email').value.trim();
+  const password = document.getElementById('cust-login-password').value;
+  const btn = document.getElementById('btn-cust-submit-login');
+
+  if (!email || !password) {
+    showToast('Email dan password wajib diisi', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = 'Memverifikasi...';
+
+  try {
+    const res = await fetch(`/api/store/${currentSubdomain}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const json = await res.json();
+
+    if (!json.success) {
+      showToast(json.error || 'Login pembeli gagal', 'error');
+      btn.disabled = false;
+      btn.innerHTML = 'Masuk Akun Pembeli &rarr;';
+      return;
+    }
+
+    localStorage.setItem(`cuanin_customer_${currentSubdomain}`, JSON.stringify(json.customer));
+    localStorage.setItem(`cuanin_cust_token_${currentSubdomain}`, json.token);
+
+    currentCustomer = json.customer;
+    showToast(`Selamat datang kembali, ${json.customer.name}!`, 'success');
+    closeModal('modal-customer-auth');
+    updateCustomerAuthState();
+  } catch (err) {
+    showToast('Gagal login: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Masuk Akun Pembeli &rarr;';
+  }
+}
+
+async function handleCustomerRegister(e) {
+  e.preventDefault();
+  const name = document.getElementById('cust-reg-name').value.trim();
+  const email = document.getElementById('cust-reg-email').value.trim();
+  const phone = document.getElementById('cust-reg-phone').value.trim();
+  const address = document.getElementById('cust-reg-address').value.trim();
+  const city = document.getElementById('cust-reg-city').value.trim();
+  const password = document.getElementById('cust-reg-password').value;
+  const btn = document.getElementById('btn-cust-submit-register');
+
+  if (!name || !email || !password) {
+    showToast('Nama, email, dan password wajib diisi', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = 'Mendaftarkan...';
+
+  try {
+    const res = await fetch(`/api/store/${currentSubdomain}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, address, city, password })
+    });
+    const json = await res.json();
+
+    if (!json.success) {
+      showToast(json.error || 'Registrasi pembeli gagal', 'error');
+      btn.disabled = false;
+      btn.innerHTML = 'Daftar Akun Pembeli &rarr;';
+      return;
+    }
+
+    localStorage.setItem(`cuanin_customer_${currentSubdomain}`, JSON.stringify(json.customer));
+    localStorage.setItem(`cuanin_cust_token_${currentSubdomain}`, json.token);
+
+    currentCustomer = json.customer;
+    showToast(`Akun pembeli "${json.customer.name}" berhasil didaftarkan!`, 'success');
+    closeModal('modal-customer-auth');
+    updateCustomerAuthState();
+  } catch (err) {
+    showToast('Gagal registrasi: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Daftar Akun Pembeli &rarr;';
+  }
+}
+
+function updateCustomerAuthState() {
+  const custStr = localStorage.getItem(`cuanin_customer_${currentSubdomain}`);
+  const guestBtn = document.getElementById('sf-customer-guest-btn');
+  const loggedPill = document.getElementById('sf-customer-logged-pill');
+
+  if (!guestBtn || !loggedPill) return;
+
+  if (custStr) {
+    try {
+      const cust = JSON.parse(custStr);
+      currentCustomer = cust;
+      guestBtn.classList.add('hidden');
+      loggedPill.classList.remove('hidden');
+      loggedPill.classList.add('flex');
+
+      const nameEl = document.getElementById('sf-cust-name');
+      const initialEl = document.getElementById('sf-cust-initial');
+      if (nameEl) nameEl.textContent = cust.name || 'Pembeli';
+      if (initialEl) initialEl.textContent = (cust.name || 'P')[0].toUpperCase();
+
+      // Prefill checkout address if empty
+      const addrInput = document.getElementById('checkout-address');
+      if (addrInput && !addrInput.value && (cust.address || cust.city)) {
+        addrInput.value = cust.address ? `${cust.address}, ${cust.city || ''}` : cust.city;
+      }
+    } catch (e) {
+      guestBtn.classList.remove('hidden');
+      loggedPill.classList.add('hidden');
+    }
+  } else {
+    currentCustomer = null;
+    guestBtn.classList.remove('hidden');
+    loggedPill.classList.add('hidden');
+    loggedPill.classList.remove('flex');
+  }
+}
+
+function performCustomerLogout() {
+  localStorage.removeItem(`cuanin_customer_${currentSubdomain}`);
+  localStorage.removeItem(`cuanin_cust_token_${currentSubdomain}`);
+  currentCustomer = null;
+  showToast('Anda telah keluar dari akun pembeli.', 'info');
+  updateCustomerAuthState();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadStorefront();
+  updateCustomerAuthState();
 });

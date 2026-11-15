@@ -117,8 +117,44 @@ async function initDb() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(120) NOT NULL,
+        email VARCHAR(150) UNIQUE NOT NULL,
+        password_hash VARCHAR(255) NOT NULL,
+        phone VARCHAR(30),
+        role VARCHAR(30) DEFAULT 'USER',
+        avatar_url TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
       ALTER TABLE tenants ADD COLUMN IF NOT EXISTS email VARCHAR(120);
       ALTER TABLE tenants ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255);
+      ALTER TABLE tenants ADD COLUMN IF NOT EXISTS user_id INT REFERENCES users(id) ON DELETE SET NULL;
+    `);
+
+    // Seed default users if empty
+    const userCheck = await client.query("SELECT COUNT(*) FROM users");
+    if (parseInt(userCheck.rows[0].count, 10) === 0) {
+      await client.query(`
+        INSERT INTO users (name, email, password_hash, phone, role)
+        VALUES 
+          ('User Demo Cuanin', 'user@cuanin.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081299887766', 'USER'),
+          ('Budi Santoso', 'owner@kopisenja.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081234567890', 'TENANT_OWNER'),
+          ('Superadmin Cuanin', 'admin@cuanin.com', '$2b$10$4F/kzcD5Dwf3ExsCviZLhOKIJftgFEom2cC4KjucJakNDm7WAO9bq', '08111222333', 'ADMIN')
+        ON CONFLICT (email) DO NOTHING;
+      `);
+    }
+
+    // Link existing tenants to users where email matches
+    await client.query(`
+      UPDATE tenants
+      SET user_id = users.id
+      FROM users
+      WHERE tenants.user_id IS NULL AND LOWER(tenants.email) = LOWER(users.email);
     `);
 
     // Seed default superadmin if empty

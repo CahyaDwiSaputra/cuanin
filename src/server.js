@@ -72,8 +72,13 @@ async function startServer() {
     // Start hourly escrow background worker
     startEscrowCron(3600000);
 
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Cuanin platform is running live on http://127.0.0.1:${PORT}`);
+    const server = app.listen(PORT, () => {
+      console.log(`Cuanin platform is running live on http://127.0.0.1:${PORT} and http://localhost:${PORT}`);
+    });
+    server.on('clientError', (err, socket) => {
+      if (!socket.destroyed) {
+        socket.end('HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n');
+      }
     });
 
     if (PORT != 80) {

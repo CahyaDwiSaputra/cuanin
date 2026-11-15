@@ -76,8 +76,7 @@ cuanin/
 │   └── services/
 │       ├── escrowWorker.js     # Background worker pencairan escrow 7 hari
 │       └── midtrans.js         # Generator payload QRIS, Snap & Iris payout
-├── kurasi_uns/                 # Dokumen resmi Instrumen Kurasi Mahasiswa Wirausaha UNS
-├── seed_full_templates_and_stores.js # Seeder 6 template & 6 toko demo
+├── seed_full_templates_and_stores.js # Seeder template & toko demo
 ├── setup_local_cuanin_domain.bat     # Skrip Windows 1-klik mapping domain cuan.in
 ├── start_presentation.bat            # Skrip Windows 1-klik runner server & tunnel
 ├── DESIGN.md                   # Spesifikasi Google Design Token & anti-slop
