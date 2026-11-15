@@ -245,13 +245,6 @@ function switchAuthTab(tab) {
   }
 }
 
-function fillAuthDemo(email, pass) {
-  const inputEmail = document.getElementById("login-email");
-  const inputPass = document.getElementById("login-password");
-  if (inputEmail) inputEmail.value = email;
-  if (inputPass) inputPass.value = pass;
-}
-
 function toggleUserDropdown() {
   const menu = document.getElementById("user-dropdown-menu");
   if (menu) menu.classList.toggle("hidden");
