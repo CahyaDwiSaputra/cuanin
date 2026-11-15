@@ -451,7 +451,13 @@ function performLogout() {
   if (menu) menu.classList.add("hidden");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initApp() {
   loadTemplates();
   updateNavAuthState();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}

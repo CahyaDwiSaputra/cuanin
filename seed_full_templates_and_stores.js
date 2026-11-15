@@ -10,7 +10,7 @@ async function seed() {
     console.log("Seeding rich templates and demo stores...");
     await client.query("BEGIN");
 
-    // 1. Upsert 6 Templates
+    // 1. Upsert 11 Templates
     const templates = [
       {
         id: "tpl-kuliner",
@@ -22,6 +22,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "kopisenja",
+        preview_url: "/toko/kopisenja",
       },
       {
         id: "tpl-fashion",
@@ -33,6 +34,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "butikaisyah",
+        preview_url: "/toko/butikaisyah",
       },
       {
         id: "tpl-kriya",
@@ -44,6 +46,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "kriyabambu",
+        preview_url: "/toko/kriyabambu",
       },
       {
         id: "tpl-beauty",
@@ -55,6 +58,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "naturaherbal",
+        preview_url: "/toko/naturaherbal",
       },
       {
         id: "tpl-gadget",
@@ -66,6 +70,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "gadgetpedia",
+        preview_url: "/toko/gadgetpedia",
       },
       {
         id: "tpl-florist",
@@ -77,6 +82,7 @@ async function seed() {
         image_url:
           "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
         demo_subdomain: "kebunkita",
+        preview_url: "/toko/kebunkita",
       },
 
       {
@@ -88,6 +94,8 @@ async function seed() {
           "Template website Fashion Modern dirancang untuk bisnis fashion, butik, toko pakaian, hijab, dan brand busana. Memiliki tampilan modern dan elegan untuk menampilkan koleksi produk, foto katalog, detail produk, harga, serta informasi brand. Cocok untuk membantu bisnis fashion membangun identitas digital, memperkenalkan koleksi terbaru, dan memberikan pengalaman berbelanja yang nyaman kepada pelanggan.",
         image_url:
           "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+        demo_subdomain: "zaraboutique",
+        preview_url: "/templates/Fashion.html",
       },
       {
         id: "tpl-fnb-modern",
@@ -98,6 +106,8 @@ async function seed() {
           "Template website FnB Modern dirancang untuk bisnis kuliner seperti restoran, cafe, coffee shop, bakery, dan usaha makanan maupun minuman. Menghadirkan tampilan visual yang menarik untuk menampilkan menu makanan, minuman, foto produk, harga, informasi restoran, serta keunggulan bisnis. Cocok untuk memperkenalkan produk kuliner, meningkatkan daya tarik pelanggan, dan memberikan informasi bisnis secara praktis melalui website.",
         image_url:
           "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80",
+        demo_subdomain: "rasanusantara",
+        preview_url: "/templates/fnb.html",
       },
       {
         id: "tpl-property-modern",
@@ -108,6 +118,8 @@ async function seed() {
           "Template website Property Modern dirancang untuk agen properti, developer perumahan, real estate, dan bisnis pemasaran hunian. Memiliki desain profesional untuk menampilkan berbagai pilihan properti, foto bangunan, informasi lokasi, spesifikasi hunian, fasilitas, harga, serta detail penawaran. Cocok untuk membantu calon pembeli mengenal properti yang ditawarkan dan meningkatkan kepercayaan terhadap bisnis properti.",
         image_url:
           "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+        demo_subdomain: "griyahunian",
+        preview_url: "/templates/properti.html",
       },
       {
         id: "tpl-wisata-modern",
@@ -118,6 +130,8 @@ async function seed() {
           "Template website Wisata Indonesia dirancang untuk bisnis pariwisata, pengelola destinasi wisata, travel agent, dan penyedia paket liburan. Menggunakan tampilan visual yang menarik untuk memperkenalkan destinasi wisata, menampilkan galeri foto perjalanan, informasi lokasi, fasilitas, aktivitas wisata, serta pilihan paket perjalanan. Cocok untuk mempromosikan destinasi wisata dan menarik minat pengunjung.",
         image_url:
           "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=80",
+        demo_subdomain: "jelajahnusantara",
+        preview_url: "/templates/wisata.html",
       },
       {
         id: "tpl-company-profile",
@@ -128,22 +142,25 @@ async function seed() {
           "Template website Company Profile dirancang untuk perusahaan, startup, organisasi, dan berbagai jenis bisnis yang ingin membangun citra profesional secara digital. Memiliki struktur halaman informatif untuk menampilkan profil perusahaan, sejarah dan visi misi, layanan atau produk, keunggulan bisnis, portofolio proyek, serta informasi kontak. Cocok untuk memperkuat identitas perusahaan dan meningkatkan kredibilitas bisnis.",
         image_url:
           "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+        demo_subdomain: "sinardigital",
+        preview_url: "/templates/company.html",
       },
     ];
 
     for (const t of templates) {
       await client.query(
         `
-        INSERT INTO templates (id, name, category, price, description, image_url)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO templates (id, name, category, price, description, image_url, preview_url)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         ON CONFLICT (id) DO UPDATE SET
           name = EXCLUDED.name,
           category = EXCLUDED.category,
           price = EXCLUDED.price,
           description = EXCLUDED.description,
-          image_url = EXCLUDED.image_url
+          image_url = EXCLUDED.image_url,
+          preview_url = EXCLUDED.preview_url
       `,
-        [t.id, t.name, t.category, t.price, t.description, t.image_url],
+        [t.id, t.name, t.category, t.price, t.description, t.image_url, t.preview_url],
       );
     }
     console.log("Templates seeded successfully.");

@@ -545,7 +545,280 @@
           id="template-catalog-grid"
           class="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
-          <!-- Dynamically loaded from /api/templates -->
+          <!-- 1. Kuliner -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Katalog Kuliner & Kopi Artisan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">F&B / Kuliner</span>
+                <a href="/toko/kopisenja" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Katalog Kuliner & Kopi Artisan</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template modern dan bersahaja khusus cafe, bakery, roastery, dan resto UMKM. Dilengkapi navigasi kategori menu, rincian karakter rasa, dan kalkulator kurir cepat.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">kopisenja.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-kuliner" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 2. Fashion -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Butik & Fashion Muslim Modern" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Fashion & Busana</span>
+                <a href="/toko/butikaisyah" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Butik & Fashion Muslim Modern</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Tata letak visual bersih dan anggun berfokus pada lookbook busana, pemilihan varian warna/ukuran, dan galeri kain premium untuk hijab, gamis, dan distro.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">butikaisyah.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-fashion" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 3. Kriya -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80" alt="Galeri Kriya & Kerajinan Nusantara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Kriya & Handicraft</span>
+                <a href="/toko/kriyabambu" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Galeri Kriya & Kerajinan Nusantara</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Desain bertema alami dan hangat khusus produk buatan tangan lokal, anyaman, gerabah, dan mebel kayu dengan kalkulator dimensi dan bobot ekspedisi aman.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">kriyabambu.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-kriya" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 4. Beauty -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" alt="Skincare Alami & Herbal Nusantara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Kecantikan & Herbal</span>
+                <a href="/toko/naturaherbal" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Skincare Alami & Herbal Nusantara</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Desain bersih bernuansa organik higienis untuk produk kosmetik, sabun herbal, minyak atsiri, dan perawatan tubuh ramah lingkungan.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">naturaherbal.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-beauty" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 5. Gadget -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Elektronik & Aksesoris Gadget" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Gadget & Elektronik</span>
+                <a href="/toko/gadgetpedia" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Elektronik & Aksesoris Gadget</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Nuansa teknologi modern bernada gelap profesional untuk toko aksesoris gawai, audio TWS, perangkat daya, dan perlengkapan komputer.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">gadgetpedia.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-gadget" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 6. Florist -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80" alt="Toko Tanaman Hias & Florist Segar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Tanaman Hias & Bunga</span>
+                <a href="/toko/kebunkita" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Toko Tanaman Hias & Florist Segar</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Tampilan segar bernuansa dedaunan hijau untuk toko tanaman indoor, kaktus hias, rangkaian buket bunga segar, dan media tanam.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">kebunkita.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-florist" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 7. Fashion Modern -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80" alt="Fashion Modern" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Fashion & Busana</span>
+                <a href="/templates/Fashion.html" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Fashion Modern</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template website Fashion Modern dirancang untuk bisnis fashion, butik, toko pakaian, hijab, dan brand busana dengan tampilan modern dan elegan.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">zaraboutique.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-fashion-modern" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 8. FnB Modern -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80" alt="FnB Modern" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Food & Beverage</span>
+                <a href="/templates/fnb.html" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">FnB Modern</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template website FnB Modern dirancang untuk bisnis kuliner seperti restoran, cafe, coffee shop, bakery, dan usaha makanan maupun minuman.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">rasanusantara.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-fnb-modern" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 9. Property Modern -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Property Modern" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Property & Real Estate</span>
+                <a href="/templates/properti.html" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Property Modern</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template website Property Modern dirancang untuk agen properti, developer perumahan, real estate, dan bisnis pemasaran hunian.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">griyahunian.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-property-modern" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 10. Wisata Indonesia -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=80" alt="Wisata Indonesia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Wisata & Travel</span>
+                <a href="/templates/wisata.html" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Wisata Indonesia</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template website Wisata Indonesia dirancang untuk bisnis pariwisata, pengelola destinasi wisata, travel agent, dan penyedia paket liburan.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">jelajahnusantara.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-wisata-modern" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
+
+          <!-- 11. Company Profile -->
+          <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-xl hover:border-brand-500 transition-all duration-300">
+            <div>
+              <div class="h-52 w-full bg-slate-100 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80" alt="Company Profile" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/85 text-white">Company Profile</span>
+                <a href="/templates/company.html" target="_blank" rel="noopener noreferrer" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all">Buka Preview ↗</a>
+              </div>
+              <div class="p-6 sm:p-7 space-y-2">
+                <h3 class="font-bold text-slate-900 text-lg leading-snug group-hover:text-brand-600 transition-colors">Company Profile</h3>
+                <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed">Template website Company Profile dirancang untuk perusahaan, startup, organisasi, dan berbagai jenis bisnis yang ingin membangun citra profesional.</p>
+              </div>
+            </div>
+            <div class="p-6 sm:p-7 pt-0 border-t border-slate-100 mt-2 flex flex-col gap-3">
+              <div class="flex items-center justify-between text-xs">
+                <div>
+                  <span class="text-[11px] font-semibold text-slate-400 block">Format Alamat Toko:</span>
+                  <span class="font-mono font-bold text-brand-600">sinardigital.cuanin.com</span>
+                </div>
+              </div>
+              <div class="text-xs font-semibold text-slate-700">Mulai Rp 349.000</div>
+              <a href="/order?template=tpl-company-profile" class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs">Pilih Template & Pesan Web →</a>
+            </div>
+          </div>
         </div>
       </section>
 
