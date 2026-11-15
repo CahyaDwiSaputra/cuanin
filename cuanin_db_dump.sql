@@ -801,10 +801,10 @@ ALTER TABLE ONLY public.tenants
 
 INSERT INTO public.users (name, email, password_hash, phone, role)
 VALUES 
-    ('User Demo Cuanin', 'user@cuanin.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081299887766', 'USER'),
-    ('Budi Santoso', 'owner@kopisenja.com', '$2b$10$T8ceZiRK0LRNlBQHuW4HDerLRCpru78H.yycHIh6ZRPcpfHo2EpYu', '081234567890', 'TENANT_OWNER'),
-    ('Superadmin Cuanin', 'admin@cuanin.com', '$2b$10$4F/kzcD5Dwf3ExsCviZLhOKIJftgFEom2cC4KjucJakNDm7WAO9bq', '08111222333', 'ADMIN')
-ON CONFLICT (email) DO NOTHING;
+    ('User Demo Cuanin', 'user@cuanin.com', '$2b$10$oDNZT23qZKzdohkhakXs9OCHGQWcdCVghv69YukSR/SBbivACJDha', '081299887766', 'USER'),
+    ('Budi Santoso', 'owner@kopisenja.com', '$2b$10$oDNZT23qZKzdohkhakXs9OCHGQWcdCVghv69YukSR/SBbivACJDha', '081234567890', 'TENANT_OWNER'),
+    ('Superadmin Cuanin', 'admin@cuanin.com', '$2b$10$oDNZT23qZKzdohkhakXs9OCHGQWcdCVghv69YukSR/SBbivACJDha', '08111222333', 'ADMIN')
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
 --
 -- PostgreSQL database dump complete

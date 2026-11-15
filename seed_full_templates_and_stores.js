@@ -602,6 +602,212 @@ async function seed() {
           },
         ],
       },
+      {
+        subdomain: "zaraboutique",
+        name: "Zara & Co. Modern Apparel",
+        template_id: "tpl-fashion-modern",
+        owner_name: "Rina Anggraini",
+        phone: "081288776655",
+        email: "owner@zaraboutique.com",
+        bank_name: "BCA",
+        bank_account_number: "8820991823",
+        origin_city: "Jakarta Selatan",
+        tagline: "Tren Busana Modern Urban Berkualitas Tinggi dengan Garansi Originalitas",
+        products: [
+          {
+            name: "Oversized Linen Blazer Natural Cream",
+            price: 189000,
+            weight_grams: 350,
+            stock: 25,
+            image_url: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80",
+            description: "Blazer linen premium berpotongan santai modern, cocok untuk gaya kerja maupun kasual semi-formal."
+          },
+          {
+            name: "Pleated Wide Leg Trousers Charcoal",
+            price: 145000,
+            weight_grams: 300,
+            stock: 30,
+            image_url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80",
+            description: "Celana bahan lipit berpotongan lebar elegan dengan pinggang elastis nyaman sepanjang hari."
+          },
+          {
+            name: "Ribbed Knit Mock Neck Top Sage Green",
+            price: 99000,
+            weight_grams: 200,
+            stock: 40,
+            image_url: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80",
+            description: "Atasan rajut halus berleher semi-tinggi dengan tekstur rajut rapat lembut di kulit."
+          },
+          {
+            name: "Structured Minimalist Leather Tote Bag",
+            price: 249000,
+            weight_grams: 550,
+            stock: 15,
+            image_url: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80",
+            description: "Tas jinjing berbahan kulit sintetis vegan tebal dengan kompartemen laptop 14 inci."
+          }
+        ]
+      },
+      {
+        subdomain: "rasanusantara",
+        name: "Rasa Nusantara Gourmet & Bistro",
+        template_id: "tpl-fnb-modern",
+        owner_name: "Hendra Wijaya",
+        phone: "081377889900",
+        email: "owner@rasanusantara.com",
+        bank_name: "Bank Mandiri",
+        bank_account_number: "1370019283741",
+        origin_city: "Surabaya",
+        tagline: "Kelezatan Otentik Nusantara Disajikan Modern dari Bahan Pilihan Segar",
+        products: [
+          {
+            name: "Bebek Betutu Panggang Gilimanuk Komplit",
+            price: 88000,
+            weight_grams: 500,
+            stock: 20,
+            image_url: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+            description: "Bebek empuk bumbu base genep rempah 16 jam, disajikan dengan plecing kangkung dan sambal matah."
+          },
+          {
+            name: "Rawon Nguling Daging Sapi Pilihan 500ml",
+            price: 65000,
+            weight_grams: 600,
+            stock: 25,
+            image_url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
+            description: "Kuah rawon pekat kluwek khas Jawa Timur dengan potongan daging sandung lamur empuk."
+          },
+          {
+            name: "Nasi Ulam Komplit Ikan Asap Kemangi",
+            price: 45000,
+            weight_grams: 400,
+            stock: 35,
+            image_url: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+            description: "Nasi harum rempah serundeng bertabur suwiran ikan tongkol asap segar dan sambal terasi matang."
+          },
+          {
+            name: "Es Kelapa Jeruk Segar Gula Lontar 400ml",
+            price: 25000,
+            weight_grams: 450,
+            stock: 50,
+            image_url: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+            description: "Perpaduan kelapa muda segar, perasan jeruk murni, dan pemanis alami sirup gula lontar khas."
+          }
+        ]
+      },
+      {
+        subdomain: "griyahunian",
+        name: "Griya Hunian Asri Estate",
+        template_id: "tpl-property-modern",
+        owner_name: "Agus Prasetyo",
+        phone: "081299112233",
+        email: "owner@griyahunian.com",
+        bank_name: "BNI",
+        bank_account_number: "0482910293",
+        origin_city: "Tangerang Selatan",
+        tagline: "Kawasan Hunian Hijau Terintegrasi dengan Sistem Smart Home & Keamanan 24 Jam",
+        products: [
+          {
+            name: "Booking Fee Tipe Asri 45/72 Minimalis",
+            price: 5000000,
+            weight_grams: 100,
+            stock: 5,
+            image_url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+            description: "Tanda jadi resmi kavling rumah 2 kamar tidur, 1 kamar mandi, canopy carport, dan smart door lock."
+          },
+          {
+            name: "Booking Fee Tipe Mahoni 60/90 Dua Lantai",
+            price: 7500000,
+            weight_grams: 100,
+            stock: 3,
+            image_url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
+            description: "Tanda jadi rumah 2 lantai modern tropis, 3 kamar tidur, balkon privat, dan taman belakang luas."
+          },
+          {
+            name: "Konsultasi & Survey Lokasi Privat VIP",
+            price: 150000,
+            weight_grams: 50,
+            stock: 20,
+            image_url: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80",
+            description: "Layanan antar-jemput survey lokasi perumahan disertai konsultasi simulasi KPR perbankan."
+          }
+        ]
+      },
+      {
+        subdomain: "jelajahnusantara",
+        name: "Jelajah Wisata Nusantara Tour",
+        template_id: "tpl-wisata-modern",
+        owner_name: "Dian Permata",
+        phone: "081233445566",
+        email: "owner@jelajahnusantara.com",
+        bank_name: "BRI",
+        bank_account_number: "301901029384501",
+        origin_city: "Yogyakarta",
+        tagline: "Paket Wisata Eksklusif, Snorkeling, Budaya, dan Petualangan Alam Indonesia",
+        products: [
+          {
+            name: "Trip 3D2N Eksplorasi Bromo & Air Terjun Madakaripura",
+            price: 1450000,
+            weight_grams: 100,
+            stock: 15,
+            image_url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=600&q=80",
+            description: "Paket lengkap jeep sunrise Bromo, kawah aktif, pasir berbisik, tiket masuk, dan dokumentasi foto pro."
+          },
+          {
+            name: "One Day Snorkeling Tour Karimunjawa Private",
+            price: 490000,
+            weight_grams: 100,
+            stock: 20,
+            image_url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+            description: "Jelajah pulau menjangan kecil, terumbu karang warna-warni, foto underwater, dan santap ikan bakar."
+          },
+          {
+            name: "Heritage Walking Tour Candi Borobudur & Desa Wisata",
+            price: 275000,
+            weight_grams: 100,
+            stock: 30,
+            image_url: "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=600&q=80",
+            description: "Pemandu wisata bersertifikasi sejarah candi, sunrise Dagi Abhayagiri, dan belajar membatik tradisional."
+          }
+        ]
+      },
+      {
+        subdomain: "sinardigital",
+        name: "Sinar Digital Solusindo Studio",
+        template_id: "tpl-company-profile",
+        owner_name: "Bayu Pratama",
+        phone: "081122334455",
+        email: "owner@sinardigital.com",
+        bank_name: "BCA",
+        bank_account_number: "8821092837",
+        origin_city: "Jakarta Pusat",
+        tagline: "Mitra Transformasi Digital, Cloud Architecture, dan Pengembangan Perangkat Lunak",
+        products: [
+          {
+            name: "Paket Desain UI/UX & Brand Identity Kit",
+            price: 3500000,
+            weight_grams: 100,
+            stock: 10,
+            image_url: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",
+            description: "Desain purwarupa interaktif Figma, sistem desain komponen, logo vektor, dan panduan identitas brand."
+          },
+          {
+            name: "Audit Keamanan Sistem & Optimalisasi Performa Cloud",
+            price: 2500000,
+            weight_grams: 100,
+            stock: 8,
+            image_url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80",
+            description: "Pemeriksaan celah kerentanan web, efisiensi database SQL, dan arsitektur autoscaling cloud server."
+          },
+          {
+            name: "Sesi Konsultasi Transformasi Digital Korporat (2 Jam)",
+            price: 750000,
+            weight_grams: 50,
+            stock: 15,
+            image_url: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80",
+            description: "Analisis kebutuhan digitalisasi proses bisnis, pemilihan arsitektur tech-stack, dan roadmap implementasi."
+          }
+        ]
+      },
     ];
 
     for (const t of demoTenants) {
@@ -704,9 +910,32 @@ async function seed() {
       [defaultPasswordHash]
     );
 
+    // Seed admin in admins table
+    await client.query(
+      `
+      INSERT INTO admins (username, email, password_hash, role)
+      VALUES ('admin', 'admin@cuanin.com', $1, 'SUPERADMIN')
+      ON CONFLICT (username) DO UPDATE SET
+        password_hash = EXCLUDED.password_hash;
+    `,
+      [defaultPasswordHash]
+    );
+
+    // Seed admin in users table
+    await client.query(
+      `
+      INSERT INTO users (name, email, password_hash, phone, role)
+      VALUES ('Superadmin Cuanin', 'admin@cuanin.com', $1, '08111222333', 'ADMIN')
+      ON CONFLICT (email) DO UPDATE SET
+        password_hash = EXCLUDED.password_hash,
+        role = 'ADMIN';
+    `,
+      [defaultPasswordHash]
+    );
+
     await client.query("COMMIT");
     console.log(
-      "Successfully seeded all 6 templates and all 6 rich demo stores!",
+      "Successfully seeded all 11 templates and all 11 rich demo stores & owner profiles!",
     );
   } catch (err) {
     await client.query("ROLLBACK");

@@ -31,6 +31,31 @@ const demoSubdomainMap = {
     name: "Kebun Kita Florist",
     url: "/toko/kebunkita",
   },
+  "tpl-fashion-modern": {
+    subdomain: "zaraboutique",
+    name: "Zara & Co. Modern Apparel",
+    url: "/toko/zaraboutique",
+  },
+  "tpl-fnb-modern": {
+    subdomain: "rasanusantara",
+    name: "Rasa Nusantara Gourmet",
+    url: "/toko/rasanusantara",
+  },
+  "tpl-property-modern": {
+    subdomain: "griyahunian",
+    name: "Griya Hunian Asri Estate",
+    url: "/toko/griyahunian",
+  },
+  "tpl-wisata-modern": {
+    subdomain: "jelajahnusantara",
+    name: "Jelajah Wisata Nusantara Tour",
+    url: "/toko/jelajahnusantara",
+  },
+  "tpl-company-profile": {
+    subdomain: "sinardigital",
+    name: "Sinar Digital Solusindo Studio",
+    url: "/toko/sinardigital",
+  },
 };
 
 // Preview lima template baru
@@ -384,6 +409,15 @@ function updateNavAuthState() {
           storeLink.href = `/toko/${user.tenant.subdomain}`;
         } else {
           storeItem.classList.add("hidden");
+        }
+      }
+
+      const adminItem = document.getElementById("user-admin-menu-item");
+      if (adminItem) {
+        if (user.role === "ADMIN" || user.role === "SUPERADMIN") {
+          adminItem.classList.remove("hidden");
+        } else {
+          adminItem.classList.add("hidden");
         }
       }
     } catch (e) {

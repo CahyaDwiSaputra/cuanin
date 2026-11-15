@@ -37,6 +37,13 @@ async function performSuperadminLogin(e) {
     }
 
     sessionStorage.setItem('cuanin_admin_token', json.token);
+    localStorage.setItem('cuanin_token', json.token);
+    localStorage.setItem('cuanin_user', JSON.stringify({
+      id: json.admin.id,
+      name: 'Superadmin Cuanin',
+      email: json.admin.email,
+      role: 'ADMIN'
+    }));
     showToast('Autentikasi Superadmin berhasil', 'success');
     loadSuperadmin();
   } catch (err) {
@@ -46,12 +53,30 @@ async function performSuperadminLogin(e) {
 
 function performSuperadminLogout() {
   sessionStorage.removeItem('cuanin_admin_token');
+  localStorage.removeItem('cuanin_token');
+  localStorage.removeItem('cuanin_user');
   showToast('Sesi Superadmin telah diakhiri', 'info');
   loadSuperadmin();
 }
 
 async function loadSuperadmin() {
-  const adminToken = sessionStorage.getItem('cuanin_admin_token');
+  let adminToken = sessionStorage.getItem('cuanin_admin_token');
+
+  // Auto-detect if already authenticated from main portal
+  if (!adminToken) {
+    const mainToken = localStorage.getItem('cuanin_token');
+    const mainUserStr = localStorage.getItem('cuanin_user');
+    if (mainToken && mainUserStr) {
+      try {
+        const u = JSON.parse(mainUserStr);
+        if (u.role === 'ADMIN' || u.role === 'SUPERADMIN') {
+          adminToken = mainToken;
+          sessionStorage.setItem('cuanin_admin_token', adminToken);
+        }
+      } catch (e) {}
+    }
+  }
+
   const loginGate = document.getElementById('sa-login-gate');
   const authDash = document.getElementById('sa-authenticated-dashboard');
   const btnLogout = document.getElementById('btn-sa-logout');

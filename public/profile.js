@@ -191,6 +191,15 @@ function renderUserProfile(user) {
     }
   }
 
+  const saBtn = document.getElementById("btn-profile-superadmin");
+  if (saBtn) {
+    if (user.role === "ADMIN" || user.role === "SUPERADMIN") {
+      saBtn.classList.remove("hidden");
+    } else {
+      saBtn.classList.add("hidden");
+    }
+  }
+
   if (bigAvatar) {
     if (user.avatar_url) {
       bigAvatar.innerHTML = `<img src="${escapeHtml(user.avatar_url)}" alt="Avatar" class="w-full h-full object-cover rounded-3xl" onerror="this.parentElement.textContent='${initial}'" />`;
