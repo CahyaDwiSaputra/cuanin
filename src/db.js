@@ -1,12 +1,21 @@
+require("dotenv").config();
 const { Pool } = require("pg");
 
-const pool = new Pool({
-  host: process.env.DB_HOST || "localhost",
-  port: parseInt(process.env.DB_PORT || "5432", 10),
-  database: process.env.DB_NAME || "cuanin_db",
-  user: process.env.DB_USER || "buana_admin",
-  password: process.env.DB_PASSWORD || "buana_dev_secret_2026!",
-});
+const poolConfig = process.env.DATABASE_URL
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+    }
+  : {
+      host: process.env.DB_HOST || "localhost",
+      port: parseInt(process.env.DB_PORT || "5432", 10),
+      database: process.env.DB_NAME || "cuanin_db",
+      user: process.env.DB_USER || "buana_admin",
+      password: process.env.DB_PASSWORD || "buana_dev_secret_2026!",
+      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+    };
+
+const pool = new Pool(poolConfig);
 
 async function initDb() {
   const client = await pool.connect();

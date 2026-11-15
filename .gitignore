@@ -24,3 +24,7 @@ cuanin-*.png
 qr_*.png
 test_*.png
 shot*.png
+
+# Playwright & Archives
+.playwright-cli/
+*.zip
