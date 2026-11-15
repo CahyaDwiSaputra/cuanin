@@ -77,12 +77,32 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function getStoredAuthToken() {
+  return localStorage.getItem("cuanin_token") || "";
+}
+
+function requireAuthForAction(
+  message = "Silakan login terlebih dahulu untuk mengakses fitur ini.",
+) {
+  const token = getStoredAuthToken();
+  if (!token) {
+    showToast(message, "error");
+    openAuthModal("login");
+    return false;
+  }
+  return true;
+}
+
 async function loadTemplates() {
   const container = document.getElementById("template-catalog-grid");
   if (!container) return;
 
   try {
     const res = await fetch("/api/templates");
+
+    if (res.status === 401 || res.status === 403) {
+      throw new Error("Akses template memerlukan login untuk aksi tertentu.");
+    }
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
@@ -99,12 +119,8 @@ async function loadTemplates() {
         const demo = demoSubdomainMap[tpl.id];
         const isNewTemplate = Boolean(newTemplatePreviewMap[tpl.id]);
 
-        // Prioritaskan preview_url dari database,
-        // lalu gunakan fallback map untuk template baru.
         const previewUrl =
           tpl.preview_url || newTemplatePreviewMap[tpl.id] || "";
-
-        // Template lama tetap menggunakan demo toko.
         const demoUrl = demo?.url || previewUrl;
 
         const imageUrl = escapeHtml(tpl.image_url);
@@ -133,14 +149,13 @@ async function loadTemplates() {
               ${
                 demoUrl
                   ? `
-                    <a
-                      href="${escapeHtml(demoUrl)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all"
+                    <button
+                      type="button"
+                      data-preview-link="${escapeHtml(demoUrl)}"
+                      class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm hover:bg-brand-600 hover:text-white transition-all cursor-pointer"
                     >
                       Buka Preview ↗
-                    </a>
+                    </button>
                   `
                   : ""
               }
@@ -181,23 +196,54 @@ async function loadTemplates() {
               Mulai Rp ${price}
             </div>
 
-            <a
-              href="/order?template=${encodeURIComponent(tpl.id)}"
-              class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs"
+            <button
+              type="button"
+              data-order-link="/order?template=${encodeURIComponent(tpl.id)}"
+              class="btn-pill-primary text-xs py-2.5 px-4 w-full text-center block shadow-xs cursor-pointer"
             >
               Pilih Template & Pesan Web →
-            </a>
+            </button>
 
           </div>
         </div>
       `;
       })
       .join("");
+
+    container.querySelectorAll("[data-preview-link]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (
+          !requireAuthForAction(
+            "Silakan login terlebih dahulu sebelum membuka preview template.",
+          )
+        ) {
+          return;
+        }
+        const target = button.getAttribute("data-preview-link");
+        if (target) window.open(target, "_blank", "noopener,noreferrer");
+      });
+    });
+
+    container.querySelectorAll("[data-order-link]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (
+          !requireAuthForAction(
+            "Silakan login terlebih dahulu sebelum memilih template dan lanjut ke pembayaran.",
+          )
+        ) {
+          return;
+        }
+        const target = button.getAttribute("data-order-link");
+        if (target) window.location.href = target;
+      });
+    });
   } catch (err) {
     console.error("Gagal memuat template:", err);
 
     container.innerHTML = `
-      <div class="col-span-3 text-center py-8 text-rose-500 text-xs">
+      <div class="col-span-full text-center py-8 text-rose-500 text-xs">
         Gagal memuat template: ${escapeHtml(err.message)}
       </div>
     `;
@@ -269,13 +315,17 @@ function switchAuthTab(tab) {
   if (!btnLogin || !btnRegister) return;
 
   if (tab === "login") {
-    btnLogin.className = "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
-    btnRegister.className = "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
+    btnLogin.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
+    btnRegister.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
     if (panelLogin) panelLogin.classList.remove("hidden");
     if (panelRegister) panelRegister.classList.add("hidden");
   } else {
-    btnRegister.className = "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
-    btnLogin.className = "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
+    btnRegister.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-white bg-brand-600 shadow-xs cursor-pointer";
+    btnLogin.className =
+      "py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:text-brand-600 cursor-pointer";
     if (panelRegister) panelRegister.classList.remove("hidden");
     if (panelLogin) panelLogin.classList.add("hidden");
   }
@@ -284,6 +334,36 @@ function switchAuthTab(tab) {
 function toggleUserDropdown() {
   const menu = document.getElementById("user-dropdown-menu");
   if (menu) menu.classList.toggle("hidden");
+}
+
+function bindProtectedRouteLinks() {
+  document.addEventListener("click", (event) => {
+    const targetLink = event.target.closest("a");
+    if (!targetLink) return;
+
+    const href = targetLink.getAttribute("href") || "";
+    if (!href) return;
+
+    const path = new URL(href, window.location.origin).pathname;
+    const isProtectedRoute =
+      href === "/order" ||
+      href.startsWith("/order?") ||
+      path.startsWith("/toko/") ||
+      path.startsWith("/templates/");
+
+    if (!isProtectedRoute) return;
+
+    const hasToken = !!localStorage.getItem("cuanin_token");
+    if (hasToken) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    showToast(
+      "Silakan login terlebih dahulu sebelum membuka contoh website atau melanjutkan ke pembayaran.",
+      "error",
+    );
+    openAuthModal("login");
+  });
 }
 
 // Close user dropdown if clicking outside
@@ -411,7 +491,12 @@ function updateNavAuthState() {
       if (emailEl) emailEl.textContent = user.email || "";
       if (avatarEl) avatarEl.textContent = (user.name || "U")[0].toUpperCase();
       if (roleEl) {
-        roleEl.textContent = user.role === "TENANT_OWNER" ? "Owner Toko" : user.role === "ADMIN" ? "Admin" : "Member";
+        roleEl.textContent =
+          user.role === "TENANT_OWNER"
+            ? "Owner Toko"
+            : user.role === "ADMIN"
+              ? "Admin"
+              : "Member";
       }
 
       if (storeItem && storeLink) {
@@ -452,6 +537,13 @@ function performLogout() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  bindProtectedRouteLinks();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("auth") === "login") {
+    setTimeout(() => openAuthModal("login"), 150);
+  }
+
   loadTemplates();
   updateNavAuthState();
 });
