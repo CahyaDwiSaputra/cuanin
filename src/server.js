@@ -57,6 +57,10 @@ app.use((req, res, next) => {
     return res.sendFile(path.join(__dirname, '../public/order.html'));
   }
 
+  if (req.path.startsWith('/profile') || req.path.startsWith('/profil')) {
+    return res.sendFile(path.join(__dirname, '../public/profile.html'));
+  }
+
   if (!req.path.startsWith('/api')) {
     return res.sendFile(path.join(__dirname, '../public/index.html'));
   }

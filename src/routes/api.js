@@ -270,6 +270,84 @@ router.get('/auth/my-stores', authenticateUser, async (req, res) => {
   }
 });
 
+// PUT /api/auth/profile
+router.put('/auth/profile', authenticateUser, async (req, res) => {
+  const { name, phone, avatar_url, current_password, new_password } = req.body;
+
+  try {
+    const userRes = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
+    if (userRes.rows.length === 0) {
+      return res.status(404).json({ success: false, error: 'User tidak ditemukan' });
+    }
+    const user = userRes.rows[0];
+
+    let updatedPasswordHash = user.password_hash;
+    if (new_password) {
+      if (!current_password) {
+        return res.status(400).json({ success: false, error: 'Password saat ini wajib diisi untuk mengubah password' });
+      }
+      const match = await bcrypt.compare(current_password, user.password_hash);
+      if (!match) {
+        return res.status(400).json({ success: false, error: 'Password saat ini tidak cocok' });
+      }
+      if (new_password.length < 6) {
+        return res.status(400).json({ success: false, error: 'Password baru minimal 6 karakter' });
+      }
+      const salt = await bcrypt.genSalt(10);
+      updatedPasswordHash = await bcrypt.hash(new_password, salt);
+    }
+
+    const updatedName = name && name.trim() ? name.trim() : user.name;
+    const updatedPhone = phone !== undefined ? phone.trim() : user.phone;
+    const updatedAvatar = avatar_url !== undefined ? avatar_url.trim() : user.avatar_url;
+
+    const updateRes = await pool.query(
+      `UPDATE users
+       SET name = $1, phone = $2, avatar_url = $3, password_hash = $4, updated_at = CURRENT_TIMESTAMP
+       WHERE id = $5
+       RETURNING id, name, email, phone, role, avatar_url, created_at, updated_at`,
+      [updatedName, updatedPhone, updatedAvatar, updatedPasswordHash, user.id]
+    );
+
+    const updatedUser = updateRes.rows[0];
+
+    // If tenant owner, sync owner_name & phone in tenants
+    if (user.role === 'TENANT_OWNER') {
+      await pool.query(
+        'UPDATE tenants SET owner_name = $1, phone = $2 WHERE user_id = $3',
+        [updatedName, updatedPhone, user.id]
+      );
+    }
+
+    return res.json({ success: true, message: 'Profil berhasil diperbarui', user: updatedUser });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /api/auth/my-orders
+router.get('/auth/my-orders', authenticateUser, async (req, res) => {
+  try {
+    const userEmail = req.user.email.toLowerCase();
+    const ordersRes = await pool.query(
+      `SELECT o.*, t.name as store_name, t.subdomain as store_subdomain, e.status as escrow_status
+       FROM orders o
+       JOIN tenants t ON o.tenant_id = t.id
+       LEFT JOIN escrow_records e ON e.order_id = o.id
+       LEFT JOIN customers c ON o.customer_id = c.id
+       WHERE LOWER(c.email) = $1 
+          OR LOWER(o.items_json->'customer'->>'email') = $1
+          OR LOWER(o.items_json->>'customer_email') = $1
+       ORDER BY o.created_at DESC`,
+      [userEmail]
+    );
+
+    return res.json({ success: true, orders: ordersRes.rows });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 router.post('/admin/login', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
