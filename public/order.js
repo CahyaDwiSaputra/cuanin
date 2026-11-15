@@ -318,15 +318,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================================
   const packages = {
     starter: {
-      price: 199000,
+      price: 349000,
       title: "Paket Starter UMKM",
     },
     pro: {
-      price: 349000,
+      price: 699000,
       title: "Paket Pro Toko Cuanin",
     },
     scale: {
-      price: 699000,
+      price: 999000,
       title: "Paket Scale & Domain",
     },
   };

@@ -240,14 +240,25 @@ function showToast(message, type = "info") {
 function openAuthModal(tab = "login") {
   const modal = document.getElementById("modal-auth");
   if (!modal) return;
+  modal.style.display = "flex";
   modal.classList.remove("hidden");
+  modal.classList.add("flex");
   switchAuthTab(tab);
 }
 
 function closeAuthModal() {
   const modal = document.getElementById("modal-auth");
-  if (modal) modal.classList.add("hidden");
+  if (!modal) return;
+  modal.style.display = "none";
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeAuthModal();
+  }
+});
 
 function switchAuthTab(tab) {
   const btnLogin = document.getElementById("tab-btn-login");

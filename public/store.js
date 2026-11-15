@@ -64,12 +64,20 @@ function showToast(message, type = 'info') {
 
 function openModal(modalId) {
   const m = document.getElementById(modalId);
-  if (m) m.classList.remove('hidden');
+  if (m) {
+    m.style.display = 'flex';
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
 }
 
 function closeModal(modalId) {
   const m = document.getElementById(modalId);
-  if (m) m.classList.add('hidden');
+  if (m) {
+    m.style.display = 'none';
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
 }
 
 function openOwnerDashboardModal() {
