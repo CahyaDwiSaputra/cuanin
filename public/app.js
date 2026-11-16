@@ -34,27 +34,27 @@ const demoSubdomainMap = {
   "tpl-fashion-modern": {
     subdomain: "zaraboutique",
     name: "Zara & Co. Modern Apparel",
-    url: "/toko/zaraboutique",
+    url: "/templates/Fashion.html",
   },
   "tpl-fnb-modern": {
     subdomain: "rasanusantara",
     name: "Rasa Nusantara Gourmet",
-    url: "/toko/rasanusantara",
+    url: "/templates/fnb.html",
   },
   "tpl-property-modern": {
     subdomain: "griyahunian",
     name: "Griya Hunian Asri Estate",
-    url: "/toko/griyahunian",
+    url: "/templates/properti.html",
   },
   "tpl-wisata-modern": {
     subdomain: "jelajahnusantara",
     name: "Jelajah Wisata Nusantara Tour",
-    url: "/toko/jelajahnusantara",
+    url: "/templates/wisata.html",
   },
   "tpl-company-profile": {
     subdomain: "sinardigital",
     name: "Sinar Digital Solusindo Studio",
-    url: "/toko/sinardigital",
+    url: "/templates/company.html",
   },
 };
 
@@ -120,8 +120,8 @@ async function loadTemplates() {
         const isNewTemplate = Boolean(newTemplatePreviewMap[tpl.id]);
 
         const previewUrl =
-          tpl.preview_url || newTemplatePreviewMap[tpl.id] || "";
-        const demoUrl = demo?.url || previewUrl;
+          tpl.preview_url || newTemplatePreviewMap[tpl.id] || demo?.url || "";
+        const demoUrl = previewUrl;
 
         const imageUrl = escapeHtml(tpl.image_url);
         const name = escapeHtml(tpl.name);
