@@ -120,8 +120,8 @@ async function loadTemplates() {
         const isNewTemplate = Boolean(newTemplatePreviewMap[tpl.id]);
 
         const previewUrl =
-          tpl.preview_url || newTemplatePreviewMap[tpl.id] || demo?.url || "";
-        const demoUrl = previewUrl;
+          tpl.preview_url || newTemplatePreviewMap[tpl.id] || "";
+        const demoUrl = demo?.url || previewUrl;
 
         const imageUrl = escapeHtml(tpl.image_url);
         const name = escapeHtml(tpl.name);

@@ -12,7 +12,8 @@ const poolConfig = process.env.DATABASE_URL
       database: process.env.DB_NAME || "cuanin_db",
       user: process.env.DB_USER || "buana_admin",
       password: process.env.DB_PASSWORD || "buana_dev_secret_2026!",
-      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
+      ssl:
+        process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
     };
 
 const pool = new Pool(poolConfig);
@@ -138,7 +139,20 @@ async function initDb() {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
+      CREATE TABLE IF NOT EXISTS user_activity_logs (
+        id SERIAL PRIMARY KEY,
+        user_id INT REFERENCES users(id) ON DELETE SET NULL,
+        user_name VARCHAR(120),
+        user_email VARCHAR(150),
+        role VARCHAR(30) DEFAULT 'USER',
+        event_type VARCHAR(30) NOT NULL,
+        metadata JSONB DEFAULT '{}'::jsonb,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+
       CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+      CREATE INDEX IF NOT EXISTS idx_user_activity_logs_event_time ON user_activity_logs (event_type, created_at DESC);
+      CREATE INDEX IF NOT EXISTS idx_user_activity_logs_user_id ON user_activity_logs (user_id);
 
       ALTER TABLE tenants ADD COLUMN IF NOT EXISTS email VARCHAR(120);
       ALTER TABLE tenants ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255);

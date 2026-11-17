@@ -21,46 +21,38 @@ const JWT_SECRET = process.env.JWT_SECRET || "cuanin_jwt_secret_dev_2026";
 function authenticateAdmin(req, res, next) {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Akses ditolak: Autentikasi Superadmin diperlukan",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Akses ditolak: Autentikasi Superadmin diperlukan",
+    });
   }
 
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     if (decoded.role !== "SUPERADMIN" && decoded.role !== "ADMIN") {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          error: "Akses ditolak: Hanya Superadmin yang diizinkan",
-        });
+      return res.status(403).json({
+        success: false,
+        error: "Akses ditolak: Hanya Superadmin yang diizinkan",
+      });
     }
     req.admin = decoded;
     next();
   } catch (err) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Sesi Superadmin tidak valid atau telah kedaluwarsa",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Sesi Superadmin tidak valid atau telah kedaluwarsa",
+    });
   }
 }
 
 function authenticateTenantOwner(req, res, next) {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Akses ditolak: Silakan login sebagai pemilik toko",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Akses ditolak: Silakan login sebagai pemilik toko",
+    });
   }
 
   const token = authHeader.split(" ")[1];
@@ -77,31 +69,25 @@ function authenticateTenantOwner(req, res, next) {
       req.user = decoded;
       return next();
     }
-    return res
-      .status(403)
-      .json({
-        success: false,
-        error: "Akses ditolak: Anda tidak memiliki izin untuk toko ini",
-      });
+    return res.status(403).json({
+      success: false,
+      error: "Akses ditolak: Anda tidak memiliki izin untuk toko ini",
+    });
   } catch (err) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Sesi login pemilik toko telah kedaluwarsa",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Sesi login pemilik toko telah kedaluwarsa",
+    });
   }
 }
 
 function authenticateUser(req, res, next) {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Akses ditolak: Silakan login terlebih dahulu",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Akses ditolak: Silakan login terlebih dahulu",
+    });
   }
 
   const token = authHeader.split(" ")[1];
@@ -110,12 +96,38 @@ function authenticateUser(req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        error: "Sesi login tidak valid atau telah kedaluwarsa",
-      });
+    return res.status(401).json({
+      success: false,
+      error: "Sesi login tidak valid atau telah kedaluwarsa",
+    });
+  }
+}
+
+async function logUserActivity({
+  user_id,
+  user_name,
+  user_email,
+  role,
+  event_type,
+  metadata = {},
+}) {
+  if (!event_type) return;
+
+  try {
+    await pool.query(
+      `INSERT INTO user_activity_logs (user_id, user_name, user_email, role, event_type, metadata, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)`,
+      [
+        user_id ?? null,
+        user_name ?? null,
+        user_email ?? null,
+        role || "USER",
+        event_type,
+        JSON.stringify(metadata || {}),
+      ],
+    );
+  } catch (err) {
+    console.error("Failed to log user activity:", err.message);
   }
 }
 
@@ -160,12 +172,10 @@ router.post("/auth/register", async (req, res) => {
       [cleanEmail],
     );
     if (existingUser.rows.length > 0) {
-      return res
-        .status(409)
-        .json({
-          success: false,
-          error: "Email sudah terdaftar. Silakan login ke akun Anda.",
-        });
+      return res.status(409).json({
+        success: false,
+        error: "Email sudah terdaftar. Silakan login ke akun Anda.",
+      });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
@@ -177,6 +187,15 @@ router.post("/auth/register", async (req, res) => {
     );
 
     const user = result.rows[0];
+    await logUserActivity({
+      user_id: user.id,
+      user_name: user.name,
+      user_email: user.email,
+      role: user.role,
+      event_type: "REGISTER",
+      metadata: { source: "web" },
+    });
+
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, role: user.role },
       JWT_SECRET,
@@ -191,12 +210,10 @@ router.post("/auth/register", async (req, res) => {
     });
   } catch (err) {
     console.error("Error in /api/auth/register:", err);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        error: "Terjadi kesalahan server saat registrasi: " + err.message,
-      });
+    return res.status(500).json({
+      success: false,
+      error: "Terjadi kesalahan server saat registrasi: " + err.message,
+    });
   }
 });
 
@@ -314,6 +331,15 @@ router.post("/auth/login", async (req, res) => {
 
     delete user.password_hash;
 
+    await logUserActivity({
+      user_id: user.id,
+      user_name: user.name,
+      user_email: user.email,
+      role: user.role,
+      event_type: "LOGIN",
+      metadata: { source: "web", tenant_id: tenant ? tenant.id : null },
+    });
+
     return res.json({
       success: true,
       message: "Login berhasil! Selamat datang kembali.",
@@ -329,12 +355,10 @@ router.post("/auth/login", async (req, res) => {
     });
   } catch (err) {
     console.error("Error in /api/auth/login:", err);
-    return res
-      .status(500)
-      .json({
-        success: false,
-        error: "Terjadi kesalahan server saat login: " + err.message,
-      });
+    return res.status(500).json({
+      success: false,
+      error: "Terjadi kesalahan server saat login: " + err.message,
+    });
   }
 });
 
@@ -395,12 +419,10 @@ router.put("/auth/profile", authenticateUser, async (req, res) => {
     let updatedPasswordHash = user.password_hash;
     if (new_password) {
       if (!current_password) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            error: "Password saat ini wajib diisi untuk mengubah password",
-          });
+        return res.status(400).json({
+          success: false,
+          error: "Password saat ini wajib diisi untuk mengubah password",
+        });
       }
       const match = await bcrypt.compare(current_password, user.password_hash);
       if (!match) {
@@ -473,15 +495,198 @@ router.get("/auth/my-orders", authenticateUser, async (req, res) => {
   }
 });
 
+router.get("/admin/user-monitoring", authenticateAdmin, async (req, res) => {
+  try {
+    const totalUsersRes = await pool.query(
+      "SELECT COUNT(*)::int AS total FROM users",
+    );
+    const totalAdminsRes = await pool.query(
+      "SELECT COUNT(*)::int AS total FROM admins",
+    );
+    const statsRes = await pool.query(`
+      SELECT
+        COALESCE(SUM(CASE WHEN event_type = 'REGISTER' THEN 1 ELSE 0 END), 0)::int AS registrations,
+        COALESCE(SUM(CASE WHEN event_type = 'LOGIN' THEN 1 ELSE 0 END), 0)::int AS logins,
+        COALESCE(COUNT(DISTINCT CASE WHEN event_type = 'REGISTER' THEN user_id END), 0)::int AS unique_registered_users
+      FROM user_activity_logs
+      WHERE created_at >= NOW() - INTERVAL '30 days'
+    `);
+    const recentUsersRes = await pool.query(
+      `SELECT id, name, email, role, created_at
+       FROM users
+       ORDER BY created_at DESC
+       LIMIT 8`,
+    );
+
+    const dailySeriesRes = await pool.query(`
+      WITH dates AS (
+        SELECT generate_series(
+          CURRENT_DATE - INTERVAL '6 days',
+          CURRENT_DATE,
+          '1 day'::interval
+        )::date AS day
+      )
+      SELECT d.day,
+        COALESCE(SUM(CASE WHEN a.event_type = 'REGISTER' THEN 1 ELSE 0 END), 0)::int AS registers,
+        COALESCE(SUM(CASE WHEN a.event_type = 'LOGIN' THEN 1 ELSE 0 END), 0)::int AS logins,
+        COALESCE((SELECT COUNT(*)::int FROM users u WHERE DATE(u.created_at) = d.day), 0) AS new_users
+      FROM dates d
+      LEFT JOIN user_activity_logs a ON DATE(a.created_at) = d.day
+      GROUP BY d.day
+      ORDER BY d.day ASC
+    `);
+
+    const timeline = dailySeriesRes.rows.map((row) => ({
+      date: row.day,
+      label: new Date(`${row.day}T00:00:00`).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "short",
+      }),
+      registers: Number(row.registers || 0),
+      logins: Number(row.logins || 0),
+      new_users: Number(row.new_users || 0),
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        total_users: Number(totalUsersRes.rows[0].total || 0),
+        total_admins: Number(totalAdminsRes.rows[0].total || 0),
+        total_registers_30d: Number(statsRes.rows[0].registrations || 0),
+        total_logins_30d: Number(statsRes.rows[0].logins || 0),
+        unique_registered_users: Number(
+          statsRes.rows[0].unique_registered_users || 0,
+        ),
+        timeline,
+        recent_users: recentUsersRes.rows,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.post("/admin/create-admin", authenticateAdmin, async (req, res) => {
+  try {
+    const { username, email, password, role } = req.body;
+
+    if (!username || !email || !password) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          error: "Username, email, dan password wajib diisi",
+        });
+    }
+
+    const cleanUsername = String(username).trim();
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanRole = role || "SUPERADMIN";
+
+    if (cleanUsername.length < 3) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Username minimal 3 karakter" });
+    }
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Password minimal 6 karakter" });
+    }
+
+    const exists = await pool.query(
+      "SELECT id FROM admins WHERE LOWER(username) = $1 OR LOWER(email) = $2",
+      [cleanUsername.toLowerCase(), cleanEmail],
+    );
+    if (exists.rows.length > 0) {
+      return res
+        .status(409)
+        .json({
+          success: false,
+          error: "Username atau email admin sudah terdaftar",
+        });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      `INSERT INTO admins (username, email, password_hash, role)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, username, email, role, created_at`,
+      [cleanUsername, cleanEmail, passwordHash, cleanRole],
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Admin baru berhasil ditambahkan",
+      admin: result.rows[0],
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.post("/admin/create-user", authenticateAdmin, async (req, res) => {
+  try {
+    const { name, email, password, phone, role } = req.body;
+
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          error: "Nama, email, dan password wajib diisi",
+        });
+    }
+
+    const cleanName = String(name).trim();
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanRole = role || "USER";
+
+    const exists = await pool.query(
+      "SELECT id FROM users WHERE LOWER(email) = $1",
+      [cleanEmail],
+    );
+    if (exists.rows.length > 0) {
+      return res
+        .status(409)
+        .json({ success: false, error: "Email user sudah terdaftar" });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      `INSERT INTO users (name, email, password_hash, phone, role)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, name, email, phone, role, created_at`,
+      [cleanName, cleanEmail, passwordHash, phone || "", cleanRole],
+    );
+
+    const createdUser = result.rows[0];
+    await logUserActivity({
+      user_id: createdUser.id,
+      user_name: createdUser.name,
+      user_email: createdUser.email,
+      role: createdUser.role,
+      event_type: "REGISTER",
+      metadata: { source: "admin_manual" },
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "User baru berhasil ditambahkan",
+      user: createdUser,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 router.post("/admin/login", async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        error: "Username/email dan password wajib diisi",
-      });
+    return res.status(400).json({
+      success: false,
+      error: "Username/email dan password wajib diisi",
+    });
   }
 
   try {
@@ -511,12 +716,10 @@ router.post("/admin/login", async (req, res) => {
     }
 
     if (!admin) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Username atau password Superadmin salah",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Username atau password Superadmin salah",
+      });
     }
 
     let match = await bcrypt.compare(password, admin.password_hash);
@@ -530,12 +733,10 @@ router.post("/admin/login", async (req, res) => {
     }
 
     if (!match) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Username atau password Superadmin salah",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Username atau password Superadmin salah",
+      });
     }
 
     const token = jwt.sign(
@@ -570,12 +771,10 @@ router.post("/tenant/:subdomain/owner-login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        error: "Email dan password pemilik toko wajib diisi",
-      });
+    return res.status(400).json({
+      success: false,
+      error: "Email dan password pemilik toko wajib diisi",
+    });
   }
 
   try {
@@ -591,34 +790,28 @@ router.post("/tenant/:subdomain/owner-login", async (req, res) => {
     const tenant = tenantRes.rows[0];
 
     if (!tenant.password_hash) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Toko ini belum memiliki password pemilik",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Toko ini belum memiliki password pemilik",
+      });
     }
 
     if (
       tenant.email &&
       tenant.email.toLowerCase() !== email.trim().toLowerCase()
     ) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Email atau password pemilik toko salah",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Email atau password pemilik toko salah",
+      });
     }
 
     const match = await bcrypt.compare(password, tenant.password_hash);
     if (!match) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Email atau password pemilik toko salah",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Email atau password pemilik toko salah",
+      });
     }
 
     const token = jwt.sign(
@@ -744,12 +937,10 @@ router.post("/platform/order-website", authenticateUser, async (req, res) => {
       [cleanSubdomain],
     );
     if (existing.rows.length > 0) {
-      return res
-        .status(409)
-        .json({
-          success: false,
-          error: "Subdomain sudah digunakan oleh UMKM lain",
-        });
+      return res.status(409).json({
+        success: false,
+        error: "Subdomain sudah digunakan oleh UMKM lain",
+      });
     }
 
     const tplRes = await pool.query("SELECT * FROM templates WHERE id = $1", [
@@ -1078,12 +1269,10 @@ router.get("/store/:subdomain/customer/me", async (req, res) => {
     }
     res.json({ success: true, customer: custRes.rows[0] });
   } catch (err) {
-    res
-      .status(401)
-      .json({
-        success: false,
-        error: "Sesi login pembeli tidak valid atau telah kedaluwarsa",
-      });
+    res.status(401).json({
+      success: false,
+      error: "Sesi login pembeli tidak valid atau telah kedaluwarsa",
+    });
   }
 });
 
@@ -1233,12 +1422,10 @@ router.post("/midtrans/simulate-payment", async (req, res) => {
     const order = orderRes.rows[0];
     if (order.status !== "MENUNGGU_PEMBAYARAN") {
       await client.query("ROLLBACK");
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Pesanan sudah dibayar atau dibatalkan",
-        });
+      return res.status(400).json({
+        success: false,
+        error: "Pesanan sudah dibayar atau dibatalkan",
+      });
     }
 
     const baseAmount =
@@ -1498,12 +1685,10 @@ router.post(
       );
 
       if (updateRes.rows.length === 0) {
-        return res
-          .status(404)
-          .json({
-            success: false,
-            error: "Pesanan tidak ditemukan atau bukan milik toko ini",
-          });
+        return res.status(404).json({
+          success: false,
+          error: "Pesanan tidak ditemukan atau bukan milik toko ini",
+        });
       }
 
       res.json({
